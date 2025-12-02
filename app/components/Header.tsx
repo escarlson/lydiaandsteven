@@ -22,7 +22,7 @@ export default function Header() {
         <div className="container-fluid" style={{ paddingLeft: '2rem', paddingRight: '25%' }}>
           <Link className={`navbar-brand ${macondo.className}`} href="/">Lydia & Steven</Link>
           <Link className={`nav-link ${isActive("/ceremony") ? "active" : ""}`} href="/ceremony">Ceremony</Link>
-          {/* <Link className={`nav-link ${isActive("/reception") ? "active" : ""}`} href="/reception">Reception</Link> */}
+          <Link className={`nav-link ${isActive("/reception") ? "active" : ""}`} href="/reception">Reception</Link>
           {/* <Link className={`nav-link ${isActive("/lodging") ? "active" : ""}`} href="/lodging">Lodging</Link> */}
           <Link className={`nav-link ${isActive("/transit") ? "active" : ""}`} href="/transit">Transit</Link>
           <Link className={`nav-link ${isActive("/rsvp") ? "active" : ""}`} href="/rsvp">RSVP</Link>
