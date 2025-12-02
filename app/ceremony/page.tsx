@@ -16,7 +16,7 @@ export default function Ceremony() {
             We recommend comfortable shoes or removing your shoes. Both are acceptable in an Orthodox church (the bride and groom will be barefoot). If you choose to remove your shoes, please leave your shoes by the entrance. 
           </p>
           <h2>Parking</h2>
-          <p>Parking will be tight! Please consider carpooling. Some parking near the church will be reserved for the wedding party, family. A couple of wheelchair accessible parking spots will be available near the church.</p>
+          <p>Parking will be tight! Please consider carpooling. Some parking near the church will be reserved for the wedding party and family. A couple of wheelchair accessible parking spots will be available near the church.</p>
           <h2>Kids</h2>
           <p>Kiddos are an important part of the community and are considered active participants in Orthodox services! We welcome them at the ceremony. However, if your child is having a meltdown or just needs a break, there is a nursery/kids room where you can take them that is just outside the back doors of the narthex, immediately to the left.</p>
         </div>
