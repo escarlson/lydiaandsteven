@@ -25,7 +25,7 @@ export default function Header() {
           <Link className={`nav-link ${isActive("/reception") ? "active" : ""}`} href="/reception">Reception</Link>
           {/* <Link className={`nav-link ${isActive("/lodging") ? "active" : ""}`} href="/lodging">Lodging</Link> */}
           <Link className={`nav-link ${isActive("/transit") ? "active" : ""}`} href="/transit">Transit</Link>
-          <Link className={`nav-link ${isActive("/rsvp") ? "active" : ""}`} href="/rsvp">RSVP</Link>
+          {/* <Link className={`nav-link ${isActive("/rsvp") ? "active" : ""}`} href="/rsvp">RSVP</Link> */}
           {/* <Link className={`nav-link ${isActive("/photos") ? "active" : ""}`} href="/photos">Photos</Link> */}
         </div>
       </nav>
