@@ -12,11 +12,6 @@ const macondo = Macondo({
 });
 
 dayjs.locale("en");
-const now = dayjs().format();
-const weddingDate = dayjs("2026-09-20T15:00:00-06:00");
-const sunsetTime = await Sunset();
-// add a sunset if the sun hasn't set yet today
-const sunsetsRemaining = weddingDate.diff(now, "day") + (sunsetTime > now ? 0 : 1);
 
 export default function Home() {
   const [sunsetsRemaining, setSunsetsRemaining] = useState<number | null>(null);
