@@ -43,11 +43,13 @@ export default function Home() {
           <div className="col">
             <h1 className={`${macondo.className} display-1`}>Lydia & Steven</h1>
             <p className="display-6">
-              Coming Fall 2026
+              September 20, 2026
             </p>
-            <p id="sunsetCounter" className="display-6">
-              <span id="numSunsets">{`${sunsetsRemaining}`}</span> more {`${sunsetsRemaining === 1 ? 'sunset' : 'sunsets'}`}
-            </p>
+            {sunsetsRemaining !== null && (
+              <p id="sunsetCounter" className="display-6">
+                <span id="numSunsets">{sunsetsRemaining}</span> more {sunsetsRemaining === 1 ? 'sunset' : 'sunsets'}
+              </p>
+            )}
           </div>
         </div>
       </div>
