@@ -1,6 +1,9 @@
+'use client';
+
 import { Macondo } from "next/font/google";
 import dayjs from "dayjs";
 import Sunset from "./lib/sunset";
+import { useEffect, useState } from "react";
 
 const macondo = Macondo({
   variable: "--font-macondo",
@@ -16,6 +19,23 @@ const sunsetTime = await Sunset();
 const sunsetsRemaining = weddingDate.diff(now, "day") + (sunsetTime > now ? 0 : 1);
 
 export default function Home() {
+  const [sunsetsRemaining, setSunsetsRemaining] = useState<number | null>(null);
+
+  useEffect(() => {
+    dayjs.locale("en");
+    const now = dayjs().format();
+    const weddingDate = dayjs("2026-09-20T15:00:00-06:00");
+    
+    // Fetch sunset asynchronously
+    const fetchSunset = async () => {
+      const sunsetTime = await Sunset();
+      const remaining = weddingDate.diff(now, "day") + (sunsetTime > now ? 0 : 1);
+      setSunsetsRemaining(remaining);
+    };
+    
+    fetchSunset();
+  }, []); // Runs once on mount
+
   return (
     <main className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
       <div className="container text-center">
