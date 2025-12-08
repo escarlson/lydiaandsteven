@@ -61,7 +61,7 @@ export default function Home() {
                 left: '50%',
                 transform: 'translateX(-50%)',
                 maxWidth: '100%',
-                maxHeight: '700px',
+                maxHeight: '50%',
                 width: 'auto',
                 height: 'auto',
               }}
