@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Transit() {
   return (
     <div>
-      <main>
+      <main className="pt-5">
         <div className="container mt-5">
           <h1>Getting to Santa Fe</h1>
           <div className="row mb-4">

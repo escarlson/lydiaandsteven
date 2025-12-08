@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { Macondo } from "next/font/google";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import '../globals.css';
 
 const macondo = Macondo({
@@ -12,21 +13,42 @@ const macondo = Macondo({
 
 export default function Header() {
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
 
   const isActive = (href: string) =>
     !!pathname && (pathname === href || pathname.startsWith(href + "/"));
 
   return (
-    <header className="bg-light border-bottom">
-      <nav className="navbar navbar-expand-lg navbar-light">
-        <div className="container-fluid" style={{ paddingLeft: '2rem', paddingRight: '25%' }}>
+    <header className="bg-light border-bottom fixed-top">
+      <nav className="navbar navbar-expand-sm navbar-light"> {/* navbar-expand-sm will need to be changed as we add more items */}
+        <div className="container-fluid" style={{ paddingLeft: '2rem' }}>
           <Link className={`navbar-brand ${macondo.className}`} href="/">Lydia & Steven</Link>
-          <Link className={`nav-link ${isActive("/ceremony") ? "active" : ""}`} href="/ceremony">Ceremony</Link>
-          <Link className={`nav-link ${isActive("/reception") ? "active" : ""}`} href="/reception">Reception</Link>
-          {/* <Link className={`nav-link ${isActive("/lodging") ? "active" : ""}`} href="/lodging">Lodging</Link> */}
-          <Link className={`nav-link ${isActive("/transit") ? "active" : ""}`} href="/transit">Transit</Link>
-          {/* <Link className={`nav-link ${isActive("/rsvp") ? "active" : ""}`} href="/rsvp">RSVP</Link> */}
-          {/* <Link className={`nav-link ${isActive("/photos") ? "active" : ""}`} href="/photos">Photos</Link> */}
+
+          <button
+            className="navbar-toggler"
+            type="button"
+            aria-controls="navbarSupportedContent"
+            aria-expanded={open}
+            aria-label="Toggle navigation"
+            onClick={() => setOpen(!open)}
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
+
+          <div className={`collapse navbar-collapse ${open ? "show" : ""}`} id="navbarSupportedContent">
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <Link className={`nav-link ${isActive("/ceremony") ? "active" : ""}`} href="/ceremony">Ceremony</Link>
+              </li>
+              <li className="nav-item">
+                <Link className={`nav-link ${isActive("/reception") ? "active" : ""}`} href="/reception">Reception</Link>
+              </li>
+              {/* <li className="nav-item">... lodging ...</li> */}
+              <li className="nav-item">
+                <Link className={`nav-link ${isActive("/transit") ? "active" : ""}`} href="/transit">Transit</Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
     </header>

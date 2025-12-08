@@ -1,7 +1,7 @@
 export default function Reception() {
   return (
     <div>
-      <main>
+      <main className="pt-5">
         <div className="container mt-5">
           <h1>Reception</h1>
           <p className="mb-2">The reception will be held at</p>
