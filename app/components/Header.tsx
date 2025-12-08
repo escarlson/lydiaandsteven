@@ -20,7 +20,7 @@ export default function Header() {
 
   return (
     <header className="bg-light border-bottom fixed-top">
-      <nav className="navbar navbar-expand-lg navbar-light">
+      <nav className="navbar navbar-expand-sm navbar-light"> {/* navbar-expand-sm will need to be changed as we add more items */}
         <div className="container-fluid" style={{ paddingLeft: '2rem' }}>
           <Link className={`navbar-brand ${macondo.className}`} href="/">Lydia & Steven</Link>
 
