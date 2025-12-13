@@ -22,7 +22,7 @@ export default function Header() {
     <header className="bg-light border-bottom fixed-top">
       <nav className="navbar navbar-expand-sm navbar-light"> {/* navbar-expand-sm will need to be changed as we add more items */}
         <div className="container-fluid" style={{ paddingLeft: '2rem' }}>
-          <Link className={`navbar-brand ${macondo.className}`} href="/">Lydia & Steven</Link>
+          <Link className={`navbar-brand ${macondo.className}`} href="/" onClick={() => setOpen(false)}>Lydia & Steven</Link>
 
           <button
             className="navbar-toggler"
@@ -38,14 +38,14 @@ export default function Header() {
           <div className={`collapse navbar-collapse ${open ? "show" : ""}`} id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className={`nav-link ${isActive("/ceremony") ? "active" : ""}`} href="/ceremony">Ceremony</Link>
+                <Link className={`nav-link ${isActive("/ceremony") ? "active" : ""}`} href="/ceremony" onClick={() => setOpen(false)}>Ceremony</Link>
               </li>
               <li className="nav-item">
-                <Link className={`nav-link ${isActive("/reception") ? "active" : ""}`} href="/reception">Reception</Link>
+                <Link className={`nav-link ${isActive("/reception") ? "active" : ""}`} href="/reception" onClick={() => setOpen(false)}>Reception</Link>
               </li>
               {/* <li className="nav-item">... lodging ...</li> */}
               <li className="nav-item">
-                <Link className={`nav-link ${isActive("/transit") ? "active" : ""}`} href="/transit">Transit</Link>
+                <Link className={`nav-link ${isActive("/transit") ? "active" : ""}`} href="/transit" onClick={() => setOpen(false)}>Transit</Link>
               </li>
             </ul>
           </div>
