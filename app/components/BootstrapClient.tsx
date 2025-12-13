@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 function BootstrapClient() {
   useEffect(() => {
-    import("bootstrap/dist/js/bootstrap.bundle.min.js");
+    import("bootstrap");
   }, []);
 
   return null;
