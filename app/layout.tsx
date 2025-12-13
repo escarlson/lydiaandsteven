@@ -3,6 +3,7 @@ import { Lato } from "next/font/google";
 import "./globals.css";
 import  "bootstrap/dist/css/bootstrap.min.css"
 import Header from "./components/Header";
+import BootstrapClient from "./components/BootstrapClient";
 
 export const metadata: Metadata = {
   title: "Lydia & Steven",
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={lato.className}>
         <Header />
         {children}
+        <BootstrapClient />
       </body>
     </html>
   );

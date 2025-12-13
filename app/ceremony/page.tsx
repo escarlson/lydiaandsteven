@@ -20,6 +20,45 @@ export default function Ceremony() {
           <p>Please dress respectfully.</p>
           <h2>Kids</h2>
           <p>Kiddos are an important part of the community and are considered active participants in Orthodox services! We welcome them at the ceremony. However, if your child is having a meltdown or just needs a break, there is a nursery/kids room where you can take them that is just outside the back doors of the narthex, immediately to the left.</p>
+          <h2>FAQ</h2>
+          <div className="accordion" id="faqAccordion">
+            <div className="accordion-item">
+              <h2 className="accordion-header">
+                <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Why have I never heard of the Orthodox Church? Is this a cult?
+                </button>
+              </h2>
+              <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                <div className="accordion-body">
+                  No. Eastern Orthodox Christianity is an ancient faith that has existed since the time of the Apostles and continues today on every continent, with particularly large populations in the Middle East (Syria, Lebanon, Palestine), Eastern Mediterranean (Greece, Macedonia, Turkey), North and Eastern Africa (Egypt, Ethiopia, Eritrea), and Eastern Europe (Ukraine, Georgia, Russia). Orthodox Christianity is relatively new to the United States, growing over time through the Orthodox diaspora and converts.
+                </div>
+              </div>
+            </div>
+            <div className="accordion-item">
+              <h2 className="accordion-header">
+                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  I read online that women must cover their hair in an Orthodox church. Do I need to wear a head scarf?
+                </button>
+              </h2>
+              <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div className="accordion-body">
+                  No. Both covered and uncovered hair are acceptable. It is up to the individual whether she chooses to wear a head scarf.
+                </div>
+              </div>
+            </div>
+            <div className="accordion-item">
+              <h2 className="accordion-header">
+                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  The priests and deacons keep walking towards me and I keep having to shuffle out of the way. Am I in the wrong spot or in the way?
+                </button>
+              </h2>
+              <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div className="accordion-body">
+                  No. In an Orthodox church, people are not fixed to their spots, and there is a fluidity of movement as different parts of the service are enacted in different parts of the space. It is normal for priests, deacons, and parishioners to move around as necessary. Pack in close, crowd around the bride and groom, and move out of their direct path when needed. The only place that guests cannot stand is in the altar behind the iconostasis (icon screen).
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </div>
