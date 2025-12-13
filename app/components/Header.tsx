@@ -4,6 +4,7 @@ import { Macondo } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import '../globals.css';
+import { isatty } from "tty";
 
 const macondo = Macondo({
   variable: "--font-macondo",
@@ -37,16 +38,16 @@ export default function Header() {
 
           <div className={`collapse navbar-collapse ${open ? "show" : ""}`} id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link className={`nav-link ${isActive("/ceremony") ? "active" : ""}`} href="/ceremony" onClick={() => setOpen(false)}>Ceremony</Link>
-              </li>
-              <li className="nav-item">
-                <Link className={`nav-link ${isActive("/reception") ? "active" : ""}`} href="/reception" onClick={() => setOpen(false)}>Reception</Link>
-              </li>
-              {/* <li className="nav-item">... lodging ...</li> */}
-              <li className="nav-item">
-                <Link className={`nav-link ${isActive("/transit") ? "active" : ""}`} href="/transit" onClick={() => setOpen(false)}>Transit</Link>
-              </li>
+                <li className="nav-item">
+                <Link className={`nav-link ${isActive("/ceremony") ? "active" : ""}`} href="/ceremony" onClick={() => setOpen(false)} aria-current={isActive("/ceremony") ? "page" : undefined}>Ceremony</Link>
+                </li>
+                <li className="nav-item">
+                <Link className={`nav-link ${isActive("/reception") ? "active" : ""}`} href="/reception" onClick={() => setOpen(false)} aria-current={isActive("/reception") ? "page" : undefined}>Reception</Link>
+                </li>
+                {/* <li className="nav-item">... lodging ...</li> */}
+                <li className="nav-item">
+                <Link className={`nav-link ${isActive("/transit") ? "active" : ""}`} href="/transit" onClick={() => setOpen(false)} aria-current={isActive("/transit") ? "page" : undefined}>Transit</Link>
+                </li>
             </ul>
           </div>
         </div>
