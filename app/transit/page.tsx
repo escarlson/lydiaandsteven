@@ -33,7 +33,7 @@ export default function Transit() {
                 </div>
               </div>  
             </div>
-            <div className="col-md-6 col-lg-4">
+            <div className="col-md-6 col-lg-4 mb-3">
               <div className="card">
               <Image 
                 src="/lamy_station.jpg"
@@ -50,7 +50,7 @@ export default function Transit() {
                 </div>
               </div>
             </div>
-            <div className="col-md-6 col-lg-4">
+            <div className="col-md-6 col-lg-4 mb-3">
               <div className="card">
               <figure className="figure">
                   <Image
