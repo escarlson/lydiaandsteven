@@ -8,7 +8,7 @@ export default function Transit() {
         <div className="container mt-5">
           <h1>Getting to Santa Fe</h1>
           <div className="row mb-4">
-            <div className="col-md-6 col-lg-4">
+            <div className="col-md-6 col-lg-4 mb-3">
               <div className="card">
                 <figure className="figure">
                   <Image
