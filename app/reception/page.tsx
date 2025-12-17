@@ -20,29 +20,25 @@ export default function Reception() {
           <p>Please note that Santa Fe is at an elevation of 7000ft (higher than Denver)! If you are used to drinking at sea level, the alcohol you drink at altitude will have a stronger effect on you. Please designate a driver beforehand or download a ride app like Lyft or Uber, and drink plenty of water.</p>
           <h2>Parking</h2>
           <p>Parking is behind the brewery, with street entrance to the parking lot off of Agua Fria St. <strong>Once you park, enter the venue through the back patio.</strong> The front side of the building (facing the street) is not an entrance! From the back parking lot, you will see the actual entrance:</p>
-          <figure className="figure">
+            <figure className="figure">
             <Image
               src="/tumbleroot_entrance.jpg"
               alt="Entrance to Tumbleroot Brewery & Distillery"
               className="figure-img img-fluid rounded"
               width={1600}
               height={1200}
-              style={{ width: "50%", height: "auto"}}
             />
-            <figcaption className="figure-caption">Back entrance to Tumbleroot Brewery & Distillery.</figcaption>
-          </figure>
-          <p>You will enter the venue through a gate (behind the food truck) that looks like this:</p>
-          <figure className="figure">
+            </figure>
+            <p>You will enter the venue through a gate (behind the food truck) that looks like this:</p>
+            <figure className="figure">
             <Image
               src="/tumbleroot_gate.png"
               alt="Gate to Tumbleroot Brewery & Distillery"
               className="figure-img img-fluid rounded"
               width={782}
               height={588}
-              style={{ width: "83%", height: "auto"}}
             />
-            <figcaption className="figure-caption">Gate to Tumbleroot Brewery & Distillery.</figcaption>
-          </figure>
+            </figure>
           <p>If you need ramp access to the reception venue, please let us know in advance so that we can arrange ramp entry.</p>
         </div>
       </main>
