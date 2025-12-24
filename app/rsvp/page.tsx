@@ -1,3 +1,5 @@
+import SubmitButton from "../components/SubmitButton";
+
 export default function RSVP() {
   return (
     <main className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
@@ -6,7 +8,7 @@ export default function RSVP() {
           <div className="col">
             <h1>Find Your Invitation</h1>
             <p>
-              Look up your invitation by entering your first and last name below.
+              Look up your invitation by entering your first name, last name, and postal code below.
             </p>
             <p><strong>Please RSVP by July 12th.</strong></p>
             <form>
@@ -16,11 +18,15 @@ export default function RSVP() {
                   <label htmlFor="floatingFirstName">First name</label>
                 </div>
                 <div className="form-floating col-sm-4">
-                  <input type="text" className="form-control" placeholder="Last name" aria-label="Last name"></input>
+                  <input type="text" id="floatingLastName" className="form-control" placeholder="Last name" aria-label="Last name"></input>
                   <label htmlFor="floatingLastName">Last name</label>
                 </div>
+                <div className="form-floating col-sm-4">
+                  <input type="text" id="floatingPostalCode" className="form-control" placeholder="Postal code" aria-label="Postal code"></input>
+                  <label htmlFor="floatingPostalCode">Postal code</label>
+                </div>
                 <div className="col-12">
-                  <button type="submit" className="btn btn-primary">Find Invitation</button>
+                  <SubmitButton />
                 </div>
               </div>
             </form>

@@ -1,9 +1,8 @@
-import { NextResponse } from "next/server";
-import pool from '../../../lib/db';
+import pool from './db'
 
 // InviteGuestRow includes data from both invites and guests tables
 type InviteGuestRow = {
-  invite_id: string;
+  invite_id: number;
   household_name: string;
   address_line1: string;
   address_line2: string | null;
@@ -12,7 +11,7 @@ type InviteGuestRow = {
   invite_postal_code: string;
   country: string;
   sent_at: Date | null;
-  guest_id: string;
+  guest_id: number;
   given_name: string;
   family_name: string;
   rsvp_status: string | null;
@@ -22,15 +21,10 @@ type InviteGuestRow = {
   guest_updated_at: Date;
 };
 
-// use GET request with query parameters for searching RSVPs
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const givenNameQuery = searchParams.get("givenName")?.trim() ?? "";
-  const familyNameQuery = searchParams.get("familyName")?.trim() ?? "";
-  const postalCodeQuery = searchParams.get("postalCode")?.trim() ?? "";
-
+// SERVER-SIDE ONLY: Direct database access
+const fetchInviteById = async (id: string) => {
   try {
-    // find invites joined to any matching guests (case-insensitive on guest fields)
+    // find invites joined to any matching guests
     const [result] = await pool.query(
       `SELECT
          i.invite_id,
@@ -52,28 +46,23 @@ export async function GET(request: Request) {
          g.updated_at AS guest_updated_at
        FROM invites i
        JOIN guests g ON i.invite_id = g.invite_id
-       WHERE LOWER(g.given_name) = LOWER(?)
-         AND LOWER(g.family_name) = LOWER(?)
-         AND LOWER(i.postal_code) = LOWER(?)`,
-      [givenNameQuery, familyNameQuery, postalCodeQuery]
+       WHERE i.invite_id = ?`,
+      [id]
     );
+
     const rows = result as InviteGuestRow[];
 
-    // if the query matched guests that belong to multiple distinct invites, treat this as ambiguous and return an error
-    const inviteIds = new Set(rows.map(r => r.invite_id));
-    if (inviteIds.size > 1) {
-      return NextResponse.json({ error: "Multiple invitations found for that guest", invite_ids: Array.from(inviteIds) }, { status: 409 });
-    }
-    if (inviteIds.size === 0) {
-      return NextResponse.json({ error: "No invitation found matching that information" }, { status: 404 });
+    // if no results found
+    if (rows.length === 0) {
+      return null;
     }
 
     // group rows by invite_id so each invite has a `guests` array
     const invitesMap = new Map();
     for (const r of rows) {
-      const id = r.invite_id;
-      if (!invitesMap.has(id)) {
-        invitesMap.set(id, {
+      const inviteId = r.invite_id;
+      if (!invitesMap.has(inviteId)) {
+        invitesMap.set(inviteId, {
           invite_id: r.invite_id,
           household_name: r.household_name,
           address_line1: r.address_line1,
@@ -86,8 +75,7 @@ export async function GET(request: Request) {
           guests: [],
         });
       }
-
-      invitesMap.get(id).guests.push({
+      invitesMap.get(inviteId).guests.push({
         guest_id: r.guest_id,
         given_name: r.given_name,
         family_name: r.family_name,
@@ -100,20 +88,11 @@ export async function GET(request: Request) {
     }
 
     const results = Array.from(invitesMap.values());
-    return NextResponse.json({ results }, { status: 200 });
-  } catch (error: unknown) {
+    return results[0];
+  } catch (error) {
     console.error("Database query error:", error);
-    // If the DB connection was refused, return 503 Service Unavailable
-    if (error instanceof Error && 'code' in error && error.code === "ECONNREFUSED") {
-      return NextResponse.json(
-        { error: "Database connection refused" },
-        { status: 503 }
-      );
-    }
-
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    throw error;
   }
-}
+};
+
+export { fetchInviteById };

@@ -4,7 +4,6 @@ import { Macondo } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import '../globals.css';
-import { isatty } from "tty";
 
 const macondo = Macondo({
   variable: "--font-macondo",

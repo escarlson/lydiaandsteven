@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import pool from '../../../lib/db';
 
+console.log("API route loaded");
+
 // InviteGuestRow includes data from both invites and guests tables
 type InviteGuestRow = {
   invite_id: string;
@@ -23,11 +25,13 @@ type InviteGuestRow = {
 };
 
 // use GET request with query parameters for searching RSVPs
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const givenNameQuery = searchParams.get("givenName")?.trim() ?? "";
-  const familyNameQuery = searchParams.get("familyName")?.trim() ?? "";
-  const postalCodeQuery = searchParams.get("postalCode")?.trim() ?? "";
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const urlParams = await params;
+  const inviteIdQuery = urlParams.id;
+  console.log("Received GET request with inviteIdQuery:", inviteIdQuery);
 
   try {
     // find invites joined to any matching guests (case-insensitive on guest fields)
@@ -52,20 +56,18 @@ export async function GET(request: Request) {
          g.updated_at AS guest_updated_at
        FROM invites i
        JOIN guests g ON i.invite_id = g.invite_id
-       WHERE LOWER(g.given_name) = LOWER(?)
-         AND LOWER(g.family_name) = LOWER(?)
-         AND LOWER(i.postal_code) = LOWER(?)`,
-      [givenNameQuery, familyNameQuery, postalCodeQuery]
+       WHERE LOWER(i.invite_id) = LOWER(?)`,
+      [inviteIdQuery]
     );
     const rows = result as InviteGuestRow[];
 
     // if the query matched guests that belong to multiple distinct invites, treat this as ambiguous and return an error
     const inviteIds = new Set(rows.map(r => r.invite_id));
     if (inviteIds.size > 1) {
-      return NextResponse.json({ error: "Multiple invitations found for that guest", invite_ids: Array.from(inviteIds) }, { status: 409 });
+      return NextResponse.json({ error: "Multiple invitations found with that ID", invite_ids: Array.from(inviteIds) }, { status: 409 });
     }
     if (inviteIds.size === 0) {
-      return NextResponse.json({ error: "No invitation found matching that information" }, { status: 404 });
+      return NextResponse.json({ error: "No invitation found with that ID" }, { status: 404 });
     }
 
     // group rows by invite_id so each invite has a `guests` array
@@ -101,16 +103,8 @@ export async function GET(request: Request) {
 
     const results = Array.from(invitesMap.values());
     return NextResponse.json({ results }, { status: 200 });
-  } catch (error: unknown) {
+  } catch (error) {
     console.error("Database query error:", error);
-    // If the DB connection was refused, return 503 Service Unavailable
-    if (error instanceof Error && 'code' in error && error.code === "ECONNREFUSED") {
-      return NextResponse.json(
-        { error: "Database connection refused" },
-        { status: 503 }
-      );
-    }
-
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
