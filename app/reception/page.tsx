@@ -15,7 +15,7 @@ export default function Reception() {
             </address>
           <h2>Food</h2>
           <p>A family-style supper with vegetarian and gluten-free options will be served. We&apos;re sorry, but we cannot accommodate all food restrictions. If you have very specific food restrictions, please sneak in your own food. We won&apos;t tell.</p>
-          <h2>Drinks</h2>
+          <h2>Drink</h2>
           <p>There will be two open bars (one inside, one outside). Available drinks will include house-brewed beer, wine, draft cocktails, and margaritas, as well as non-alcoholic options. Bring your ID.</p>
           <p>Please note that Santa Fe is at an elevation of 7000ft (higher than Denver)! If you are used to drinking at sea level, the alcohol you drink at altitude will have a stronger effect on you. Please designate a driver beforehand or download a ride app like Lyft or Uber, and drink plenty of water.</p>
           <h2>Parking</h2>

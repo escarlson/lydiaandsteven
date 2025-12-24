@@ -58,6 +58,19 @@ export default function Ceremony() {
                 </div>
               </div>
             </div>
+            <div className="accordion-item">
+              <h2 className="accordion-header">
+                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                  Why aren&apos;t the bride and bridegroom saying anything?
+                </button>
+              </h2>
+              <div id="collapseFour" className="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div className="accordion-body">
+                  <p>There are no vows in the Orthodox wedding ceremony; rather, the wedding is understood as a mystical sacrament and holy mystery in which God makes two into one. The bride and groom are active participants in this mystery, but the prayers, readings, and actions that take place are a set ritual unchanged from ancient times. The bride and groom enter of their own free will as mutual participants in this mystical sacrament.</p>
+                  <p>God is love.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>
