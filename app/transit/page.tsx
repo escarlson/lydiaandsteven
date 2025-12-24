@@ -35,14 +35,17 @@ export default function Transit() {
             </div>
             <div className="col-md-6 col-lg-4 mb-3">
               <div className="card">
-              <Image 
-                src="/lamy_station.jpg"
-                alt="Lamy Amtrak Station"
-                className="card-img-top"
-                width={2048}
-                height={1536}
-                style={{ width: "100%", height: "auto"}} 
-              />
+                <figure className="figure">
+                <Image 
+                  src="/lamy_station.webp"
+                  alt="Lamy Amtrak Station"
+                  className="card-img-top figure-img img-fluid"
+                  width={2048}
+                  height={1536}
+                  style={{ width: "100%", height: "auto"}} 
+                />
+                <figcaption className="figure-caption ps-2">Lamy Amtrak Station by Lydia.</figcaption>
+                </figure>
                 <div className="card-body">
                   <h2 className="card-title">Train</h2>
                   <p className="card-text">Amtrak&apos;s Southwest Chief line stops in Lamy, NM, about 18 miles from Santa Fe. There is a shuttle to take you from the Lamy station to Santa Fe. This may be an option for our guests who live in Wichita, Kansas City, or Chicago. Coach, roomette, and bedroom tickets are available.</p>
@@ -54,7 +57,7 @@ export default function Transit() {
               <div className="card">
               <figure className="figure">
                   <Image
-                    src="/i-25_santa_fe.jpg" 
+                    src="/i-25_santa_fe.webp" 
                     alt="Santa Fe Mountains with snow at sunset from I-25"
                     className="card-img-top figure-img img-fluid"
                     width={1280}

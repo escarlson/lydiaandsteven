@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Ceremony() {
   return (
     <div>
@@ -5,11 +7,29 @@ export default function Ceremony() {
         <div className="container mt-5">
           <h1>The Holy Mystery of Marriage</h1>
           <p>The wedding will take place at Holy Trinity Orthodox Church in Santa Fe, New Mexico.</p>
-          <address>
-            <p className="mb-1"><strong>Holy Trinity Orthodox Church</strong></p>
-            <p className="mb-1">231 E Cordova Rd</p>
-            <p className="mb-0">Santa Fe, NM 87505</p>
-          </address>
+          <div className="row">
+            <div className="col-md-12 col-lg-12">
+              <address>
+                <p className="mb-1"><strong>Holy Trinity Orthodox Church</strong></p>
+                <p className="mb-1">231 E Cordova Rd</p>
+                <p className="mb-0">Santa Fe, NM 87505</p>
+              </address>
+            </div>
+            <div className="col-md-12 col-lg-6">
+              <figure className="figure">
+                <Image
+                  src="/ht_exterior.webp"
+                  placeholder="blur"
+                  blurDataURL="data:image/octet-stream;base64,UklGRkgDAABXRUJQVlA4WAoAAAAgAAAABwAAAwAASUNDUKACAAAAAAKgbGNtcwRAAABtbnRyUkdCIFhZWiAH6QAMABgAFQAQAAthY3NwQVBQTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWxjbXMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1kZXNjAAABIAAAAEBjcHJ0AAABYAAAADZ3dHB0AAABmAAAABRjaGFkAAABrAAAACxyWFlaAAAB2AAAABRiWFlaAAAB7AAAABRnWFlaAAACAAAAABRyVFJDAAACFAAAACBnVFJDAAACFAAAACBiVFJDAAACFAAAACBjaHJtAAACNAAAACRkbW5kAAACWAAAACRkbWRkAAACfAAAACRtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACQAAAAcAEcASQBNAFAAIABiAHUAaQBsAHQALQBpAG4AIABzAFIARwBCbWx1YwAAAAAAAAABAAAADGVuVVMAAAAaAAAAHABQAHUAYgBsAGkAYwAgAEQAbwBtAGEAaQBuAABYWVogAAAAAAAA9tYAAQAAAADTLXNmMzIAAAAAAAEMQgAABd7///MlAAAHkwAA/ZD///uh///9ogAAA9wAAMBuWFlaIAAAAAAAAG+gAAA49QAAA5BYWVogAAAAAAAAJJ8AAA+EAAC2xFhZWiAAAAAAAABilwAAt4cAABjZcGFyYQAAAAAAAwAAAAJmZgAA8qcAAA1ZAAAT0AAACltjaHJtAAAAAAADAAAAAKPXAABUfAAATM0AAJmaAAAmZwAAD1xtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAEcASQBNAFBtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJWUDggggAAALACAJ0BKggABAAAAAAljAJ0TIB/ABRB5sbFfjpUAAD+/rZ24vK//G//Vz+Q0/zQf2Ct9XDuf//7V+xf/4b3rNVeHGYSHFnzMALTuQ/0Nz8+X40v+tP09f/obfTF/1kv/+jvwN2LfJ+PT/Ii37Pw5/xoasb/4ZRXb/xf//jUm76WAAA="
+                  alt="Holy Trinity Orthodox Church exterior"
+                  className="figure-img img-fluid rounded"
+                  width={4080}
+                  height={2260}
+                />
+              </figure>
+            </div>
+          </div>
+          
           <h2>Seating</h2>
           <p>It is traditional to stand during Orthodox services, and many Orthodox churches (including Holy Trinity) have an open floor plan with no rows of seats! <strong>Seating is extremely limited and will be strictly reserved for those in need of this accommodation.</strong></p>
           <p>For everyone else, the wedding will be standing room only. Plan on packing in close to the front of the church and around the couple. Please move in from the doors so that other guests can enter. Additional standing room can be found in the balcony (up the hallway stairs and through the door to your left).</p> 
