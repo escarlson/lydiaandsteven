@@ -32,18 +32,20 @@ export default function Reception() {
               />
               </figure>
             </div>
-            <div className="col-md-12 col-lg-6 mb-3">
-              <p>You will enter the venue through a gate (behind the food truck) that looks like this:</p>
-              <figure className="figure">
-              <Image
-                src="/tumbleroot_gate.png"
-                alt="Gate to Tumbleroot Brewery & Distillery"
-                className="figure-img img-fluid rounded"
-                width={782}
-                height={588}
-              />
-              </figure>
-              <p>If you need ramp access to the reception venue, please let us know in advance so that we can arrange ramp entry.</p>
+            <div className="row">
+              <div className="col-md-12 col-lg-6 mb-3">
+                <p>You will enter the venue through a gate (behind the food truck) that looks like this:</p>
+                <figure className="figure">
+                <Image
+                  src="/tumbleroot_gate.png"
+                  alt="Gate to Tumbleroot Brewery & Distillery"
+                  className="figure-img img-fluid rounded"
+                  width={782}
+                  height={588}
+                />
+                </figure>
+                <p>If you need ramp access to the reception venue, please let us know in advance so that we can arrange ramp entry.</p>
+              </div>
             </div>
           </div>
         </div>
