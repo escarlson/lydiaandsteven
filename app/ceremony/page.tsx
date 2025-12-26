@@ -40,7 +40,7 @@ export default function Ceremony() {
           <p>We recommend comfortable shoes or removing your shoes. Both are acceptable in an Orthodox church (the bride and groom will be barefoot). If you choose to remove your shoes, please leave your shoes by the entrance.</p>
           <h2>Kids</h2>
           <p>Kiddos are an important part of the community and are considered active participants in Orthodox services! We welcome them at the ceremony. However, if your child is having a meltdown or just needs a break, there is a nursery/kids room where you can take them that is just outside the back doors of the narthex, immediately to the left.</p>
-          <h2>Q + A</h2>
+          <h2>FAQ</h2>
           <div className="accordion accordion-copper mb-5" id="faqAccordion">
             <div className="accordion-item">
               <h2 className="accordion-header">
@@ -87,7 +87,6 @@ export default function Ceremony() {
               <div id="collapseFour" className="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                 <div className="accordion-body">
                   <p>There are no vows in the Orthodox wedding ceremony; rather, the wedding is understood as a mystical sacrament and holy mystery in which God makes two into one. The bride and groom are active participants in this mystery, but the prayers, readings, and actions that take place are a set ritual unchanged from ancient times. The bride and groom enter of their own free will as mutual participants in this mystical sacrament.</p>
-                  <p>God is love.</p>
                 </div>
               </div>
             </div>
