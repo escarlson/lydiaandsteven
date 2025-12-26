@@ -43,11 +43,17 @@ export default function Home() {
             <h1 className={`${macondo.className} display-1`}>Lydia &amp; Steven</h1>
             <p className="display-6 mb-3">September 20, 2026</p>
 
-            {sunsetsRemaining !== null && (
-              <p id="sunsetCounter" className="display-6 mb-0">
-              <span id="numSunsets">{sunsetsRemaining}</span> more {sunsetsRemaining === 1 ? 'sunset' : 'sunsets'}
-              </p>
-            )}
+            <p id="sunsetCounter" className="display-6 mb-0">
+              {sunsetsRemaining === null ? (
+                <span className="text-muted">Calculating sunsets…</span>
+              ) : (
+                <>
+                  <span id="numSunsets">{sunsetsRemaining}</span> more{" "}
+                  {sunsetsRemaining === 1 ? "sunset" : "sunsets"}
+                </>
+              )}
+            </p>
+
 
             <Image
               src="/little_prince_sunset_cropped.jpg"
@@ -55,6 +61,7 @@ export default function Home() {
               width={1200}
               height={800}
               className="d-block z-10"
+              loading="eager"
               style={{
                 position: 'fixed',
                 bottom: 0,
