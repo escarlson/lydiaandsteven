@@ -41,7 +41,7 @@ export default function Ceremony() {
           <h2>Kids</h2>
           <p>Kiddos are an important part of the community and are considered active participants in Orthodox services! We welcome them at the ceremony. However, if your child is having a meltdown or just needs a break, there is a nursery/kids room where you can take them that is just outside the back doors of the narthex, immediately to the left.</p>
           <h2>Q + A</h2>
-          <div className="accordion mb-5" id="faqAccordion">
+          <div className="accordion accordion-copper mb-5" id="faqAccordion">
             <div className="accordion-item">
               <h2 className="accordion-header">
                 <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">

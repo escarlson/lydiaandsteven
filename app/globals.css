@@ -23,9 +23,6 @@ body {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  background-color: #d8f5d5;
   font-family: var(--font-lato), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -46,4 +43,18 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+/* Custom copper accordion variant */
+.accordion-copper {
+  --bs-accordion-btn-bg: #ba7656;
+  --bs-accordion-btn-color: #000000;
+  --bs-accordion-active-bg: #a36548;
+  --bs-accordion-active-color: #fff;
+  --bs-accordion-border-color: #ba7656;
+  --bs-focus-ring-color: rgba(186, 118, 86, 0.25);
+}
+.accordion-copper .accordion-button:focus,
+.accordion-copper .accordion-button:focus-visible {
+  box-shadow: 0 0 0 0.25rem rgba(186, 118, 86, 0.25);
 }

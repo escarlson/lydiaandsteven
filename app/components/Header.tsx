@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Macondo } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import '../globals.css';
 
 const macondo = Macondo({
   variable: "--font-macondo",
@@ -19,8 +18,8 @@ export default function Header() {
     !!pathname && (pathname === href || pathname.startsWith(href + "/"));
 
   return (
-    <header className="bg-light border-bottom fixed-top">
-      <nav className="navbar navbar-expand-sm navbar-light"> {/* navbar-expand-sm will need to be changed as we add more items */}
+    <header className="border-bottom fixed-top">
+      <nav className="navbar navbar-expand-sm navbar-light bg-copper"> {/* navbar-expand-sm will need to be changed as we add more items */}
         <div className="container-fluid" style={{ paddingLeft: '2rem' }}>
           <Link className={`navbar-brand ${macondo.className}`} href="/" onClick={() => setOpen(false)}>Lydia & Steven</Link>
 

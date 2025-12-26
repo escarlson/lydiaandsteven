@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
+//import  "bootstrap/dist/css/bootstrap.min.css"
+import "../styles/custom.min.css";
 import "./globals.css";
-import  "bootstrap/dist/css/bootstrap.min.css"
 import Header from "./components/Header";
 import BootstrapClient from "./components/BootstrapClient";
 
