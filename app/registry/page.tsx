@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Registry() {
   return (
     <div>
@@ -7,10 +9,10 @@ export default function Registry() {
           <p>We have a universal registry at Joy, and a separate registry at Etsy.</p>
           <div className="row row-cols-auto">
             <div className="col mb-3">
-              <div className="btn btn-copper mb-3">Joy Registry</div>
+              <Link href="https://withjoy.com/lydia-and-steven-sep-26/registry" target="_blank" rel="noopener noreferrer" className="d-block btn btn-copper">Joy Registry</Link>
             </div>
             <div className="col mb-3">
-              <div className="btn btn-copper mb-3">Etsy Registry</div>
+              <Link href="https://www.etsy.com/registry/MTY3MDEwMDcxfDEyNTM1NDcz" target="_blank" rel="noopener noreferrer" className="d-block btn btn-copper">Etsy Registry</Link>
             </div>
           </div>
           <h2>Gift Cards</h2>
