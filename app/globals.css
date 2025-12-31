@@ -58,3 +58,44 @@ a {
 .accordion-copper .accordion-button:focus-visible {
   box-shadow: 0 0 0 0.25rem rgba(186, 118, 86, 0.25);
 }
+
+/* Custom copper button variant */
+.btn-copper {
+  background-color: #ba7656;
+  color: #000000;
+  border-color: #ba7656;
+}
+.btn-copper:hover {
+  background-color: #a36548;
+  color: #ffffff;
+  border-color: #a36548;
+}
+.btn-copper:focus,
+.btn-copper:focus-visible {
+  box-shadow: 0 0 0 0.25rem rgba(186, 118, 86, 0.25);
+}
+.btn-copper:disabled,
+.btn-copper.disabled {
+  background-color: #ba7656;
+  color: #000000;
+  border-color: #ba7656;
+  opacity: 0.65;
+}
+.btn-copper:disabled:hover,
+.btn-copper.disabled:hover {
+  background-color: #ba7656;
+  color: #000000;
+  border-color: #ba7656;
+}
+.btn-copper:active,
+.btn-copper.active {
+  background-color: #8c4e36;
+  color: #ffffff;
+  border-color: #8c4e36;
+}
+.btn-copper:active:hover,
+.btn-copper.active:hover {
+  background-color: #7a3f2a;
+  color: #ffffff;
+  border-color: #7a3f2a;
+}

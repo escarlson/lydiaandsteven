@@ -53,21 +53,47 @@ export default async function RSVP({
   }
  */
   return (
-  <main className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
+  <main className="d-flex align-items-center" style={{ minHeight: '100vh' }}>
     <div className="container text-center">
       <div className="row">
         <div className="col">
-          <h1>Invitation found!</h1>
-          <h2>{inviteDetails?.household_name} <span className="badge text-bg-primary">{( inviteDetails?.guests?.length ? inviteDetails.guests.length : "")} {(inviteDetails?.guests?.length === 1 ? "Guest" : "Guests")}</span></h2>
-          <h3>Guests:</h3>
+          <h1>You&apos;re invited!</h1>
+          <p><strong>Please RSVP by July 12th.</strong></p>
+          <h2>{inviteDetails?.household_name}</h2>
+          <p>{( inviteDetails?.guests?.length ? inviteDetails.guests.length : "")} {(inviteDetails?.guests?.length === 1 ? "Guest" : "Guests")}</p>
+        </div>
+      </div>
+      <div className="row justify-content-center mt-4">
+        <div className="col-md-8 col-lg-6">
           <ul className="list-unstyled">
             {inviteDetails?.guests.map((guest) => (
-              <li key={guest.guest_id}>
-                {guest.given_name} {guest.family_name}
+              <li key={guest.guest_id} className="mb-3">
+                <div className="row align-items-center">
+                  <div className="col-8 col-sm-9 text-start">
+                    {guest.given_name} {guest.family_name}
+                    <span className={`badge ms-2 ${
+                      guest.rsvp_status === 'accepted' ? 'text-bg-success' :
+                      guest.rsvp_status === 'declined' ? 'text-bg-danger' :
+                      'text-bg-secondary'
+                    }`}>
+                      {guest.rsvp_status === 'accepted' ? 'Accepted' : guest.rsvp_status === 'declined' ? 'Declined' : 'Pending'}
+                    </span>
+                  </div>
+                  <div className="col-4 col-sm-3 text-end">
+                    <form method="post" action={`/api/rsvp/${inviteDetails?.invite_id}`} className="d-inline">
+                      <input type="hidden" name="guest_id" value={guest.guest_id} />
+                      <button type="submit" name="rsvp_status" value="accepted" className="btn btn-sm btn-success me-2" disabled={guest.rsvp_status === 'accepted'}>
+                        Yes
+                      </button>
+                      <button type="submit" name="rsvp_status" value="declined" className="btn btn-sm btn-danger" disabled={guest.rsvp_status === 'declined'}>
+                        No
+                      </button>
+                    </form>
+                  </div>
+                </div>
               </li>
             ))}
           </ul>
-          <p><strong>Please RSVP by July 12th.</strong></p>
         </div>
       </div>
     </div>

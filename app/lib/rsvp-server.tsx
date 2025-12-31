@@ -95,4 +95,18 @@ const fetchInviteById = async (id: string) => {
   }
 };
 
-export { fetchInviteById };
+const updateGuestRSVP = async (guestId: string | number, rsvpStatus: 'accepted' | 'declined') => {
+  try {
+    const [result] = await pool.query(
+      `UPDATE guests SET rsvp_status = ?, updated_at = NOW() WHERE guest_id = ?`,
+      [rsvpStatus, guestId]
+    );
+    const res = result as { affectedRows: number };
+    return res.affectedRows && res.affectedRows > 0;
+  } catch (error) {
+    console.error("Database update error:", error);
+    throw error;
+  }
+};
+
+export { fetchInviteById, updateGuestRSVP };

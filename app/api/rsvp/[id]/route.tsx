@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import pool from '../../../lib/db';
+import { updateGuestRSVP } from '../../../lib/rsvp-server';
 
 console.log("API route loaded");
 
@@ -109,5 +110,46 @@ export async function GET(
       { error: "Internal Server Error" },
       { status: 500 }
     );
+  }
+}
+
+export async function POST(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const urlParams = await params;
+  const inviteId = urlParams.id;
+  try {
+    const contentType = request.headers.get('content-type') || '';
+    let guestId: string | null = null;
+    let rsvpStatus: string | null = null;
+
+    if (contentType.includes('application/json')) {
+      const json = await request.json();
+      guestId = json.guest_id?.toString() || null;
+      rsvpStatus = json.rsvp_status || null;
+    } else {
+      const form = await request.formData();
+      guestId = form.get('guest_id')?.toString() || null;
+      rsvpStatus = form.get('rsvp_status')?.toString() || null;
+    }
+
+    if (!guestId || !rsvpStatus) {
+      return NextResponse.json({ error: 'guest_id and rsvp_status are required' }, { status: 400 });
+    }
+
+    const allowed = ['accepted', 'declined'];
+    if (!allowed.includes(rsvpStatus)) {
+      return NextResponse.json({ error: 'Invalid rsvp_status' }, { status: 400 });
+    }
+
+    await updateGuestRSVP(guestId, rsvpStatus as 'accepted' | 'declined');
+
+    // redirect back to the invite page so the user sees updated status
+    const redirectUrl = new URL(`/rsvp/${inviteId}`, request.url);
+    return NextResponse.redirect(redirectUrl, { status: 303 });
+  } catch (error) {
+    console.error('Error processing RSVP POST', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
