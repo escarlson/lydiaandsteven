@@ -22,7 +22,7 @@ export default function Registry() {
             <li>Home goods stores (Target, World Market)</li>
             <li>General (Amazon, Home Depot)</li>
           </ul>
-          <h2>Second-hand Items</h2>
+          <h2>Secondhand Items</h2>
           <p>We are looking for the following used items, if you have old stuff you would like to find a new home for:</p>
           <ul>
             <li>Bookshelves of any kind</li>
