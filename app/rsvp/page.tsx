@@ -10,7 +10,7 @@ export default function RSVP() {
             <p>
               Look up your invitation by entering your first name, last name, and postal code below.
             </p>
-            <p><strong>Please RSVP by July 12th.</strong></p>
+            <p><strong>Please RSVP by May 1st.</strong></p>
             <form>
               <div className="row g-3 justify-content-center">
                 <div className="form-floating col-sm-4">

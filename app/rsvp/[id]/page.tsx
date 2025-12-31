@@ -40,7 +40,7 @@ export default async function RSVP({
       <div className="row">
         <div className="col">
           <h1>You&apos;re invited!</h1>
-          <p><strong>Please RSVP by July 12th.</strong></p>
+          <p><strong>Please RSVP by May 1st.</strong></p>
           <h2>{inviteDetails?.household_name}</h2>
           <p>{( inviteDetails?.guests?.length ? inviteDetails.guests.length : "")} {(inviteDetails?.guests?.length === 1 ? "Guest" : "Guests")}</p>
         </div>
