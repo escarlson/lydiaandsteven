@@ -145,7 +145,12 @@ export async function POST(
 
     await updateGuestRSVP(guestId, rsvpStatus as 'accepted' | 'declined');
 
-    // redirect back to the invite page so the user sees updated status
+    // If the client sent JSON (AJAX), return JSON so the client can update without a redirect
+    if (contentType.includes('application/json')) {
+      return NextResponse.json({ success: true }, { status: 200 });
+    }
+
+    // otherwise redirect back to the invite page so the user sees updated status
     const redirectUrl = new URL(`/rsvp/${inviteId}`, request.url);
     return NextResponse.redirect(redirectUrl, { status: 303 });
   } catch (error) {
