@@ -33,6 +33,7 @@ export default function Ceremony() {
           <h2>Seating</h2>
           <p>It is traditional to stand during Orthodox services, and many Orthodox churches (including Holy Trinity) have an open floor plan with no rows of seats! <strong>Seating is extremely limited and will be strictly reserved for those in need of this accommodation.</strong></p>
           <p>For everyone else, the wedding will be standing room only. Plan on packing in close to the front of the church and around the couple. Please move in from the doors so that other guests can enter. Additional standing room can be found in the balcony (up the hallway stairs and through the door to your left).</p> 
+          <p>The wedding ceremony is about 45 minutes to an hour long.</p>
           <h2>Parking</h2>
           <p>Parking will be tight! Please consider carpooling. Some parking near the church will be reserved for the wedding party and family. A couple of wheelchair accessible parking spots will be available near the church.</p>
           <h2>Dress</h2>
