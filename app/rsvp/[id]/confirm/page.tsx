@@ -1,6 +1,6 @@
 import { fetchInviteById } from "@/app/lib/rsvp-server";
 import GuestRSVPClient from "@/app/components/GuestRSVPClient";
-import RSVPNavClient from "@/app/components/RSVPNavClient";
+import RSVPNextStepsClient from "@/app/components/RSVPNextStepsClient";
 
 type Guest = {
   guest_id: string;
@@ -50,9 +50,10 @@ export default async function RSVP({
           <GuestRSVPClient inviteId={inviteDetails?.invite_id ?? ''} initialGuests={inviteDetails?.guests ?? []} readOnly={true}/>
         </div>
       </div>
+      <h1>What&apos;s Next?</h1>
       <div className="row mt-4">
         <div className="col justify-content-evenly d-flex gap-3">
-          <RSVPNavClient inviteId={inviteDetails?.invite_id ?? ''} showFinish={false}/>
+          <RSVPNextStepsClient buttons={["homepage", "lodging", "registry"]}/>
         </div>
       </div>
     </div>
