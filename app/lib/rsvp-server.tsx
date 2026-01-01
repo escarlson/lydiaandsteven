@@ -1,4 +1,6 @@
+import { log } from 'console';
 import pool from './db'
+import { logRsvpChange } from './logger';
 
 // InviteGuestRow includes data from both invites and guests tables
 type InviteGuestRow = {
@@ -102,6 +104,10 @@ const updateGuestRSVP = async (guestId: string | number, rsvpStatus: 'accepted' 
       [rsvpStatus, guestId]
     );
     const res = result as { affectedRows: number };
+    logRsvpChange({
+      guestId: guestId.toString(),
+      newValue: rsvpStatus,
+    });
     return res.affectedRows && res.affectedRows > 0;
   } catch (error) {
     console.error("Database update error:", error);

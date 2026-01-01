@@ -32,3 +32,10 @@ CREATE TABLE guests (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (invite_id) REFERENCES invites(invite_id)
 );
+
+CREATE TABLE IF NOT EXISTS rsvp_change_log (
+  id SERIAL PRIMARY KEY,
+  ts TIMESTAMP DEFAULT NOW(),
+  guest_id TEXT NOT NULL,
+  new_value TEXT
+);

@@ -139,3 +139,11 @@ a {
   color: #ffffff;
   border-color: #7a3f2a;
 }
+.form-floating-copper > .form-control,
+.form-floating-copper > .form-control:focus,
+.form-floating-copper > .form-control:not(:placeholder-shown) {
+  border-color: #ba7656;
+}
+.form-floating-copper > .form-control:focus {
+  box-shadow: 0 0 0 0.25rem rgba(186, 118, 86, 0.25);
+} 

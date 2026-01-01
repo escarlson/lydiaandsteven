@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-type NavButton = "back" | "finish" | "lodging" | "registry";
+type NavButton = "back" | "submit" | "lodging" | "registry";
 
 type Props = {
   inviteId: string;
@@ -19,7 +19,7 @@ export default function RSVPNavClient({
     router.back();
   };
 
-  const handleFinish = () => {
+  const handleSubmit = () => {
     if (!inviteId) return;
     router.push(`/rsvp/${inviteId}/confirm`);
   };
@@ -33,7 +33,7 @@ export default function RSVPNavClient({
   }; 
 
   const finalButtons: NavButton[] =
-    buttons ?? (["back", "finish"]);
+    buttons ?? (["back", "submit"]);
 
   return (
     <>
@@ -47,14 +47,14 @@ export default function RSVPNavClient({
         </button>
       )}
 
-      {finalButtons.includes("finish") && (
+      {finalButtons.includes("submit") && (
         <button
           type="button"
           className="btn btn-copper"
-          onClick={handleFinish}
+          onClick={handleSubmit}
           disabled={!inviteId}
         >
-          Finish
+          Submit
         </button>
       )}
 
