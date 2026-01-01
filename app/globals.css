@@ -62,7 +62,7 @@ a {
 /* Custom copper button variant */
 .btn-copper {
   background-color: #ba7656;
-  color: #000000;
+  color: #ffffff;
   border-color: #ba7656;
 }
 .btn-copper:hover {
@@ -95,6 +95,46 @@ a {
 }
 .btn-copper:active:hover,
 .btn-copper.active:hover {
+  background-color: #7a3f2a;
+  color: #ffffff;
+  border-color: #7a3f2a;
+}
+
+.btn-copper-outline {
+  background-color: transparent;
+  color: #ba7656;
+  border-color: #ba7656;
+}
+.btn-copper-outline:hover {
+  background-color: #ba7656;
+  color: #000000;
+  border-color: #ba7656;
+}
+.btn-copper-outline:focus,
+.btn-copper-outline:focus-visible {
+  box-shadow: 0 0 0 0.25rem rgba(186, 118, 86, 0.25);
+}
+.btn-copper-outline:disabled,
+.btn-copper-outline.disabled {
+  background-color: transparent;
+  color: #ba7656;
+  border-color: #ba7656;
+  opacity: 0.65;
+}
+.btn-copper-outline:disabled:hover,
+.btn-copper-outline.disabled:hover {
+  background-color: transparent;
+  color: #ba7656;
+  border-color: #ba7656;
+}
+.btn-copper-outline:active,
+.btn-copper-outline.active {
+  background-color: #8c4e36;
+  color: #ffffff;
+  border-color: #8c4e36;
+}
+.btn-copper-outline:active:hover,
+.btn-copper-outline.active:hover {
   background-color: #7a3f2a;
   color: #ffffff;
   border-color: #7a3f2a;
