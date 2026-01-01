@@ -1,6 +1,6 @@
-import { fetchInviteById } from "../../lib/rsvp-server";
-import GuestRSVPClient from "../../components/GuestRSVPClient";
-import RSVPNavClient from "../../components/RSVPNavClient";
+import { fetchInviteById } from "@/app/lib/rsvp-server";
+import GuestRSVPClient from "@/app/components/GuestRSVPClient";
+import RSVPNavClient from "@/app/components/RSVPNavClient";
 
 type Guest = {
   guest_id: string;
@@ -33,15 +33,13 @@ export default async function RSVP({
 }) {
   const { id: inviteId } = await params
   const inviteDetails: InviteDetails | null = await fetchInviteById(inviteId);
-  console.log(`Invite details for ID ${inviteId}:`, inviteDetails);
 
   return (
   <main className="d-flex align-items-center" style={{ minHeight: '100vh' }}>
     <div className="container text-center">
       <div className="row">
         <div className="col">
-          <h1>You&apos;re invited!</h1>
-          <p><strong>Please RSVP by May 1st.</strong></p>
+          <h1>Response Confirmed</h1>
           <h2>{inviteDetails?.household_name}</h2>
           <p>{( inviteDetails?.guests?.length ? inviteDetails.guests.length : "")} {(inviteDetails?.guests?.length === 1 ? "Guest" : "Guests")}</p>
         </div>
@@ -49,12 +47,12 @@ export default async function RSVP({
       <div className="row justify-content-center mt-4">
         <div className="col-md-8 col-lg-6">
           {/* Client-side interactive RSVP list */}
-          <GuestRSVPClient inviteId={inviteDetails?.invite_id ?? ''} initialGuests={inviteDetails?.guests ?? []} />
+          <GuestRSVPClient inviteId={inviteDetails?.invite_id ?? ''} initialGuests={inviteDetails?.guests ?? []} readOnly={true}/>
         </div>
       </div>
       <div className="row mt-4">
         <div className="col justify-content-evenly d-flex gap-3">
-          <RSVPNavClient inviteId={inviteDetails?.invite_id ?? ''} />
+          <RSVPNavClient inviteId={inviteDetails?.invite_id ?? ''} showFinish={false}/>
         </div>
       </div>
     </div>
