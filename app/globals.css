@@ -48,7 +48,7 @@ a {
 /* Custom copper accordion variant */
 .accordion-copper {
   --bs-accordion-btn-bg: #ba7656;
-  --bs-accordion-btn-color: #000000;
+  --bs-accordion-btn-color: #ffffff;
   --bs-accordion-active-bg: #a36548;
   --bs-accordion-active-color: #fff;
   --bs-accordion-border-color: #ba7656;
@@ -77,14 +77,14 @@ a {
 .btn-copper:disabled,
 .btn-copper.disabled {
   background-color: #ba7656;
-  color: #000000;
+  color: #ffffff;
   border-color: #ba7656;
   opacity: 0.65;
 }
 .btn-copper:disabled:hover,
 .btn-copper.disabled:hover {
   background-color: #ba7656;
-  color: #000000;
+  color: #ffffff;
   border-color: #ba7656;
 }
 .btn-copper:active,
@@ -107,7 +107,7 @@ a {
 }
 .btn-copper-outline:hover {
   background-color: #ba7656;
-  color: #000000;
+  color: #ffffff;
   border-color: #ba7656;
 }
 .btn-copper-outline:focus,
