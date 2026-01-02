@@ -104,7 +104,102 @@ export async function POST(
 ) {
   const urlParams = await params;
   const inviteId = urlParams.id;
+
   try {
+    // creation flow: POST to /api/rsvp/create will create a new invitation + guests
+    if (inviteId === 'create') {
+      const contentType = request.headers.get('content-type') || '';
+      if (!contentType.includes('application/json')) {
+        return NextResponse.json({ error: 'JSON body required for invite creation' }, { status: 400 });
+      }
+
+      const body = await request.json().catch(() => ({}));
+      const household_name = (body.household_name ?? '').toString().trim();
+      const guests = Array.isArray(body.guests) ? body.guests : [];
+
+      if (!household_name) {
+        return NextResponse.json({ error: 'household_name is required' }, { status: 400 });
+      }
+      if (!guests.length) {
+        return NextResponse.json({ error: 'guests array is required and must contain at least one guest' }, { status: 400 });
+      }
+
+      // validate guests minimally
+      for (const g of guests) {
+        if (!g?.given_name || !g?.family_name) {
+          return NextResponse.json({ error: 'Each guest must include given_name and family_name' }, { status: 400 });
+        }
+        if (g.rsvp_status && !['pending', 'accepted', 'declined'].includes(g.rsvp_status)) {
+          return NextResponse.json({ error: 'Invalid rsvp_status on guest' }, { status: 400 });
+        }
+      }
+
+      // create invite + guests in a transaction
+      const inviteIdNew = crypto.randomUUID();
+      try {
+        await pool.query('START TRANSACTION');
+
+        await pool.query(
+          `INSERT INTO invites (invite_id, household_name, address_line1, address_line2, city, state_province, postal_code, country)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+          [
+            inviteIdNew,
+            body.household_name ?? null,
+            body.address_line1 ?? null,
+            body.address_line2 ?? null,
+            body.city ?? null,
+            body.state_province ?? null,
+            body.postal_code ?? null,
+            body.country ?? null,
+          ]
+        );
+
+        const createdGuests = [];
+        for (const g of guests) {
+          const guestIdNew = crypto.randomUUID();
+          const rsvp_status = g.rsvp_status ?? 'pending';
+          const is_adult = (typeof g.is_adult === 'boolean') ? g.is_adult : true;
+          const seat_requested = (typeof g.seat_requested === 'boolean') ? g.seat_requested : false;
+
+          await pool.query(
+            `INSERT INTO guests (guest_id, invite_id, given_name, family_name, rsvp_status, is_adult, seat_requested)
+             VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [guestIdNew, inviteIdNew, g.given_name, g.family_name, rsvp_status, is_adult ? 1 : 0, seat_requested ? 1 : 0]
+          );
+
+          createdGuests.push({
+            guest_id: guestIdNew,
+            given_name: g.given_name,
+            family_name: g.family_name,
+            rsvp_status,
+            is_adult,
+            seat_requested,
+          });
+        }
+
+        await pool.query('COMMIT');
+
+        const invite = {
+          invite_id: inviteIdNew,
+          household_name: body.household_name,
+          address_line1: body.address_line1 ?? null,
+          address_line2: body.address_line2 ?? null,
+          city: body.city ?? null,
+          state_province: body.state_province ?? null,
+          postal_code: body.postal_code ?? null,
+          country: body.country ?? null,
+          guests: createdGuests,
+        };
+
+        return NextResponse.json({ success: true, invite }, { status: 201 });
+      } catch (err) {
+        await pool.query('ROLLBACK').catch(() => { /* ignore rollback error */ });
+        console.error('Error creating invite and guests:', err);
+        return NextResponse.json({ error: 'Failed to create invite' }, { status: 500 });
+      }
+    }
+
+    // existing update RSVP flow
     const contentType = request.headers.get('content-type') || '';
     let guestId: string | null = null;
     let rsvpStatus: string | null = null;

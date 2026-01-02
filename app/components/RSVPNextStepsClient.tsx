@@ -37,13 +37,13 @@ export default function RSVPNextStepsClient({
         {finalButtons.includes("back") && (
           <button
             type="button"
-            className="btn btn-copper-outline"
+            className="btn btn-outline-copper"
             onClick={handleBack}
           >
             Back
           </button>
         )}
-        
+
         {finalButtons.includes("homepage") && (
           <button
             type="button"
