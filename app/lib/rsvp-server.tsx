@@ -1,4 +1,3 @@
-import { log } from 'console';
 import pool from './db'
 import { logRsvpChange } from './logger';
 
