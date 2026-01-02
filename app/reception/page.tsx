@@ -6,13 +6,14 @@ export default function Reception() {
       <main className="pt-5">
         <div className="container mt-5">
           <h1>Reception</h1>
-          <p className="mb-2">The reception will be held at</p>
+          <p className="mb-2">The reception will be held at:</p>
             <address>
             <p className="mb-1"><strong>Tumbleroot Brewery &amp; Distillery</strong></p>
             <p className="mb-1">(Agua Fria Taproom)</p>
             <p className="mb-1">2791 Agua Fria Street</p>
             <p className="mb-0">Santa Fe, NM 87507</p>
             </address>
+          <p>Bring your dancin&apos; shoes!</p>
           <h2>Food</h2>
           <p>A family-style supper with vegetarian and gluten-free options will be served. We&apos;re sorry, but we cannot accommodate all food restrictions. If you have very specific food restrictions, please sneak in your own food. We won&apos;t tell.</p>
           <h2>Drink</h2>

@@ -31,6 +31,7 @@ export default function Registry() {
             <li>Two dining room chairs</li>
             <li>Dresser</li>
           </ul>
+          <p>Please contact us if you might have one of these items to offer, so we can coordinate pickup.</p>
         </div>
       </main>
     </div>

@@ -1,12 +1,13 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Ceremony() {
   return (
     <div>
       <main className="pt-5">
         <div className="container mt-5">
-          <h1>The Holy Mystery of Marriage</h1>
-          <p>The wedding will take place at Holy Trinity Orthodox Church in Santa Fe, New Mexico.</p>
+          <h1>Ceremony</h1>
+          <p>The wedding will take place at:</p>
           <div className="row">
             <div className="col-md-12 col-lg-12">
               <address>
@@ -30,17 +31,24 @@ export default function Ceremony() {
             </div>
           </div>
           
+          <h2>Time</h2>
+          <p>The wedding will begin at 3:00pm sharp. Please arrive early.</p>
           <h2>Seating</h2>
-          <p>It is traditional to stand during Orthodox services, and many Orthodox churches (including Holy Trinity) have an open floor plan with no rows of seats! <strong>Seating is extremely limited and will be strictly reserved for those in need of this accommodation.</strong></p>
+          <p>It is traditional to stand during Orthodox services, and many Orthodox churches (including Holy Trinity) have an open floor plan with no rows of seats! <strong>Seating is extremely limited and will be strictly reserved for those in need of this accommodation.</strong> If you know that you or someone in your party will need a seat, please fill out this short form so that we can be sure to have a chair reserved for you:</p>
+          <a href="https://form.jotform.com/253634634923057" target="_blank" rel="noopener noreferrer" className="btn btn-copper mb-3">Ceremony Seating Accommodation Form</a>
           <p>For everyone else, the wedding will be standing room only. Plan on packing in close to the front of the church and around the couple. Please move in from the doors so that other guests can enter. Additional standing room can be found in the balcony (up the hallway stairs and through the door to your left).</p> 
           <p>The wedding ceremony is about 45 minutes to an hour long.</p>
           <h2>Parking</h2>
           <p>Parking will be tight! Please consider carpooling. Some parking near the church will be reserved for the wedding party and family. A couple of wheelchair accessible parking spots will be available near the church.</p>
+          <p>Parking map coming soon!</p>
           <h2>Dress</h2>
-          <p>Please dress respectfully.</p>
+          <p>Please dress respectfully. Silliness will ensue at the reception, but not at the ceremony. 😀</p>
           <p>We recommend comfortable shoes or removing your shoes. Both are acceptable in an Orthodox church (the bride and groom will be barefoot). If you choose to remove your shoes, please leave your shoes by the entrance.</p>
           <h2>Kids</h2>
           <p>Kiddos are an important part of the community and are considered active participants in Orthodox services! We welcome them at the ceremony. However, if your child is having a meltdown or just needs a break, there is a nursery/kids room where you can take them that is just outside the back doors of the narthex, immediately to the left.</p>
+          <h2>What&apos;s Happening</h2>
+          <p>First time at an Orthodox wedding? Never fear! We put together this guide so you can better understand what&apos;s going on during the ceremony.</p>
+          <Link href="/ceremony/guide" className="btn btn-copper mb-2">Guide to the Orthodox Wedding Ceremony</Link>
           <h2>FAQ</h2>
           <div className="accordion accordion-copper mb-5" id="faqAccordion">
             <div className="accordion-item">
