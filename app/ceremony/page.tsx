@@ -48,7 +48,7 @@ export default function Ceremony() {
           <p>Kiddos are an important part of the community and are considered active participants in Orthodox services! We welcome them at the ceremony. However, if your child is having a meltdown or just needs a break, there is a nursery/kids room where you can take them that is just outside the back doors of the narthex, immediately to the left.</p>
           <h2>What&apos;s Happening</h2>
           <p>First time at an Orthodox wedding? Never fear! We put together this guide so you can better understand what&apos;s going on during the ceremony.</p>
-          <Link href="/ceremony/guide" className="btn btn-copper mb-2">Guide to the Orthodox Wedding Ceremony</Link>
+          <Link href="/ceremony/guide" className="btn btn-copper mb-4">Guide to the Orthodox Wedding Ceremony</Link>
           <h2>FAQ</h2>
           <div className="accordion accordion-copper mb-5" id="faqAccordion">
             <div className="accordion-item">
