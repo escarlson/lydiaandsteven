@@ -6,9 +6,12 @@ export default function RSVP() {
       <div className="container text-center">
         <div className="row">
           <div className="col">
-            <h1>Find Your Invitation</h1>
+            <h1>✉️ Find Your Invitation</h1>
             <p>
-              Look up your invitation by entering your first name, last name, and postal code below.
+              Look up your invitation by entering your first name, last name, and postal code below. You&apos;ll be able to RSVP for all guests on your invitation.
+            </p>
+            <p>
+              If you have any issues, please email Steven at <a href="mailto:wedding@stevencarlson.me">wedding@stevencarlson.me.</a>
             </p>
             <p><strong>Please RSVP by May 1st.</strong></p>
             <form>
