@@ -1,13 +1,20 @@
 'use client';
 
-import { Macondo } from "next/font/google";
+import { Macondo, Caveat } from "next/font/google";
 import dayjs from "dayjs";
 import Sunset from "./lib/sunset";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const macondo = Macondo({
   variable: "--font-macondo",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
+const caveat = Caveat({
+  variable: "--font-caveat",
   subsets: ["latin"],
   weight: ["400"],
 });
@@ -39,17 +46,20 @@ export default function Home() {
         <div className="row">
           <div className="col">
           <h1 className={`${macondo.className} display-1`}>Lydia &amp; Steven</h1>
-          <p className="display-6 mb-3">September 20, 2026</p>
-          <p className="display-6 mb-3">Santa Fe, NM</p>
+          <p className="display-6 mb-3">September 20, 2026 | Santa Fe, NM</p>
+          {/* <p className="display-6 mb-3">Santa Fe, NM</p> */}
           </div>
         </div>
         <div className="row justify-content-center mb-auto mb-4 mt-4">
-          <div className="col-md-auto">
-            <div className="alert alert-midnight" role="alert">Welcome to our wedding website! Buckle up for way more information than you asked for.</div>
+          <p>Welcome to our wedding website! Buckle up for way more information than you asked for.</p>
+        </div>
+        <div className="row justify-content-center mb-auto mb-4 mt-4">
+          <div className="col-md-8 col-lg-6">
+            <Link href="/rsvp" className="btn btn-copper btn-lg">RSVP</Link>
           </div>
         </div>
-        <div className="row justify-content-center mb-4">
-          <p id="sunsetCounter" className="display-6 mb-0">
+        <div className="row justify-content-center mt-4">
+          <p id="sunsetCounter" className={`${caveat.className} mb-0 mt-4`} style={{fontSize: '2rem'}}>
             {sunsetsRemaining === null ? (
               <span className="text-muted">Calculating sunsets…</span>
             ) : (
@@ -59,8 +69,6 @@ export default function Home() {
               </>
             )}
           </p>
-          </div>
-        <div className="row justify-content-center mt-4">
           <div className="col-md-8 col-lg-6">
             <div>
               <figure className="figure">       

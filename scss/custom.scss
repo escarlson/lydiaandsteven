@@ -5,6 +5,14 @@
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/variables-dark";
 
+$navbar-light-color: #ba7656;
+$navbar-light-hover-color: darken($navbar-light-color, 15%);
+$navbar-light-active-color: darken($navbar-light-color, 25%);
+$navbar-light-disabled-color: lighten($navbar-light-color, 25%);
+$nav-link-font-size: 1.1rem;
+$nav-link-font-weight: 600;
+
+
 // Create our custom colors map
 $custom-colors: (
   "midnight": #2d2f3e,
@@ -12,9 +20,10 @@ $custom-colors: (
 );
 
 // Merge the maps - this adds midnight and copper to the existing theme colors
+$colors: map-merge($colors, $custom-colors);
 $theme-colors: map-merge($theme-colors, $custom-colors);
 
-// Import maps BEFORE the rest of Bootstrap (this is critical!)
+// Import maps BEFORE the rest of Bootstrap
 @import "../node_modules/bootstrap/scss/maps";
 
 // NOW import everything else
