@@ -61,6 +61,7 @@ const fetchInviteById = async (id: string) => {
           guests: [],
         });
       }
+
       invitesMap.get(inviteId).guests.push({
         guest_id: r.guest_id,
         given_name: r.given_name,
@@ -87,11 +88,14 @@ const updateGuestRSVP = async (guestId: string | number, rsvpStatus: 'accepted' 
       `UPDATE guests SET rsvp_status = ?, updated_at = NOW() WHERE guest_id = ?`,
       [rsvpStatus, guestId]
     );
+
     const res = result as { affectedRows: number };
+
     logRsvpChange({
       guestId: guestId.toString(),
       newValue: rsvpStatus,
     });
+
     return res.affectedRows && res.affectedRows > 0;
   } catch (error) {
     console.error("Database update error:", error);
@@ -99,4 +103,19 @@ const updateGuestRSVP = async (guestId: string | number, rsvpStatus: 'accepted' 
   }
 };
 
-export { fetchInviteById, updateGuestRSVP };
+const updateGuestName = async (guestId: string | number, givenName: string, familyName: string) => {
+  try {
+    const [result] = await pool.query(
+      `UPDATE guests SET given_name = ?, family_name = ?, updated_at = NOW() WHERE guest_id = ?`,
+      [givenName, familyName, guestId]
+    );
+
+    const res = result as { affectedRows: number };
+    return res.affectedRows && res.affectedRows > 0;
+  } catch (error) {
+    console.error("Database update error:", error);
+    throw error;
+  }
+};
+
+export { fetchInviteById, updateGuestRSVP, updateGuestName };
