@@ -8,12 +8,7 @@ console.log("API route loaded");
 type InviteGuestRow = {
   invite_id: string;
   household_name: string;
-  address_line1: string;
-  address_line2: string | null;
-  city: string;
-  state_province: string;
   invite_postal_code: string;
-  country: string;
   sent_at: Date | null;
   guest_id: string;
   given_name: string;
@@ -40,12 +35,7 @@ export async function GET(
       `SELECT
          i.invite_id,
          i.household_name,
-         i.address_line1,
-         i.address_line2,
-         i.city,
-         i.state_province,
          i.postal_code AS invite_postal_code,
-         i.country,
          i.sent_at,
          g.guest_id,
          g.given_name,
@@ -79,12 +69,7 @@ export async function GET(
         invitesMap.set(id, {
           invite_id: r.invite_id,
           household_name: r.household_name,
-          address_line1: r.address_line1,
-          address_line2: r.address_line2,
-          city: r.city,
-          state_province: r.state_province,
           postal_code: r.invite_postal_code,
-          country: r.country,
           sent_at: r.sent_at,
           guests: [],
         });

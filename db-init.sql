@@ -11,12 +11,7 @@ USE wedding_db;
 CREATE TABLE invites (
     invite_id UUID PRIMARY KEY DEFAULT SYS_GUID(),
     household_name VARCHAR(255) NOT NULL,
-    address_line1 VARCHAR(255),
-    address_line2 VARCHAR(255),
-    city VARCHAR(100),
-    state_province VARCHAR(100),
     postal_code VARCHAR(20),
-    country VARCHAR(100),
     sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
