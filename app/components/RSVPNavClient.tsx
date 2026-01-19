@@ -1,0 +1,82 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+
+type NavButton = "back" | "submit" | "lodging" | "registry";
+
+type Props = {
+  inviteId: string;
+  buttons?: NavButton[];
+};
+
+export default function RSVPNavClient({
+  inviteId,
+  buttons,
+}: Props) {
+  const router = useRouter();
+
+  const handleBack = () => {
+    router.back();
+  };
+
+  const handleSubmit = () => {
+    if (!inviteId) return;
+    router.push(`/rsvp/${inviteId}/confirm`);
+  };
+
+  const handleLodging = () => {
+    router.push("/lodging");
+  };
+
+  const handleRegistry = () => {
+    router.push("/registry");
+  }; 
+
+  const finalButtons: NavButton[] =
+    buttons ?? (["back", "submit"]);
+
+  return (
+    <>
+      {finalButtons.includes("back") && (
+        <button
+          type="button"
+          className="btn btn-copper-outline"
+          onClick={handleBack}
+        >
+          Back
+        </button>
+      )}
+
+      {finalButtons.includes("submit") && (
+        <button
+          type="button"
+          className="btn btn-copper"
+          onClick={handleSubmit}
+          disabled={!inviteId}
+        >
+          Submit
+        </button>
+      )}
+
+      {finalButtons.includes("lodging") && (
+        <button
+          type="button"
+          className="btn btn-copper"
+          onClick={handleLodging}
+        >
+          Find Lodging
+        </button>
+      )}
+
+      {finalButtons.includes("registry") && (
+        <button
+          type="button"
+          className="btn btn-copper"
+          onClick={handleRegistry}
+        >
+          View Registry
+        </button>
+      )}
+    </>
+  );
+}

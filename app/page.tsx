@@ -1,13 +1,20 @@
 'use client';
 
-import { Macondo } from "next/font/google";
+import { Macondo, Caveat } from "next/font/google";
 import dayjs from "dayjs";
 import Sunset from "./lib/sunset";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const macondo = Macondo({
   variable: "--font-macondo",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
+const caveat = Caveat({
+  variable: "--font-caveat",
   subsets: ["latin"],
   weight: ["400"],
 });
@@ -33,40 +40,58 @@ export default function Home() {
   }, []); // Runs once on mount
 
   return (
-    <main
-      className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: '100vh', paddingBottom: '200px' }} // reserve space for fixed image
-    >
-      <div className="container text-center">
+    <main className="d-flex align-items-center justify-content-center pt-5">
+      <div className="container text-center mt-5">
+        
         <div className="row">
-            <div className="col">
-            <h1 className={`${macondo.className} display-1`}>Lydia &amp; Steven</h1>
-            <p className="display-6 mb-3">September 20, 2026</p>
-
-            {sunsetsRemaining !== null && (
-              <p id="sunsetCounter" className="display-6 mb-0">
-              <span id="numSunsets">{sunsetsRemaining}</span> more {sunsetsRemaining === 1 ? 'sunset' : 'sunsets'}
-              </p>
+          <div className="col">
+          <h1 className={`${macondo.className} display-1`}>Lydia &amp; Steven</h1>
+          <p className="display-6 mb-3">September 20, 2026 | Santa Fe, NM</p>
+          {/* <p className="display-6 mb-3">Santa Fe, NM</p> */}
+          </div>
+        </div>
+        <div className="row justify-content-center mb-auto mb-4 mt-4">
+          <p>Welcome to our wedding website! Buckle up for way more information than you asked for.</p>
+        </div>
+        <div className="row justify-content-center mb-auto mb-4 mt-4">
+          <div className="col-md-8 col-lg-6">
+            <Link href="/rsvp" className="btn btn-copper btn-lg">RSVP</Link>
+          </div>
+        </div>
+        <div className="row justify-content-center mt-4">
+          <p id="sunsetCounter" className={`${caveat.className} mb-0 mt-4`} style={{fontSize: '2rem'}}>
+            {sunsetsRemaining === null ? (
+              <span className="text-muted">Calculating sunsets…</span>
+            ) : (
+              <>
+                <span id="numSunsets">{sunsetsRemaining}</span> more{" "}
+                {sunsetsRemaining === 1 ? "sunset" : "sunsets"}
+              </>
             )}
-
-            <Image
-              src="/little_prince_sunset_cropped.jpg"
-              alt="The Little Prince watching a sunset"
-              width={1200}
-              height={800}
-              className="d-block z-10"
-              style={{
-                position: 'fixed',
-                bottom: 0,
-                left: '50%',
-                transform: 'translateX(-50%)',
-                maxWidth: '100%',
-                maxHeight: '700px',
-                width: 'auto',
-                height: 'auto',
-              }}
-            />
+          </p>
+          <div className="col-md-8 col-lg-6">
+            <div>
+              <figure className="figure">       
+                <Image
+                  src="/little_prince_sunset_cropped.jpg"
+                  alt="The Little Prince observes the sunset from Asteroid B-612"
+                  width={1200}
+                  height={800}
+                  className="figure-img img-fluid z-10"
+                  loading="eager"
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '50%',
+                    width: 'auto',
+                    height: 'auto',
+                  }}
+                />
+                <figcaption className="figure-caption">
+                The Little Prince observes the sunset from Asteroid B-612. Antoine de Saint-Exupéry, 1943.
+                </figcaption>
+              </figure>
             </div>
+          </div>
         </div>
       </div>
     </main>
