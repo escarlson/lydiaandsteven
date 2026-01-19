@@ -49,6 +49,9 @@ export default function Header() {
                 <Link className={`nav-link ${isActive("/transit") ? "active" : ""}`} href="/transit" onClick={() => setOpen(false)} aria-current={isActive("/transit") ? "page" : undefined}>Transit</Link>
                 </li>
                 <li className="nav-item">
+                <Link className={`nav-link ${isActive("/thingstodo") ? "active" : ""}`} href="/thingstodo" onClick={() => setOpen(false)} aria-current={isActive("/thingstodo") ? "page" : undefined}>Things to Do</Link>
+                </li>
+                <li className="nav-item">
                 <Link className={`nav-link ${isActive("/photos") ? "active" : ""}`} href="/photos" onClick={() => setOpen(false)} aria-current={isActive("/photos") ? "page" : undefined}>Photos</Link>
                 </li>
                 <li className="nav-item">

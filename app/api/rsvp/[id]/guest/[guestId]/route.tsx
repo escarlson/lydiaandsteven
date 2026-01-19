@@ -7,7 +7,7 @@ export async function PATCH(
 ) {
   try {
     // Await params first
-    const { id: inviteId, guestId } = await params;
+    const { guestId } = await params;
     
     const body = await request.json();
     const { given_name, family_name } = body;
