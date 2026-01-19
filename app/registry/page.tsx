@@ -6,13 +6,16 @@ export default function Registry() {
       <main className="pt-5">
         <div className="container mt-5">
           <h1>Registry</h1>
-          <p>We have a universal registry at Joy, and a separate registry at Etsy.</p>
+          <p>We are registered at Amazon and Etsy, and have a universal registry for other items on Joy.</p>
           <div className="row row-cols-auto">
             <div className="col mb-3">
-              <Link href="https://withjoy.com/lydia-and-steven-sep-26/registry" target="_blank" rel="noopener noreferrer" className="d-block btn btn-copper">Joy Registry</Link>
+              <Link href="https://www.amazon.com/wedding/guest-view/3M73SKX4EJOJP" target="_blank" rel="noopener noreferrer" className="d-block btn btn-copper">Amazon Registry</Link>
             </div>
             <div className="col mb-3">
               <Link href="https://www.etsy.com/registry/MTY3MDEwMDcxfDEyNTM1NDcz" target="_blank" rel="noopener noreferrer" className="d-block btn btn-copper">Etsy Registry</Link>
+            </div>
+            <div className="col mb-3">
+              <Link href="https://withjoy.com/lydia-and-steven-sep-26/registry" target="_blank" rel="noopener noreferrer" className="d-block btn btn-copper">Joy Registry</Link>
             </div>
           </div>
           <h2>Gift Cards</h2>

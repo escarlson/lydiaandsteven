@@ -19,7 +19,7 @@ export default function Lodging() {
           <h2>Recommended Lodging</h2>
           <div className="row">
             <div className="col-md-6">
-              <h3 className="h4">Typical Hotels</h3>
+              <h3 className="h4">Conventional Hotels</h3>
                 <ul>
                 <li><Link href={"https://thepecostrailinn.com/"} target="_blank" rel="noopener noreferrer">Pecos Trail Inn</Link></li>
                 <li><Link href={"https://santafemotel.com/"} target="_blank" rel="noopener noreferrer">Santa Fe Motel & Inn</Link></li>
