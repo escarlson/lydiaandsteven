@@ -3,11 +3,11 @@ import { updateGuestName } from '@/app/lib/rsvp-server';
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: Promise<{ inviteId: string; guestId: string }> }
+  { params }: { params: Promise<{ id: string; guestId: string }> }
 ) {
   try {
     // Await params first
-    const { inviteId, guestId } = await params;
+    const { id: inviteId, guestId } = await params;
     
     const body = await request.json();
     const { given_name, family_name } = body;
