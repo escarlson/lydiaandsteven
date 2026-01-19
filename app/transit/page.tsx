@@ -29,7 +29,6 @@ export default function Transit() {
                     <li><strong>Santa Fe Regional Airport (SAF)</strong>: The Santa Fe Regional Airport is located about 20 minutes away from the church. This airport has routes connecting Santa Fe to Denver, Dallas, Phoenix, and Los Angeles.</li>
                     <li><strong>Albuquerque International Sunport (ABQ)</strong>: The Albuquerque International Sunport is a roughly one hour drive from Santa Fe and offers a wider range of flight options. If you are foregoing a rental car, you can use the Rail Runner Express between Albuquerque and Santa Fe, with some bus rides on each end.</li>
                   </ul>
-                  {/* <Link href="#" className="btn btn-primary">Go somewhere</Link> */}
                 </div>
               </div>  
             </div>
@@ -49,7 +48,6 @@ export default function Transit() {
                 <div className="card-body">
                   <h2 className="card-title">Train</h2>
                   <p className="card-text">Amtrak&apos;s Southwest Chief line stops in Lamy, NM, about 18 miles from Santa Fe. There is a shuttle to take you from the Lamy station to Santa Fe. This may be an option for our guests who live in Wichita, Kansas City, or Chicago. Coach, roomette, and bedroom tickets are available.</p>
-                  {/* <Link href="#" className="btn btn-primary">Go somewhere</Link> */}
                 </div>
               </div>
             </div>
@@ -68,8 +66,7 @@ export default function Transit() {
                 </figure>
                 <div className="card-body">
                   <h2 className="card-title">Automobile</h2>
-                  <p className="card-text">Santa Fe is accessible via Interstate 25 and U.S. Route 84/285.</p>
-                  {/* <Link href="#" className="btn btn-primary">Go somewhere</Link> */}
+                  <p className="card-text">Santa Fe is accessible via Interstate 25 and U.S. Route 84/285. From 1926 to 1937, Route 66 passed through Santa Fe.</p>
                 </div>
               </div>
             </div>
@@ -91,7 +88,7 @@ export default function Transit() {
               <div className="card">
                 <div className="card-body">
                   <h2 className="card-title">Rideshare</h2>
-                  <p className="card-text">Both Uber and Lyft operate in Santa Fe.</p>
+                  <p className="card-text">Both Uber and Lyft operate in Santa Fe, though some say ride availability lags behind other cities.</p>
                 </div>
               </div>
             </div>
