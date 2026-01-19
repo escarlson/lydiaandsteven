@@ -21,18 +21,20 @@ export default function Lodging() {
             <div className="col-md-6">
               <h3 className="h4">Conventional Hotels</h3>
                 <ul>
-                <li><Link href={"https://thepecostrailinn.com/"} target="_blank" rel="noopener noreferrer">Pecos Trail Inn</Link></li>
-                <li><Link href={"https://santafemotel.com/"} target="_blank" rel="noopener noreferrer">Santa Fe Motel & Inn</Link></li>
-                <li><Link href={"https://www.bestwestern.com/en_US/book/hotels-in-santa-fe/best-western-plus-inn-of-santa-fe/propertyCode.32095.html"} target="_blank" rel="noopener noreferrer">Best Western Plus Inn of Santa Fe</Link></li>
+                  <li><Link href={"http://www.elreycourt.com/"} target="_blank" rel="noopener noreferrer">El Rey Court</Link></li>
+                  <li><Link href={"https://www.laspalomas.com/"} target="_blank" rel="noopener noreferrer">Las Palomas</Link></li>
+                  <li><Link href={"https://www.hotelglorietasantafe.com/"} target="_blank" rel="noopener noreferrer">Hotel Glorieta</Link></li>
+                  <li><Link href={"https://themysticsantafe.com/"} target="_blank" rel="noopener noreferrer">The Mystic</Link></li>
+                  <li><Link href={"https://www.bestwestern.com/en_US/book/hotels-in-santa-fe/best-western-plus-inn-of-santa-fe/propertyCode.32095.html"} target="_blank" rel="noopener noreferrer">Best Western Plus Inn of Santa Fe</Link></li>
+                  <li><Link href={"https://thepecostrailinn.com/"} target="_blank" rel="noopener noreferrer">Pecos Trail Inn</Link></li>
+                  <li><Link href={"https://santafemotel.com/"} target="_blank" rel="noopener noreferrer">Santa Fe Motel & Inn</Link></li>
                 </ul>
-                <h3 className="h4">Hip Alternatives</h3> 
+                <h3 className="h4">Adventurous Alternatives</h3>
                 <ul>
-                <li><Link href={"https://www.hostelsantafe.org/"} target="_blank" rel="noopener noreferrer">Santa Fe International Hostel</Link></li>
-                <li><Link href={"https://santafetreehousecamp.org/"} target="_blank" rel="noopener noreferrer">Santa Fe Tree-House Camp</Link></li>
-                <li><Link href={"https://www.laspalomas.com/"} target="_blank" rel="noopener noreferrer">Las Palomas</Link></li>
-                <li><Link href={"https://hotelglorieta.com/"} target="_blank" rel="noopener noreferrer">Hotel Glorieta</Link></li>
-                <li><Link href={"https://themysticsantafe.com/"} target="_blank" rel="noopener noreferrer">The Mystic</Link></li>
-                <li><Link href={"http://www.elreycourt.com/"} target="_blank" rel="noopener noreferrer">El Rey Court</Link></li>
+                  <li><Link href={"https://www.hostelsantafe.org/"} target="_blank" rel="noopener noreferrer">Santa Fe International Hostel</Link></li>
+                  <li><Link href={"https://santafetreehousecamp.org/"} target="_blank" rel="noopener noreferrer">Santa Fe Tree-House Camp</Link></li>
+                  <li><Link href={"https://www.hipcamp.com/en-US/land/new-mexico-the-enchanted-llama-ranch-wz6hm5y1"} target="_blank" rel="noopener noreferrer">The Enchanted Llama Ranch</Link></li>
+                  <li><Link href={"https://www.airbnb.com/rooms/5401743"} target="_blank" rel="noopener noreferrer">Enchanted Yurt</Link></li>
                 </ul>
             </div>
             <div className="col-md-6">

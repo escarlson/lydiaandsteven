@@ -27,7 +27,7 @@ const venueIcon = L.icon({
 });
 
 // Different marker for hip alternatives
-const hipAlternativeIcon = L.icon({
+const alternativeIcon = L.icon({
   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
   iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
@@ -47,7 +47,7 @@ interface Hotel {
   description?: string;
 }
 
-interface HipAlternative {
+interface Alternative {
   name: string;
   lat: number;
   lng: number;
@@ -64,6 +64,29 @@ interface Venue {
 }
 
 const hotels: Hotel[] = [
+  {
+    name: 'Las Palomas',
+    lat: 35.68909638657713,
+    lng: -105.94578063919384,
+    url: 'https://www.laspalomas.com/',
+  },
+  {
+    name: 'Hotel Glorieta',
+    lat: 35.69898801534288,
+    lng: -105.95405038344455,
+    url: 'https://www.hotelglorietasantafe.com/'
+  },
+  {
+    name: 'The Mystic',
+    lat: 35.656720780883695,
+    lng: -105.98765681680555,
+    url: 'https://themysticsantafe.com/'
+  },
+  { name: 'El Rey Court',
+    lat: 35.66421311537713,
+    lng: -105.97357554361085,
+    url: 'http://www.elreycourt.com/',
+  },
   {
     name: 'Pecos Trail Inn',
     lat: 35.64805015560645,
@@ -101,7 +124,7 @@ const venues: Venue[] = [
   }
 ];
 
-const hipAlternatives: HipAlternative[] = [
+const alternatives: Alternative[] = [
   {
     name: 'Santa Fe International Hostel',
     lat: 35.6699762546861,
@@ -116,28 +139,19 @@ const hipAlternatives: HipAlternative[] = [
     url: 'https://santafetreehousecamp.org/',
   },
   {
-    name: 'Las Palomas',
-    lat: 35.68909638657713,
-    lng: -105.94578063919384,
-    url: 'https://www.laspalomas.com/',
-  },
+    name: 'The Enchanted Llama Ranch',
+    lat: 35.66171873990497,
+    lng: -106.02533520387863,
+    url: 'https://www.hipcamp.com/en-US/land/new-mexico-the-enchanted-llama-ranch-wz6hm5y1',
+    description: 'RV/trailer campsite with llamas!'
+  }/* ,
   {
-    name: 'Hotel Glorieta',
-    lat: 35.69898801534288,
-    lng: -105.95405038344455,
-    url: 'https://hotelglorieta.com/'
-  },
-  {
-    name: 'The Mystic',
-    lat: 35.656720780883695,
-    lng: -105.98765681680555,
-    url: 'https://themysticsantafe.com/'
-  },
-  { name: 'El Rey Court',
-    lat: 35.66421311537713,
-    lng: -105.97357554361085,
-    url: 'http://www.elreycourt.com/',
-  }
+    name: 'Enchanted Yurt',
+    lat: 35.66171873995,
+    lng: -106.02536,
+    url: 'https://www.airbnb.com/rooms/5401743',
+    description: 'Cozy yurt accommodation near Santa Fe'
+  } */
 ];
 
 export default function HotelsMap() {
@@ -174,8 +188,8 @@ export default function HotelsMap() {
             </Popup>
           </Marker>
         ))}
-        {hipAlternatives.map((alt) => (
-          <Marker key={alt.name} position={[alt.lat, alt.lng]} icon={hipAlternativeIcon}>
+        {alternatives.map((alt) => (
+          <Marker key={alt.name} position={[alt.lat, alt.lng]} icon={alternativeIcon}>
             <Popup>
               <a href={alt.url} target="_blank" rel="noopener noreferrer" style={{ fontWeight: 'bold' }}>
                 {alt.name}
