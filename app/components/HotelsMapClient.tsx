@@ -86,12 +86,14 @@ const hotels: Hotel[] = [
     lat: 35.66421311537713,
     lng: -105.97357554361085,
     url: 'http://www.elreycourt.com/',
+    description: 'A classic motor court with polished Southwestern style'
   },
   {
     name: 'Pecos Trail Inn',
     lat: 35.64805015560645,
     lng: -105.93373593263036,
-    url: 'https://thepecostrailinn.com/'
+    url: 'https://thepecostrailinn.com/',
+    description: 'A remodeled motor court with Southwestern flair'
   },
   {
     name: 'Santa Fe Motel & Inn',
@@ -140,18 +142,18 @@ const alternatives: Alternative[] = [
   },
   {
     name: 'The Enchanted Llama Ranch',
-    lat: 35.66171873990497,
-    lng: -106.02533520387863,
+    lat: 35.6616846336601,
+    lng: -106.027047063487,
     url: 'https://www.hipcamp.com/en-US/land/new-mexico-the-enchanted-llama-ranch-wz6hm5y1',
     description: 'RV/trailer campsite with llamas!'
-  }/* ,
+  },
   {
     name: 'Enchanted Yurt',
-    lat: 35.66171873995,
-    lng: -106.02536,
+    lat: 35.661338104736245,
+    lng: -106.02723531693823,
     url: 'https://www.airbnb.com/rooms/5401743',
-    description: 'Cozy yurt accommodation near Santa Fe'
-  } */
+    description: 'Spacious yurt on the Enchanted Llama Ranch'
+  }
 ];
 
 export default function HotelsMap() {
@@ -159,7 +161,7 @@ export default function HotelsMap() {
 
   return (
     <div className="mt-4 mb-5" style={{ position: 'relative', zIndex: 1 }}>
-      <MapContainer center={center} zoom={12} style={{ height: '400px', width: '100%', borderRadius: '8px' }}>
+      <MapContainer center={center} zoom={11} style={{ height: '400px', width: '100%', borderRadius: '8px' }}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
