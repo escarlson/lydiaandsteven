@@ -3,7 +3,7 @@
 import { authClient } from "@/app/lib/auth-client";
 import { useState } from "react";
 
-export function SignInClient() {
+export function SignInClient({ callbackUrl }: { callbackUrl?: string }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -13,7 +13,7 @@ export function SignInClient() {
     try {
       await authClient.signIn.social({
         provider: "google",
-        callbackURL: "/admin",
+        callbackURL: callbackUrl || "/admin",
       });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Sign in failed");
