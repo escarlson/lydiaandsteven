@@ -1,4 +1,3 @@
-import { betterAuth } from "better-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 // List of protected routes
@@ -17,7 +16,11 @@ export async function proxy(request: NextRequest) {
   }
 
   // Check for session cookie
-  const sessionToken = request.cookies.get("better-auth.session_token")?.value;
+  const sessionToken =
+    request.cookies.get("better-auth.session_token")?.value ||
+    request.cookies.get("__Secure-better-auth.session_token")?.value;
+
+  console.log(`[Proxy] ${pathname} - sessionToken: ${!!sessionToken}`);
 
   if (!sessionToken) {
     // Redirect to sign-in page and prevent caching of the redirect response
