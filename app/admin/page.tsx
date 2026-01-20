@@ -32,8 +32,6 @@ export default function Admin() {
     return null;
   }
 
-  console.log(`Email: ${process.env.LYDIA_EMAIL}`);
-
   const userName = session.user.name;
 
   return (
