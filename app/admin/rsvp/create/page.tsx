@@ -15,12 +15,7 @@ type NewGuest = {
 
 export default function CreateInvitations() {
   const [householdName, setHouseholdName] = useState("");
-  const [addressLine1, setAddressLine1] = useState("");
-  const [addressLine2, setAddressLine2] = useState("");
-  const [city, setCity] = useState("");
-  const [stateProvince, setStateProvince] = useState("");
   const [postalCode, setPostalCode] = useState("");
-  const [country, setCountry] = useState("");
   const [guests, setGuests] = useState<NewGuest[]>([
     { given_name: "", family_name: "", rsvp_status: "pending", is_adult: true, seat_requested: false },
   ]);
@@ -63,12 +58,7 @@ export default function CreateInvitations() {
     try {
       const body = {
         household_name: householdName,
-        address_line1: addressLine1 || null,
-        address_line2: addressLine2 || null,
-        city: city || null,
-        state_province: stateProvince || null,
         postal_code: postalCode || null,
-        country: country || null,
         guests: guests.map(g => ({
           given_name: g.given_name,
           family_name: g.family_name,
@@ -138,38 +128,15 @@ export default function CreateInvitations() {
           )}
 
           <form onSubmit={handleSubmit}>
-            <div className="mb-3">
+            
+            <div className="row g-2 mb-3">
+              <div className="col-md-10">
               <label className="form-label">Household Name</label>
               <input className="form-control" value={householdName} onChange={e => setHouseholdName(e.target.value)} required />
             </div>
-
-            <div className="row g-2 mb-3">
-              <div className="col-md-6">
-                <label className="form-label">Address Line 1</label>
-                <input className="form-control" value={addressLine1} onChange={e => setAddressLine1(e.target.value)} />
-              </div>
-              <div className="col-md-6">
-                <label className="form-label">Address Line 2</label>
-                <input className="form-control" value={addressLine2} onChange={e => setAddressLine2(e.target.value)} />
-              </div>
-            </div>
-
-            <div className="row g-2 mb-3">
-              <div className="col-md-4">
-                <label className="form-label">City</label>
-                <input className="form-control" value={city} onChange={e => setCity(e.target.value)} />
-              </div>
-              <div className="col-md-4">
-                <label className="form-label">State / Province</label>
-                <input className="form-control" value={stateProvince} onChange={e => setStateProvince(e.target.value)} />
-              </div>
               <div className="col-md-2">
                 <label className="form-label">Postal Code</label>
                 <input className="form-control" value={postalCode} onChange={e => setPostalCode(e.target.value)} />
-              </div>
-              <div className="col-md-2">
-                <label className="form-label">Country</label>
-                <input className="form-control" value={country} onChange={e => setCountry(e.target.value)} />
               </div>
             </div>
 

@@ -140,17 +140,12 @@ export async function POST(
         await pool.query('START TRANSACTION');
 
         await pool.query(
-          `INSERT INTO invites (invite_id, household_name, address_line1, address_line2, city, state_province, postal_code, country)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+          `INSERT INTO invites (invite_id, household_name, postal_code)
+           VALUES (?, ?, ?)`,
           [
             inviteIdNew,
             body.household_name ?? null,
-            body.address_line1 ?? null,
-            body.address_line2 ?? null,
-            body.city ?? null,
-            body.state_province ?? null,
             body.postal_code ?? null,
-            body.country ?? null,
           ]
         );
 
@@ -182,12 +177,7 @@ export async function POST(
         const invite = {
           invite_id: inviteIdNew,
           household_name: body.household_name,
-          address_line1: body.address_line1 ?? null,
-          address_line2: body.address_line2 ?? null,
-          city: body.city ?? null,
-          state_province: body.state_province ?? null,
           postal_code: body.postal_code ?? null,
-          country: body.country ?? null,
           guests: createdGuests,
         };
 
