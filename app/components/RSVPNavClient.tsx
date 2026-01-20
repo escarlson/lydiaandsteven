@@ -40,7 +40,7 @@ export default function RSVPNavClient({
       {finalButtons.includes("back") && (
         <button
           type="button"
-          className="btn btn-copper-outline"
+          className="btn btn-outline-copper"
           onClick={handleBack}
         >
           Back

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Macondo } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { authClient } from "@/app/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 const macondo = Macondo({
   variable: "--font-macondo",
@@ -13,6 +15,14 @@ const macondo = Macondo({
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const { data: session, isPending } = authClient.useSession();
+  const router = useRouter();
+  const handleSignOut = async () => {
+    await authClient.signOut();
+    setOpen(false);
+    router.push("/");
+    router.refresh(); // ensure fresh data/render after sign-out
+  };
 
   const isActive = (href: string) =>
     !!pathname && (pathname === href || pathname.startsWith(href + "/"));
@@ -59,6 +69,16 @@ export default function Header() {
                 </li>
                 <li className="nav-item">
                 <Link className={`nav-link ${isActive("/rsvp") ? "active" : ""}`} href="/rsvp" onClick={() => setOpen(false)} aria-current={isActive("/rsvp") ? "page" : undefined}>RSVP</Link>
+                </li>
+                <li className="nav-item">
+                  {!isPending && session?.user && (
+                    <button
+                      onClick={handleSignOut}
+                      className="btn btn-link nav-link text-start"
+                    >
+                      Sign Out
+                    </button>
+                  )}
                 </li>
             </ul>
           </div>

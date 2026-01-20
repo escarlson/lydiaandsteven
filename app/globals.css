@@ -95,41 +95,41 @@ body {
   border-color: #7a3f2a;
 }
 
-.btn-copper-outline {
+.btn-outline-copper {
   background-color: transparent;
   color: #ba7656;
   border-color: #ba7656;
 }
-.btn-copper-outline:hover {
+.btn-outline-copper:hover {
   background-color: #ba7656;
   color: #ffffff;
   border-color: #ba7656;
 }
-.btn-copper-outline:focus,
-.btn-copper-outline:focus-visible {
+.btn-outline-copper:focus,
+.btn-outline-copper:focus-visible {
   box-shadow: 0 0 0 0.25rem rgba(186, 118, 86, 0.25);
 }
-.btn-copper-outline:disabled,
-.btn-copper-outline.disabled {
+.btn-outline-copper:disabled,
+.btn-outline-copper.disabled {
   background-color: transparent;
   color: #ba7656;
   border-color: #ba7656;
   opacity: 0.65;
 }
-.btn-copper-outline:disabled:hover,
-.btn-copper-outline.disabled:hover {
+.btn-outline-copper:disabled:hover,
+.btn-outline-copper.disabled:hover {
   background-color: transparent;
   color: #ba7656;
   border-color: #ba7656;
 }
-.btn-copper-outline:active,
-.btn-copper-outline.active {
+.btn-outline-copper:active,
+.btn-outline-copper.active {
   background-color: #8c4e36;
   color: #ffffff;
   border-color: #8c4e36;
 }
-.btn-copper-outline:active:hover,
-.btn-copper-outline.active:hover {
+.btn-outline-copper:active:hover,
+.btn-outline-copper.active:hover {
   background-color: #7a3f2a;
   color: #ffffff;
   border-color: #7a3f2a;
