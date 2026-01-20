@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { auth } from "@/app/lib/auth";
 import pool from '../../../lib/db';
 import { updateGuestRSVP } from '../../../lib/rsvp-server';
 
@@ -102,6 +103,12 @@ export async function POST(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  // Require authentication for RSVP mutations
+  const session = await auth.api.getSession({ headers: request.headers });
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const urlParams = await params;
   const inviteId = urlParams.id;
 

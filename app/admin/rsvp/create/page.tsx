@@ -1,5 +1,4 @@
 "use client";
-// TODO: Add auth
 
 import Link from "next/link";
 // removed useRouter; no automatic navigation after create
