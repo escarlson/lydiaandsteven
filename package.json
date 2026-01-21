@@ -13,6 +13,7 @@
     "@fortawesome/free-regular-svg-icons": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/react-fontawesome": "^3.1.1",
+    "@tanstack/react-table": "^8.21.3",
     "baseline-browser-mapping": "^2.9.15",
     "better-auth": "^1.4.15",
     "bootstrap": "^5.3.8",

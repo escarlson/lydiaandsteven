@@ -118,4 +118,68 @@ const updateGuestName = async (guestId: string | number, givenName: string, fami
   }
 };
 
-export { fetchInviteById, updateGuestRSVP, updateGuestName };
+const fetchAllInvitationsWithGuests = async () => {
+  try {
+    const [result] = await pool.query(
+      `SELECT
+         i.invite_id,
+         i.household_name,
+         i.postal_code,
+         g.guest_id,
+         g.invite_id AS guest_invite_id,
+         g.given_name,
+         g.family_name,
+         g.rsvp_status,
+         g.is_adult
+       FROM invites i
+       LEFT JOIN guests g ON i.invite_id = g.invite_id
+       ORDER BY i.invite_id, g.guest_id`
+    );
+
+    const rows = result as Array<{
+      invite_id: number;
+      household_name: string;
+      postal_code: string;
+      guest_id: number | null;
+      guest_invite_id: number | null;
+      given_name: string | null;
+      family_name: string | null;
+      rsvp_status: string | null;
+      is_adult: number | boolean | null;
+    }>;
+
+    // Group by invitation
+    const invitationsMap = new Map();
+    for (const row of rows) {
+      const inviteId = row.invite_id;
+      
+      if (!invitationsMap.has(inviteId)) {
+        invitationsMap.set(inviteId, {
+          invite_id: row.invite_id,
+          household_name: row.household_name,
+          postal_code: row.postal_code,
+          guests: [],
+        });
+      }
+
+      // Only add guest if guest_id exists (LEFT JOIN may return null guests)
+      if (row.guest_id) {
+        invitationsMap.get(inviteId).guests.push({
+          guest_id: row.guest_id,
+          invite_id: row.guest_invite_id,
+          given_name: row.given_name,
+          family_name: row.family_name,
+          rsvp_status: row.rsvp_status,
+          is_adult: !!row.is_adult,
+        });
+      }
+    }
+
+    return Array.from(invitationsMap.values());
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+};
+
+export { fetchInviteById, updateGuestRSVP, updateGuestName, fetchAllInvitationsWithGuests };
