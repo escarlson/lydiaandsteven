@@ -9,7 +9,7 @@ export default function Reception() {
           <p className="mb-2">The reception will be held at:</p>
             <address>
             <p className="mb-1"><strong>Tumbleroot Brewery &amp; Distillery</strong></p>
-            <p className="mb-1">(Agua Fria Taproom)</p>
+            <p className="mb-1">(aka Agua Fria Taproom aka Tumbleroot Alegría)</p>
             <p className="mb-1">2791 Agua Fria Street</p>
             <p className="mb-0">Santa Fe, NM 87507</p>
             </address>

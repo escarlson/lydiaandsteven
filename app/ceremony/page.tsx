@@ -32,7 +32,7 @@ export default function Ceremony() {
           </div>
           
           <h2>Time</h2>
-          <p>The wedding will begin at 3:00pm sharp. Please arrive early.</p>
+          <p><strong>The wedding will begin at 3:00pm sharp. Please arrive early.</strong></p>
           <h2>Seating</h2>
           <p>It is traditional to stand during Orthodox services, and many Orthodox churches (including Holy Trinity) have an open floor plan with no rows of seats! <strong>Seating is extremely limited and will be strictly reserved for those in need of this accommodation.</strong> If you know that you or someone in your party will need a seat, please fill out this short form so that we can be sure to have a chair reserved for you:</p>
           <a href="https://form.jotform.com/253634634923057" target="_blank" rel="noopener noreferrer" className="btn btn-copper mb-3">Ceremony Seating Accommodation Form</a>
