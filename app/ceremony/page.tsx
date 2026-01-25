@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChair, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 
 export default function Ceremony() {
   return (
@@ -35,7 +37,7 @@ export default function Ceremony() {
           <p><strong>The wedding will begin at 3:00pm sharp. Please arrive early.</strong></p>
           <h2>Seating</h2>
           <p>It is traditional to stand during Orthodox services, and many Orthodox churches (including Holy Trinity) have an open floor plan with no rows of seats! <strong>Seating is extremely limited and will be strictly reserved for those in need of this accommodation.</strong> If you know that you or someone in your party will need a seat, please fill out this short form so that we can be sure to have a chair reserved for you:</p>
-          <a href="https://form.jotform.com/253634634923057" target="_blank" rel="noopener noreferrer" className="btn btn-copper mb-3">Ceremony Seating Accommodation Form</a>
+          <a href="https://form.jotform.com/253634634923057" target="_blank" rel="noopener noreferrer" className="btn btn-midnight mb-3 inline-link"><FontAwesomeIcon icon={faChair} className="button-icon" />Ceremony Seating Accommodation Form</a>
           <p>For everyone else, the wedding will be standing room only. Plan on packing in close to the front of the church and around the couple. Please move in from the doors so that other guests can enter. Additional standing room can be found in the balcony (up the hallway stairs and through the door to your left).</p> 
           <p>The wedding ceremony is about 45 minutes to an hour long.</p>
           <h2>Parking</h2>
@@ -47,10 +49,11 @@ export default function Ceremony() {
           <h2>Kids</h2>
           <p>Kiddos are an important part of the community and are considered active participants in Orthodox services! We welcome them at the ceremony. However, if your child is having a meltdown or just needs a break, there is a nursery/kids room where you can take them that is just outside the back doors of the narthex, immediately to the left.</p>
           <h2>What&apos;s Happening</h2>
-          <p>First time at an Orthodox wedding? Never fear! We put together this guide so you can better understand what&apos;s going on during the ceremony.</p>
-          <Link href="/ceremony/guide" className="btn btn-copper mb-4">Guide to the Orthodox Wedding Ceremony</Link>
+          <p>First time at an Orthodox wedding? Never fear! We wrote this guide so you can better understand what&apos;s going on during the ceremony.</p>
+          <Link href="/ceremony/guide" className="btn btn-midnight mb-4 inline-link"><FontAwesomeIcon icon={faCircleInfo} className="button-icon" />Guide to the Orthodox Wedding Ceremony</Link>
+          <p>Please limit your phone photography within reason. If you would like to take photos of the dome and wall paintings by our world-renowned Russian-Georgian iconographers, please do so after the ceremony has finished.</p>
           <h2>FAQ</h2>
-          <div className="accordion accordion-copper mb-5" id="faqAccordion">
+          <div className="accordion accordion-midnight mb-5" id="faqAccordion">
             <div className="accordion-item">
               <h2 className="accordion-header">
                 <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -95,7 +98,7 @@ export default function Ceremony() {
               </h2>
               <div id="collapseFour" className="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                 <div className="accordion-body">
-                  <p>There are no vows in the Orthodox wedding ceremony; rather, the wedding is understood as a mystical sacrament and holy mystery in which God makes two into one. The bride and groom are active participants in this mystery, but the prayers, readings, and actions that take place are a set ritual unchanged from ancient times. The bride and groom enter of their own free will as mutual participants in this mystical sacrament.</p>
+                  <p>There are no vows in the Orthodox wedding ceremony; rather, the wedding is understood as a holy mystery in which God makes two into one. The bride and groom are active participants in this mystery, but the prayers, readings, and actions that take place are a set ritual unchanged from ancient times. The bride and groom enter of their own free will as mutual participants in this mystical sacrament.</p>
                 </div>
               </div>
             </div>

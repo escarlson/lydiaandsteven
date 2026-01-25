@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPalette, faMountain, faSpa, faChild } from "@fortawesome/free-solid-svg-icons";
 
 export default function ThingsToDo() {
   return (
@@ -11,7 +13,7 @@ export default function ThingsToDo() {
             <div className="col-12 col-md-6 mb-3">
               <div className="card">
                 <div className="card-body">
-                  <h2 className="card-title">Cultured</h2>
+                  <h2 className="card-title"><FontAwesomeIcon className="button-icon me-2" icon={faPalette} />Cultured</h2>
                   <div className="card-text">
                     <ul>
                       <li>
@@ -38,7 +40,7 @@ export default function ThingsToDo() {
             <div className="col-12 col-md-6 mb-3">
               <div className="card">
                 <div className="card-body">
-                  <h2 className="card-title">Crunchy</h2>
+                  <h2 className="card-title"><FontAwesomeIcon className="button-icon me-2" icon={faMountain} />Crunchy</h2>
                   <div className="card-text">
                     <ul>
                       <li>
@@ -65,7 +67,7 @@ export default function ThingsToDo() {
             <div className="col-12 col-md-6 mb-3">
               <div className="card">
                 <div className="card-body">
-                  <h2 className="card-title">Chill</h2>
+                  <h2 className="card-title"><FontAwesomeIcon className="button-icon me-2" icon={faSpa} />Chill</h2>
                   <div className="card-text">
                     <ul>
                       <li>
@@ -93,7 +95,7 @@ export default function ThingsToDo() {
             <div className="col-12 col-md-6 mb-3">
               <div className="card">
                 <div className="card-body">
-                  <h2 className="card-title">Children</h2>
+                  <h2 className="card-title"><FontAwesomeIcon className="button-icon me-2" icon={faChild} />Children</h2>
                   <div className="card-text">
                     <ul>
                       <li>

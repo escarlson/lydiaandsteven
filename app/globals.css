@@ -40,6 +40,56 @@ body {
   }
 }
 
+.inline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem; /* Adjusts the space between text and icon */
+  text-decoration: none;
+}
+
+.button-icon {
+  height: 1em; /* Forces the icon to match the text height exactly */
+  width: auto;
+}
+
+/* Custom copper dropdown variant */
+.dropdown-menu-copper {
+  background-color: #ba7656;
+  color: #ffffff;
+}
+.dropdown-menu-copper .dropdown-item {
+  color: #ffffff;
+}
+.dropdown-menu-copper .dropdown-item:hover,
+.dropdown-menu-copper .dropdown-item:focus {
+  background-color: #a36548;
+  color: #ffffff;
+}
+.dropdown-menu-copper .dropdown-item.active,
+.dropdown-menu-copper .dropdown-item:active {
+  background-color: #8c4e36;
+  color: #ffffff;
+}
+
+/* Custom midnight dropdown variant */
+.dropdown-menu-midnight {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+}
+.dropdown-menu-midnight .dropdown-item {
+  color: #ecf0f1;
+}
+.dropdown-menu-midnight .dropdown-item:hover,
+.dropdown-menu-midnight .dropdown-item:focus {
+  background-color: #34495e;
+  color: #ffffff;
+}
+.dropdown-menu-midnight .dropdown-item.active,
+.dropdown-menu-midnight .dropdown-item:active {
+  background-color: #1a252f;
+  color: #ffffff;
+}
+
 /* Custom copper accordion variant */
 .accordion-copper {
   --bs-accordion-btn-bg: #ba7656;
@@ -52,6 +102,64 @@ body {
 .accordion-copper .accordion-button:focus,
 .accordion-copper .accordion-button:focus-visible {
   box-shadow: 0 0 0 0.25rem rgba(186, 118, 86, 0.25);
+}
+
+/* Custom midnight accordion variant */
+.accordion-midnight {
+  --bs-accordion-btn-bg: #2c3e50;
+  --bs-accordion-btn-color: #ecf0f1;
+  --bs-accordion-active-bg: #1a252f;
+  --bs-accordion-active-color: #fff;
+  --bs-accordion-border-color: #34495e;
+  --bs-focus-ring-color: rgba(44, 62, 80, 0.25);
+}
+.accordion-midnight .accordion-button:focus,
+.accordion-midnight .accordion-button:focus-visible {
+  box-shadow: 0 0 0 0.25rem rgba(44, 62, 80, 0.25);
+}
+.accordion-midnight .accordion-button::after {
+  filter: invert(1);
+}
+
+/* Custom midnight button variant */
+.btn-midnight {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  border-color: #2c3e50;
+}
+.btn-midnight:hover {
+  background-color: #1a252f;
+  color: #ffffff;
+  border-color: #1a252f;
+}
+.btn-midnight:focus,
+.btn-midnight:focus-visible {
+  box-shadow: 0 0 0 0.25rem rgba(44, 62, 80, 0.25);
+}
+.btn-midnight:disabled,
+.btn-midnight.disabled {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  border-color: #2c3e50;
+  opacity: 0.65;
+}
+.btn-midnight:disabled:hover,
+.btn-midnight.disabled:hover {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  border-color: #2c3e50;
+}
+.btn-midnight:active,
+.btn-midnight.active {
+  background-color: #162029;
+  color: #ffffff;
+  border-color: #162029;
+}
+.btn-midnight:active:hover,
+.btn-midnight.active:hover {
+  background-color: #0f161c;
+  color: #ffffff;
+  border-color: #0f161c;
 }
 
 /* Custom copper button variant */

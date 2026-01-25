@@ -55,7 +55,7 @@ export default function Home() {
         </div>
         <div className="row justify-content-center mb-auto mb-4 mt-4">
           <div className="col-md-8 col-lg-6">
-            <Link href="/rsvp" className="btn btn-copper btn-lg">RSVP</Link>
+            <Link href="/rsvp" className="btn btn-midnight btn-lg">RSVP</Link>
           </div>
         </div>
         <div className="row justify-content-center mt-4">

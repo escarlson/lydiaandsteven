@@ -46,8 +46,19 @@ export default function Header() {
 
           <div className={`collapse navbar-collapse ${open ? "show" : ""}`} id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li className="nav-item">
-                <Link className={`nav-link ${isActive("/ceremony") ? "active" : ""}`} href="/ceremony" onClick={() => setOpen(false)} aria-current={isActive("/ceremony") ? "page" : undefined}>Ceremony</Link>
+                <li className="nav-item dropdown">
+                <button
+                  className={`nav-link dropdown-toggle ${isActive("/ceremony") ? "active" : ""}`}
+                  id="ceremonyDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded={false}
+                >
+                  Ceremony
+                </button>
+                <ul className="dropdown-menu dropdown-menu-midnight" aria-labelledby="ceremonyDropdown">
+                  <li><Link className="dropdown-item" href="/ceremony" onClick={() => setOpen(false)}>Overview</Link></li>
+                  <li><Link className="dropdown-item" href="/ceremony/guide" onClick={() => setOpen(false)}>Guide to the Orthodox Wedding Ceremony</Link></li>
+                </ul>
                 </li>
                 <li className="nav-item">
                 <Link className={`nav-link ${isActive("/reception") ? "active" : ""}`} href="/reception" onClick={() => setOpen(false)} aria-current={isActive("/reception") ? "page" : undefined}>Reception</Link>

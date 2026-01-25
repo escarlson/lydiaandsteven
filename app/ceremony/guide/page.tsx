@@ -1,10 +1,22 @@
+import Image from 'next/image';
+
 export default function Guide() {
   return (
     <div>
       <main className="pt-5">
         <div className="container mt-5">
           <h1>Guide to the Orthodox Wedding Ceremony</h1>
-          <p>First time at an Orthodox wedding? Never fear! We put together this guide so you can better understand what&lsquo;s going on during the ceremony.</p>
+          <p>First time at an Orthodox wedding? Never fear! We wrote this guide so you can better understand what&lsquo;s going on during the ceremony.</p>
+          <figure className="figure mb-4">
+            <Image
+              src="/wedding-at-cana-dionisy-the-wise.jpg"
+              alt="Russian icon of the Wedding at Cana"
+              width={440}
+              height={442}
+              className="figure-img img-fluid rounded"
+            />
+            <figcaption className="figure-caption">Workshop of Dionisy the Wise (Russian), The Wedding at Cana, 1502, fresco. Ferapontov Monastery, Ferapontovo, Russia.</figcaption>
+          </figure>
           <h2>The Betrothal</h2>
           <p>
             The bride and groom begin together in the back of the church in an area called the narthex. The narthex is an antechamber to the church proper and is seen as a transitional point from the world outside to the mystical, atemporal realm within the church. Here, the bride and groom assert that they have come of “good, free, and unconstrained will” to be wed to their spouse. This is the closest that Orthodox get to saying vows or saying “I do”. This is also where the rings are exchanged, as symbols of fidelity, honor, and trust.* In the exchange of rings, it is acknowledged that weaknesses of one partner will be compensated by the strengths of the other. The placing of a ring on one&apos;s right finger also references the Prodigal Son&apos;s entry into the joyous feast of his Father and the invitation to “eat and be merry.” The couple receives candles as symbols of the light of Christ and the hesychastic illumination we seek in theosis (union with God). From the narthex, the priest then leads the bride and groom into the nave, the heart of the communal church.
@@ -26,7 +38,7 @@ export default function Guide() {
           </p>
           <h2>Epistle Reading and Gospel Reading</h2>
           <p>
-            There are two readings from the New Testament. The first is from St. Paul&apos;s Epistle to the Ephesians (5:20-33), where he exhorts married couples “to be subject to one another out of reverence for Christ.” The second reading is from the Gospel of John (2:1-11) relating the miracle of Christ at the wedding at Cana. The priest gives a short homily on the readings.
+            There are two readings from the New Testament. The first is from St. Paul&apos;s Epistle to the Ephesians (5:20-33), where he exhorts married couples “to be subject to one another out of reverence for Christ.” The second reading is from the Gospel of John (2:1-11) relating the miracle of Christ at the Wedding at Cana. The priest gives a short homily on the readings.
           </p>
           <h2>The Common Cup</h2>
           <p>
@@ -40,7 +52,7 @@ export default function Guide() {
           <p>
             The priest gives a final blessing, and then the community sings the blessing song “God grant you many years” to the newly-married couple. 
           </p>
-          <div className="display-6 mb-2">
+          <div className="mb-2">
             God is love. (1 John 4:8,16)
           </div>
         </div>
