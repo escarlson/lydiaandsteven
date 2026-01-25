@@ -73,7 +73,7 @@ export default function Header() {
                     Travel
                   </button>
                   <ul className="dropdown-menu dropdown-menu-midnight" aria-labelledby="travelDropdown">
-                    <li><Link className="dropdown-item" href="/travel/transit" onClick={() => setOpen(false)}>Getting Here</Link></li>
+                    <li><Link className="dropdown-item" href="/travel/transit" onClick={() => setOpen(false)}>Transit</Link></li>
                     <li><Link className="dropdown-item" href="/travel/lodging" onClick={() => setOpen(false)}>Lodging</Link></li>
                     <li><Link className="dropdown-item" href="/travel/thingstodo" onClick={() => setOpen(false)}>Things to Do</Link></li>
                   </ul>
