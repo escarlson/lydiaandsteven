@@ -182,7 +182,7 @@ export default function GuestRSVPClient({ inviteId, initialGuests, readOnly = fa
                   <div className="d-flex gap-2 flex-wrap align-items-center">
                     <input
                       type="text"
-                      className="form-control form-control-copper form-control-sm"
+                      className="form-control form-control-midnight form-control-sm"
                       style={{ maxWidth: '150px' }}
                       value={editGivenName}
                       onChange={(e) => setEditGivenName(e.target.value)}
@@ -191,7 +191,7 @@ export default function GuestRSVPClient({ inviteId, initialGuests, readOnly = fa
                     />
                     <input
                       type="text"
-                      className="form-control form-control-copper form-control-sm"
+                      className="form-control form-control-midnight form-control-sm"
                       style={{ maxWidth: '150px' }}
                       value={editFamilyName}
                       onChange={(e) => setEditFamilyName(e.target.value)}
@@ -200,7 +200,7 @@ export default function GuestRSVPClient({ inviteId, initialGuests, readOnly = fa
                     />
                     <button
                       onClick={() => saveGuestName(guest.guest_id)}
-                      className="btn btn-sm btn-copper"
+                      className="btn btn-sm btn-midnight"
                       disabled={loadingGuest === guest.guest_id}
                       aria-label="Save changes"
                     >
@@ -208,7 +208,7 @@ export default function GuestRSVPClient({ inviteId, initialGuests, readOnly = fa
                     </button>
                     <button
                       onClick={cancelEditingGuest}
-                      className="btn btn-sm btn-outline-copper"
+                      className="btn btn-sm btn-outline-midnight"
                       disabled={loadingGuest === guest.guest_id}
                       aria-label="Cancel editing"
                     >

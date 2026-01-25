@@ -57,7 +57,7 @@ export default async function RSVP({
             <div className="card-body">
               <h2 className="card-title">Ceremony</h2>
               <p>Please note that the ceremony is standing room only! Seating is extremely limited and strictly reserved for those in need of this accommodation. For more info and to tell us your accessibility needs, click below.</p>
-              <Link href="/ceremony" className="btn btn-copper">Ceremony Info</Link>
+              <Link href="/ceremony" className="btn btn-midnight">Ceremony Info</Link>
             </div>
           </div>
         </div>
@@ -66,7 +66,7 @@ export default async function RSVP({
             <div className="card-body">
               <h2 className="card-title">Reception</h2>
               <p>The reception will be at Tumbleroot Brewery & Distillery. Get all the deets below!</p>
-              <Link href="/reception" className="btn btn-copper">Reception Info</Link>
+              <Link href="/reception" className="btn btn-midnight">Reception Info</Link>
             </div>
           </div>
         </div>
@@ -75,7 +75,7 @@ export default async function RSVP({
             <div className="card-body">
               <h2 className="card-title">Lodging</h2>
               <p>We&apos;ve put together some discounted hotel blocks, a short guide to recommended hotels, and a way to connect you to other guests who may be interested in sharing Airbnbs.</p>
-              <Link href="/lodging" className="btn btn-copper">Lodging Info</Link>
+              <Link href="/travel/lodging" className="btn btn-midnight">Lodging Info</Link>
             </div>
           </div>
         </div>
@@ -84,7 +84,7 @@ export default async function RSVP({
             <div className="card-body">
               <h2 className="card-title">Registry</h2>
               <p>Gifts are not expected, but here are some ideas! Click below for links to our registries, as well as info about needed secondhand items.</p>
-              <Link href="/registry" className="btn btn-copper">Registry</Link>
+              <Link href="/registry" className="btn btn-midnight">Registry</Link>
             </div>
           </div>
         </div>

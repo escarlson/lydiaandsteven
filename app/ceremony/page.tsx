@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChair, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { faChair, faCrown } from "@fortawesome/free-solid-svg-icons";
 
 export default function Ceremony() {
   return (
@@ -50,7 +50,7 @@ export default function Ceremony() {
           <p>Kiddos are an important part of the community and are considered active participants in Orthodox services! We welcome them at the ceremony. However, if your child is having a meltdown or just needs a break, there is a nursery/kids room where you can take them that is just outside the back doors of the narthex, immediately to the left.</p>
           <h2>What&apos;s Happening</h2>
           <p>First time at an Orthodox wedding? Never fear! We wrote this guide so you can better understand what&apos;s going on during the ceremony.</p>
-          <Link href="/ceremony/guide" className="btn btn-midnight mb-4 inline-link"><FontAwesomeIcon icon={faCircleInfo} className="button-icon" />Guide to the Orthodox Wedding Ceremony</Link>
+          <Link href="/ceremony/guide" className="btn btn-midnight mb-4 inline-link"><FontAwesomeIcon icon={faCrown} className="button-icon" />Guide to the Orthodox Wedding Ceremony</Link>
           <p>Please limit your phone photography within reason. If you would like to take photos of the dome and wall paintings by our world-renowned Russian-Georgian iconographers, please do so after the ceremony has finished.</p>
           <h2>FAQ</h2>
           <div className="accordion accordion-midnight mb-5" id="faqAccordion">

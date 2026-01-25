@@ -46,7 +46,7 @@ export default function SubmitButton() {
 
       <button
         type="submit"
-        className="btn btn-copper btn-lg"
+        className="btn btn-midnight btn-lg"
         onClick={async (e) => {
           e.preventDefault();
           const firstName = (document.getElementById('floatingFirstName') as HTMLInputElement).value;

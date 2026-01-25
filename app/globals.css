@@ -203,6 +203,7 @@ body {
   border-color: #7a3f2a;
 }
 
+/* Custom copper outline button variant */
 .btn-outline-copper {
   background-color: transparent;
   color: #ba7656;
@@ -242,6 +243,49 @@ body {
   color: #ffffff;
   border-color: #7a3f2a;
 }
+
+/* Custom midnight outline button variant */
+.btn-outline-midnight {
+  background-color: transparent;
+  color: #2c3e50;
+  border-color: #2c3e50;
+}
+.btn-outline-midnight:hover {
+  background-color: #2c3e50;
+  color: #ffffff;
+  border-color: #2c3e50;
+}
+.btn-outline-midnight:focus,
+.btn-outline-midnight:focus-visible {
+  box-shadow: 0 0 0 0.25rem rgba(44, 62, 80, 0.25);
+}
+.btn-outline-midnight:disabled,
+.btn-outline-midnight.disabled {
+  background-color: transparent;
+  color: #2c3e50;
+  border-color: #2c3e50;
+  opacity: 0.65;
+}
+.btn-outline-midnight:disabled:hover,
+.btn-outline-midnight.disabled:hover {
+  background-color: transparent;
+  color: #2c3e50;
+  border-color: #2c3e50;
+}
+.btn-outline-midnight:active,
+.btn-outline-midnight.active {
+  background-color: #162029;
+  color: #ffffff;
+  border-color: #162029;
+}
+.btn-outline-midnight:active:hover,
+.btn-outline-midnight.active:hover {
+  background-color: #0f161c;
+  color: #ffffff;
+  border-color: #0f161c;
+}
+
+/* Custom copper form control variant */
 .form-control-copper {
   border-color: #ba7656;
 }
@@ -263,6 +307,22 @@ body {
 }
 .form-check-input-copper:focus {
   box-shadow: 0 0 0 0.25rem rgba(186, 118, 86, 0.25);
+}
+
+/* Custom midnight form control variant */
+.form-control-midnight {
+  border-color: #34495e;
+}
+.form-control-midnight:focus {
+  box-shadow: 0 0 0 0.25rem rgba(44, 62, 80, 0.25);
+}
+.form-floating-midnight > .form-control,
+.form-floating-midnight > .form-control:focus,
+.form-floating-midnight > .form-control:not(:placeholder-shown) {
+  border-color: #34495e;
+}
+.form-floating-midnight > .form-control:focus {
+  box-shadow: 0 0 0 0.25rem rgba(44, 62, 80, 0.25);
 }
 
 .alert-midnight {

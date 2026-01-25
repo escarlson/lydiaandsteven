@@ -36,7 +36,10 @@ export default function Lodging() {
                   <li><Link href={"https://www.hostelsantafe.org/"} target="_blank" rel="noopener noreferrer">Santa Fe International Hostel</Link></li>
                   <li><Link href={"https://santafetreehousecamp.org/"} target="_blank" rel="noopener noreferrer">Santa Fe Tree-House Camp</Link> (bring your own linens)</li>
                   <li><Link href={"https://www.hipcamp.com/en-US/land/new-mexico-the-enchanted-llama-ranch-wz6hm5y1"} target="_blank" rel="noopener noreferrer">The Enchanted Llama Ranch</Link> (bring your own tent/RV)</li>
-                  <li><Link href={"https://www.airbnb.com/rooms/5401743"} target="_blank" rel="noopener noreferrer">Enchanted Yurt</Link></li>
+                  <ul>
+                    <li><Link href={"https://www.airbnb.com/rooms/5401743"} target="_blank" rel="noopener noreferrer">Enchanted Yurt</Link></li>
+                  </ul>
+                  <li><Link href={'https://www.recreation.gov/search?q=santa%20fe%2C%20nm&radius=50&inventory_type=camping&sort=available'} target="_blank" rel="noopener noreferrer">There are many campsites along the Pecos River and in the mountains surrounding Santa Fe.</Link></li>
                 </ul>
             </div>
             <div className="col-md-6">

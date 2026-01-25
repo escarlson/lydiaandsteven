@@ -22,7 +22,7 @@ export default function RSVPNextStepsClient({
   }
 
   const handleLodging = () => {
-    router.push("/lodging");
+    router.push("/travel/lodging");
   };
 
   const handleRegistry = () => {
@@ -37,7 +37,7 @@ export default function RSVPNextStepsClient({
         {finalButtons.includes("back") && (
           <button
             type="button"
-            className="btn btn-outline-copper"
+            className="btn btn-outline-midnight"
             onClick={handleBack}
           >
             Back
@@ -47,7 +47,7 @@ export default function RSVPNextStepsClient({
         {finalButtons.includes("homepage") && (
           <button
             type="button"
-            className="btn btn-copper"
+            className="btn btn-midnight"
             onClick={handleHomepage}
           >
             Go to Homepage
@@ -57,7 +57,7 @@ export default function RSVPNextStepsClient({
         {finalButtons.includes("lodging") && (
           <button
             type="button"
-            className="btn btn-copper"
+            className="btn btn-midnight"
             onClick={handleLodging}
           >
             Find Lodging
@@ -67,7 +67,7 @@ export default function RSVPNextStepsClient({
         {finalButtons.includes("registry") && (
           <button
             type="button"
-            className="btn btn-copper"
+            className="btn btn-midnight"
             onClick={handleRegistry}
           >
             View Registry

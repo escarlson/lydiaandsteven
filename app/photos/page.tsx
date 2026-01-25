@@ -63,6 +63,17 @@ export default function Photos() {
                 blurDataURL="data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAABQAgCdASoGAAcAABgAJ5wCdAXBL/ji3y1bzAAA/sYH8WZez/wHVc/2Nz/9jSs//o2/s5inVci//m3Rv5C85/taV0B7k5195OcX/wf3z6VApLJerUAXG/f9+X/xks+nal7ymRuDcBlfQAAA"
               />
             </div>
+            <div className="col-xs-12 col-md-6 col-lg-4 mb-3">
+              <Image
+                src="/PXL_20250316_192623590.RAW-01.COVER.webp"
+                alt="Lydia and Steven on Steven's first visit"
+                width={2736}
+                height={3648}
+                className="img-fluid rounded"
+                placeholder="blur"
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQIBAQEBAQIBAQECAgICAgICAgIDAwQDAwMDAwICAwQDAwQEBAQEAgMFBQQEBQQEBAT/2wBDAQEBAQEBAQIBAQIEAwIDBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAT/wAARCAAEAAMDAREAAhEBAxEB/8QAFAABAAAAAAAAAAAAAAAAAAAACP/EABoQAAMBAQEBAAAAAAAAAAAAAAECAwUEESH/xAAVAQEBAAAAAAAAAAAAAAAAAAAFB//EAB4RAQEAAQUAAwAAAAAAAAAAAAECAwAEBxEhBRJR/9oADAMBAAIRAxEAPwA052wm3yJpdmPkJe9KTKcc78fPNZVeM1VEqB8SaAsfWYgszMxZjYfiucuR52GO73hVX3kWpF7yU5EPyZaSJPJgmTwNJ7vh3j7cZ/s7EkkmAmqDrHJAvvtJI1T7VLSquv/Z"
+              />
+            </div>
             <div className="col-xs-1 col-md-1 col-lg-1 mb-3 d-flex ms-auto justify-content-end align-items-end">
               <Image
                 src="/King_penguin_–_Zürich_Zoo_03.jpg"

@@ -51,7 +51,7 @@ export default function Reception() {
             <p>If you need ramp access to the reception venue, please let us know in advance so that we can arrange ramp entry.</p>
             <h2>Potential Schedule</h2>
             <ol className="list-group mb-4">
-              <li className="list-group-item" aria-current="true">
+              <li className="list-group-item">
                 <div className="d-flex w-100 justify-content-between">
                   <h5 className="mb-1">Cocktails and Supper</h5>
                   <div className="text-body">4:30-6:00pm</div>
@@ -70,11 +70,11 @@ export default function Reception() {
                 <h5 className="mb-1">Cake and Champagne Toasts</h5>
                   <div className="text-body">7:30-8:15pm</div>
                 </div>
-                <p className="mb-1">After the toasts from the priest and our parents, we will open the floor to anyone who would like to make a toast. We would love to hear from folks that make up the many different, beloved, community spheres of our Lydia-Steven Venn Diagram. We just ask that each toast be kept to under 2 or 3 minutes.</p>
+                <p className="mb-1">After the toasts from our families, we will open the floor to anyone who would like to make a toast. We would love to hear from folks that make up the many different, beloved, community spheres of our Lydia-Steven Venn Diagram. We just ask that each toast be kept to under 2 or 3 minutes.</p>
               </li>
               <li className="list-group-item">
                 <div className="d-flex w-100 justify-content-between">
-                <h5 className="mb-1">Hafli Greek Dancing</h5>
+                <h5 className="mb-1">Hafli & Greek Dancing</h5>
                   <div className="text-body">8:30-9pm</div>
                 </div>
                 <p className="mb-1">Lydia is a convert to the Antiochian Orthodox Christian Church (of Syrian/Arab tradition), and Steven is a convert to the Greek Orthodox Christian Church. As such, expect a bit of Arab dabke dancing and Greek line dancing! Everyone is invited to participate, even if this isn&apos;t your cultural background. Share our joy!</p>

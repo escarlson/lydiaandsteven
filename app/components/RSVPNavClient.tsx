@@ -25,7 +25,7 @@ export default function RSVPNavClient({
   };
 
   const handleLodging = () => {
-    router.push("/lodging");
+    router.push("/travel/lodging");
   };
 
   const handleRegistry = () => {
@@ -40,7 +40,7 @@ export default function RSVPNavClient({
       {finalButtons.includes("back") && (
         <button
           type="button"
-          className="btn btn-outline-copper"
+          className="btn btn-outline-midnight"
           onClick={handleBack}
         >
           Back
@@ -50,7 +50,7 @@ export default function RSVPNavClient({
       {finalButtons.includes("submit") && (
         <button
           type="button"
-          className="btn btn-copper"
+          className="btn btn-midnight"
           onClick={handleSubmit}
           disabled={!inviteId}
         >
@@ -61,7 +61,7 @@ export default function RSVPNavClient({
       {finalButtons.includes("lodging") && (
         <button
           type="button"
-          className="btn btn-copper"
+          className="btn btn-midnight"
           onClick={handleLodging}
         >
           Find Lodging
@@ -71,7 +71,7 @@ export default function RSVPNavClient({
       {finalButtons.includes("registry") && (
         <button
           type="button"
-          className="btn btn-copper"
+          className="btn btn-midnight"
           onClick={handleRegistry}
         >
           View Registry
