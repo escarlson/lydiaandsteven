@@ -50,7 +50,7 @@ export default function Reception() {
             </div>
             <p>If you need ramp access to the reception venue, please let us know in advance so that we can arrange ramp entry.</p>
             <h2>Potential Schedule</h2>
-            <ol className="list-group mb-4">
+            <ol className="list-group ms-2 mb-4">
               <li className="list-group-item">
                 <div className="d-flex w-100 justify-content-between">
                   <h5 className="mb-1">Cocktails and Supper</h5>
