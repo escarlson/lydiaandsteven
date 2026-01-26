@@ -1,6 +1,6 @@
 -- Use these commands to create the database and tables
 
-CREATE DATABASE wedding_db;
+CREATE DATABASE wedding_db COLLATE utf8mb4_unicode_ci;
 CREATE USER wedding_user IDENTIFIED BY 'securepassword'; -- replace 'securepassword' with a strong password
 GRANT ALL PRIVILEGES ON wedding_db.* TO wedding_user;
 FLUSH PRIVILEGES;
