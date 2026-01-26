@@ -6,6 +6,7 @@ import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 
 type Guest = {
   guest_id: string;
+  title?: string | null;
   given_name: string;
   family_name: string;
   rsvp_status: string | null;
@@ -19,6 +20,7 @@ export default function GuestRSVPClient({ inviteId, initialGuests, readOnly = fa
   const [guests, setGuests] = useState<Guest[]>(initialGuests);
   const [loadingGuest, setLoadingGuest] = useState<string | null>(null);
   const [editingGuest, setEditingGuest] = useState<string | null>(null);
+  const [editTitle, setEditTitle] = useState('');
   const [editGivenName, setEditGivenName] = useState('');
   const [editFamilyName, setEditFamilyName] = useState('');
 
@@ -102,12 +104,14 @@ export default function GuestRSVPClient({ inviteId, initialGuests, readOnly = fa
 
   const startEditingGuest = (guest: Guest) => {
     setEditingGuest(guest.guest_id);
+    setEditTitle(guest.title ?? '');
     setEditGivenName(guest.given_name);
     setEditFamilyName(guest.family_name);
   };
 
   const cancelEditingGuest = () => {
     setEditingGuest(null);
+    setEditTitle('');
     setEditGivenName('');
     setEditFamilyName('');
   };
@@ -118,13 +122,18 @@ export default function GuestRSVPClient({ inviteId, initialGuests, readOnly = fa
       return;
     }
 
+    if (editTitle.trim().length > 50) {
+      showToast('Title must be 50 characters or fewer', 'danger');
+      return;
+    }
+
     setLoadingGuest(guestId);
 
     try {
       const res = await fetch(`/api/rsvp/${inviteId}/guest/${guestId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ given_name: editGivenName.trim(), family_name: editFamilyName.trim() }),
+        body: JSON.stringify({ title: editTitle.trim() || null, given_name: editGivenName.trim(), family_name: editFamilyName.trim() }),
       });
 
       if (!res.ok) {
@@ -137,11 +146,12 @@ export default function GuestRSVPClient({ inviteId, initialGuests, readOnly = fa
       // update local state
       setGuests(prev => prev.map(g => 
         g.guest_id === guestId 
-          ? { ...g, given_name: editGivenName.trim(), family_name: editFamilyName.trim() } 
+          ? { ...g, title: editTitle.trim() || null, given_name: editGivenName.trim(), family_name: editFamilyName.trim() } 
           : g
       ));
       showToast('Guest name updated successfully', 'success');
       setEditingGuest(null);
+      setEditTitle('');
       setEditGivenName('');
       setEditFamilyName('');
     } catch (e: Error | unknown) {
@@ -180,6 +190,15 @@ export default function GuestRSVPClient({ inviteId, initialGuests, readOnly = fa
               <div className="row align-items-center">
                 <div className={readOnly ? "col-12" : "col-8 col-sm-9"}>
                   <div className="d-flex gap-2 flex-wrap align-items-center">
+                    <input
+                      type="text"
+                      className="form-control form-control-midnight form-control-sm"
+                      style={{ maxWidth: '120px' }}
+                      value={editTitle}
+                      onChange={(e) => setEditTitle(e.target.value)}
+                      placeholder="Title"
+                      aria-label="Edit title"
+                    />
                     <input
                       type="text"
                       className="form-control form-control-midnight form-control-sm"
@@ -222,7 +241,7 @@ export default function GuestRSVPClient({ inviteId, initialGuests, readOnly = fa
               // View mode
               <div className="row align-items-center">
                 <div className={readOnly ? "col-12 text-start" : "col-8 col-sm-9 text-start"}>
-                  {guest.given_name} {guest.family_name}
+                  {guest.title ? `${guest.title} ` : ''}{guest.given_name} {guest.family_name}
                   {!readOnly && (
                     <button
                       onClick={() => startEditingGuest(guest)}

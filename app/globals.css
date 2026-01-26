@@ -325,6 +325,22 @@ body {
   box-shadow: 0 0 0 0.25rem rgba(44, 62, 80, 0.25);
 }
 
+/* Custom midnight form check variant */
+.form-check-input-midnight:checked {
+  background-color: #2c3e50;
+  border-color: #2c3e50;
+}
+.form-check-input-midnight:focus {
+  box-shadow: 0 0 0 0.25rem rgba(44, 62, 80, 0.25);
+}
+/* Custom midnight select variant */
+.form-select-midnight {
+  border-color: #34495e;
+}
+.form-select-midnight:focus {
+  box-shadow: 0 0 0 0.25rem rgba(44, 62, 80, 0.25);
+}
+
 .alert-midnight {
   background-color: #2c3e50;
   color: #ecf0f1;

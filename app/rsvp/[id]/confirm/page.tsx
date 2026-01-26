@@ -4,6 +4,7 @@ import Link from "next/link";
 
 type Guest = {
   guest_id: string;
+  title?: string | null;
   given_name: string;
   family_name: string;
   rsvp_status: string | null;

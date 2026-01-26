@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 type NewGuest = {
+  title?: string;
   given_name: string;
   family_name: string;
   rsvp_status?: "pending" | "accepted" | "declined";
@@ -16,7 +17,7 @@ export default function CreateInvitations() {
   const [householdName, setHouseholdName] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [guests, setGuests] = useState<NewGuest[]>([
-    { given_name: "", family_name: "", rsvp_status: "pending", is_adult: true, seat_requested: false },
+    { title: "", given_name: "", family_name: "", rsvp_status: "pending", is_adult: true, seat_requested: false },
   ]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -35,7 +36,7 @@ export default function CreateInvitations() {
     setGuests(prev => prev.map((g, i) => (i === index ? { ...g, ...patch } : g)));
 
   const addGuest = () =>
-    setGuests(prev => [...prev, { given_name: "", family_name: "", rsvp_status: "pending", is_adult: true, seat_requested: false }]);
+    setGuests(prev => [...prev, { title: "", given_name: "", family_name: "", rsvp_status: "pending", is_adult: true, seat_requested: false }]);
 
   const removeGuest = (index: number) =>
     setGuests(prev => prev.filter((_, i) => i !== index));
@@ -52,6 +53,10 @@ export default function CreateInvitations() {
       setError("Each guest requires a given name and family name.");
       return;
     }
+    if (guests.some(g => (g.title ?? '').trim().length > 50)) {
+      setError("Guest title must be 50 characters or fewer.");
+      return;
+    }
 
     setSubmitting(true);
     try {
@@ -59,6 +64,7 @@ export default function CreateInvitations() {
         household_name: householdName,
         postal_code: postalCode || null,
         guests: guests.map(g => ({
+          title: g.title?.trim() || null,
           given_name: g.given_name,
           family_name: g.family_name,
           rsvp_status: g.rsvp_status ?? "pending",
@@ -105,7 +111,7 @@ export default function CreateInvitations() {
           {/* Keep a persistent success link (optional) */}
           {successInviteId && (
             <div className="mb-3">
-              <Link href={`/rsvp/${successInviteId}`} className="btn btn-sm btn-outline-copper">View Created Invitation</Link>
+              <Link href={`/rsvp/${successInviteId}`} className="btn btn-sm btn-outline-midnight">View Created Invitation</Link>
             </div>
           )}
 
@@ -131,11 +137,11 @@ export default function CreateInvitations() {
             <div className="row g-2 mb-3">
               <div className="col-md-10">
               <label className="form-label">Household Name</label>
-              <input className="form-control" value={householdName} onChange={e => setHouseholdName(e.target.value)} required />
+              <input className="form-control form-control-midnight" value={householdName} onChange={e => setHouseholdName(e.target.value)} required />
             </div>
               <div className="col-md-2">
                 <label className="form-label">Postal Code</label>
-                <input className="form-control" value={postalCode} onChange={e => setPostalCode(e.target.value)} />
+                <input className="form-control form-control-midnight" value={postalCode} onChange={e => setPostalCode(e.target.value)} />
               </div>
             </div>
 
@@ -144,17 +150,21 @@ export default function CreateInvitations() {
               <div key={i} className="card mb-3">
                 <div className="card-body">
                   <div className="row g-2 align-items-end">
-                    <div className="col-md-4">
-                      <label className="form-label">Given Name</label>
-                      <input className="form-control" value={g.given_name} onChange={e => updateGuest(i, { given_name: e.target.value })} required />
+                    <div className="col-md-2">
+                      <label className="form-label">Title</label>
+                      <input className="form-control form-control-midnight" value={g.title} onChange={e => updateGuest(i, { title: e.target.value })} placeholder="e.g., Fr." maxLength={50} />
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-3">
+                      <label className="form-label">Given Name</label>
+                      <input className="form-control form-control-midnight" value={g.given_name} onChange={e => updateGuest(i, { given_name: e.target.value })} required />
+                    </div>
+                    <div className="col-md-3">
                       <label className="form-label">Family Name</label>
-                      <input className="form-control" value={g.family_name} onChange={e => updateGuest(i, { family_name: e.target.value })} required />
+                      <input className="form-control form-control-midnight" value={g.family_name} onChange={e => updateGuest(i, { family_name: e.target.value })} required />
                     </div>
                     <div className="col-md-2">
                       <label className="form-label">RSVP Status</label>
-                      <select className="form-select" value={g.rsvp_status} onChange={e => updateGuest(i, { rsvp_status: e.target.value as NewGuest["rsvp_status"] })}>
+                      <select className="form-select form-select-midnight" value={g.rsvp_status} onChange={e => updateGuest(i, { rsvp_status: e.target.value as NewGuest["rsvp_status"] })}>
                         <option value="pending">Pending</option>
                         <option value="accepted">Accepted</option>
                         <option value="declined">Declined</option>
@@ -162,8 +172,8 @@ export default function CreateInvitations() {
                     </div>
                     <div className="col-md-1">
                       <div className="form-check mt-2">
-                        <input className="form-check-input" type="checkbox" id={`adult-${i}`} checked={!!g.is_adult} onChange={e => updateGuest(i, { is_adult: e.target.checked })} />
-                        <label className="form-check-label small" htmlFor={`adult-${i}`}>Adult</label>
+                        <input className="form-check-input form-check-input-midnight" type="checkbox" id={`adult-${i}`} checked={!!g.is_adult} onChange={e => updateGuest(i, { is_adult: e.target.checked })} />
+                        <label className="form-check-label" htmlFor={`adult-${i}`}>Adult</label>
                       </div>
                     </div>
                     <div className="col-md-1 text-end">
@@ -177,8 +187,8 @@ export default function CreateInvitations() {
             ))}
 
             <div className="mb-3">
-              <button type="button" className="btn btn-outline-copper me-2" onClick={addGuest}>Add Guest</button>
-              <button type="submit" className="btn btn-copper" disabled={submitting}>
+              <button type="button" className="btn btn-outline-midnight me-2" onClick={addGuest}>Add Guest</button>
+              <button type="submit" className="btn btn-midnight" disabled={submitting}>
                 {submitting ? "Creating…" : "Create Invitation"}
               </button>
             </div>

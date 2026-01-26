@@ -18,6 +18,7 @@ CREATE TABLE invites (
 CREATE TABLE guests (
     guest_id UUID PRIMARY KEY DEFAULT SYS_GUID(),
     invite_id UUID,
+  title VARCHAR(50),
     given_name VARCHAR(100) NOT NULL,
     family_name VARCHAR(100) NOT NULL,
     rsvp_status ENUM('pending', 'accepted', 'declined') DEFAULT 'pending',

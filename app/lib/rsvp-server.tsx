@@ -8,6 +8,7 @@ type InviteGuestRow = {
   invite_postal_code: string;
   sent_at: Date | null;
   guest_id: number;
+  title: string | null;
   given_name: string;
   family_name: string;
   rsvp_status: string | null;
@@ -28,6 +29,7 @@ const fetchInviteById = async (id: string) => {
          i.postal_code AS invite_postal_code,
          i.sent_at,
          g.guest_id,
+        g.title,
          g.given_name,
          g.family_name,
          g.rsvp_status,
@@ -64,6 +66,7 @@ const fetchInviteById = async (id: string) => {
 
       invitesMap.get(inviteId).guests.push({
         guest_id: r.guest_id,
+        title: r.title,
         given_name: r.given_name,
         family_name: r.family_name,
         rsvp_status: r.rsvp_status,
@@ -103,11 +106,11 @@ const updateGuestRSVP = async (guestId: string | number, rsvpStatus: 'accepted' 
   }
 };
 
-const updateGuestName = async (guestId: string | number, givenName: string, familyName: string) => {
+const updateGuestName = async (guestId: string | number, givenName: string, familyName: string, title?: string | null) => {
   try {
     const [result] = await pool.query(
-      `UPDATE guests SET given_name = ?, family_name = ?, updated_at = NOW() WHERE guest_id = ?`,
-      [givenName, familyName, guestId]
+      `UPDATE guests SET given_name = ?, family_name = ?, title = ?, updated_at = NOW() WHERE guest_id = ?`,
+      [givenName, familyName, title ?? null, guestId]
     );
 
     const res = result as { affectedRows: number };
@@ -127,6 +130,7 @@ const fetchAllInvitationsWithGuests = async () => {
          i.postal_code,
          g.guest_id,
          g.invite_id AS guest_invite_id,
+         g.title,
          g.given_name,
          g.family_name,
          g.rsvp_status,
@@ -144,6 +148,7 @@ const fetchAllInvitationsWithGuests = async () => {
       guest_invite_id: number | null;
       given_name: string | null;
       family_name: string | null;
+      title: string | null;
       rsvp_status: string | null;
       is_adult: number | boolean | null;
     }>;
@@ -167,6 +172,7 @@ const fetchAllInvitationsWithGuests = async () => {
         invitationsMap.get(inviteId).guests.push({
           guest_id: row.guest_id,
           invite_id: row.guest_invite_id,
+          title: row.title,
           given_name: row.given_name,
           family_name: row.family_name,
           rsvp_status: row.rsvp_status,

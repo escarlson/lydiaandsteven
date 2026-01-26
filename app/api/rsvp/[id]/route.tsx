@@ -12,6 +12,7 @@ type InviteGuestRow = {
   invite_postal_code: string;
   sent_at: Date | null;
   guest_id: string;
+  title: string | null;
   given_name: string;
   family_name: string;
   rsvp_status: string | null;
@@ -39,6 +40,7 @@ export async function GET(
          i.postal_code AS invite_postal_code,
          i.sent_at,
          g.guest_id,
+         g.title,
          g.given_name,
          g.family_name,
          g.rsvp_status,
@@ -78,6 +80,7 @@ export async function GET(
 
       invitesMap.get(id).guests.push({
         guest_id: r.guest_id,
+        title: r.title,
         given_name: r.given_name,
         family_name: r.family_name,
         rsvp_status: r.rsvp_status,
@@ -139,6 +142,14 @@ export async function POST(
         if (g.rsvp_status && !['pending', 'accepted', 'declined'].includes(g.rsvp_status)) {
           return NextResponse.json({ error: 'Invalid rsvp_status on guest' }, { status: 400 });
         }
+        if (g.title !== undefined && g.title !== null) {
+          if (typeof g.title !== 'string') {
+            return NextResponse.json({ error: 'title must be a string when provided' }, { status: 400 });
+          }
+          if (g.title.trim().length > 50) {
+            return NextResponse.json({ error: 'title must be 50 characters or fewer' }, { status: 400 });
+          }
+        }
       }
 
       // create invite + guests in a transaction
@@ -162,15 +173,17 @@ export async function POST(
           const rsvp_status = g.rsvp_status ?? 'pending';
           const is_adult = (typeof g.is_adult === 'boolean') ? g.is_adult : true;
           const seat_requested = (typeof g.seat_requested === 'boolean') ? g.seat_requested : false;
+          const title = g.title ? g.title.toString().trim() : null;
 
           await pool.query(
-            `INSERT INTO guests (guest_id, invite_id, given_name, family_name, rsvp_status, is_adult, seat_requested)
-             VALUES (?, ?, ?, ?, ?, ?, ?)`,
-            [guestIdNew, inviteIdNew, g.given_name, g.family_name, rsvp_status, is_adult ? 1 : 0, seat_requested ? 1 : 0]
+            `INSERT INTO guests (guest_id, invite_id, title, given_name, family_name, rsvp_status, is_adult, seat_requested)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+            [guestIdNew, inviteIdNew, title, g.given_name, g.family_name, rsvp_status, is_adult ? 1 : 0, seat_requested ? 1 : 0]
           );
 
           createdGuests.push({
             guest_id: guestIdNew,
+            title,
             given_name: g.given_name,
             family_name: g.family_name,
             rsvp_status,

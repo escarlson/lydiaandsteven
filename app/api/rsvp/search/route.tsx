@@ -8,6 +8,7 @@ type InviteGuestRow = {
   invite_postal_code: string;
   sent_at: Date | null;
   guest_id: string;
+  title: string | null;
   given_name: string;
   family_name: string;
   rsvp_status: string | null;
@@ -33,6 +34,7 @@ export async function GET(request: Request) {
          i.postal_code AS invite_postal_code,
          i.sent_at,
          g.guest_id,
+         g.title,
          g.given_name,
          g.family_name,
          g.rsvp_status,
@@ -74,6 +76,7 @@ export async function GET(request: Request) {
 
       invitesMap.get(id).guests.push({
         guest_id: r.guest_id,
+        title: r.title,
         given_name: r.given_name,
         family_name: r.family_name,
         rsvp_status: r.rsvp_status,

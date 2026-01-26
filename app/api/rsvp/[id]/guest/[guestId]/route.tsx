@@ -10,7 +10,7 @@ export async function PATCH(
     const { guestId } = await params;
     
     const body = await request.json();
-    const { given_name, family_name } = body;
+    const { given_name, family_name, title } = body;
 
     // Validate input
     if (!given_name || !family_name) {
@@ -27,8 +27,16 @@ export async function PATCH(
       );
     }
 
+    if (title !== undefined && title !== null && typeof title !== 'string') {
+      return NextResponse.json(
+        { error: 'Title must be a string if provided' },
+        { status: 400 }
+      );
+    }
+
     const trimmedGivenName = given_name.trim();
     const trimmedFamilyName = family_name.trim();
+    const trimmedTitle = title !== undefined && title !== null ? title.trim() : null;
 
     if (!trimmedGivenName || !trimmedFamilyName) {
       return NextResponse.json(
@@ -37,11 +45,19 @@ export async function PATCH(
       );
     }
 
+    if (trimmedTitle && trimmedTitle.length > 50) {
+      return NextResponse.json(
+        { error: 'Title must be 50 characters or fewer' },
+        { status: 400 }
+      );
+    }
+
     // Update the guest name
     const success = await updateGuestName(
       guestId,
       trimmedGivenName,
-      trimmedFamilyName
+      trimmedFamilyName,
+      trimmedTitle
     );
 
     if (!success) {
@@ -56,6 +72,7 @@ export async function PATCH(
       guest_id: guestId,
       given_name: trimmedGivenName,
       family_name: trimmedFamilyName,
+      title: trimmedTitle,
     });
   } catch (error) {
     console.error('Error updating guest name:', error);

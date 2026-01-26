@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
+import Link from 'next/link';
 import {
   useReactTable,
   getCoreRowModel,
@@ -39,7 +40,8 @@ export default function InvitationsTable() {
             inviteId: invitation.invite_id,
             householdName: invitation.household_name,
             postalCode: invitation.postal_code,
-            guestName: `${guest.given_name} ${guest.family_name}`,
+            title: guest.title || '',
+            guestName: `${guest.title ? guest.title + ' ' : ''}${guest.given_name} ${guest.family_name}`,
             givenName: guest.given_name,
             familyName: guest.family_name,
             response: guest.rsvp_status 
@@ -67,7 +69,14 @@ export default function InvitationsTable() {
     () => [
       columnHelper.accessor('householdName', {
         header: 'Household',
-        cell: (info) => info.getValue(),
+        cell: (info) => {
+          const row = info.row.original;
+          return (
+            <Link href={`/rsvp/${row.inviteId}`} className="text-decoration-none">
+              {info.getValue()}
+            </Link>
+          );
+        },
         enableSorting: true,
         enableColumnFilter: true,
       }),
@@ -153,13 +162,13 @@ export default function InvitationsTable() {
             
             return (
               <div key={column.id} className="col-md-4 mb-2">
-                <label className="form-label small text-muted">
+                <label className="form-label text-muted">
                   Filter {column.columnDef.header}
                 </label>
                 <div className="d-flex gap-3">
                   <div className="form-check">
                     <input
-                      className="form-check-input form-check-input-copper"
+                      className="form-check-input form-check-input-midnight"
                       type="checkbox"
                       id="filter-accepted"
                       checked={currentFilter.includes('Accepted')}
@@ -171,7 +180,7 @@ export default function InvitationsTable() {
                   </div>
                   <div className="form-check">
                     <input
-                      className="form-check-input form-check-input-copper"
+                      className="form-check-input form-check-input-midnight"
                       type="checkbox"
                       id="filter-pending"
                       checked={currentFilter.includes('Pending')}
@@ -183,7 +192,7 @@ export default function InvitationsTable() {
                   </div>
                   <div className="form-check">
                     <input
-                      className="form-check-input form-check-input-copper"
+                      className="form-check-input form-check-input-midnight"
                       type="checkbox"
                       id="filter-declined"
                       checked={currentFilter.includes('Declined')}
@@ -201,12 +210,12 @@ export default function InvitationsTable() {
           // Default text input for other columns
           return (
             <div key={column.id} className="col-md-4 mb-2">
-              <label className="form-label small text-muted">
+              <label className="form-label text-muted">
                 Filter {column.columnDef.header}
               </label>
               <input
                 type="text"
-                className="form-control form-control-copper form-control-sm"
+                className="form-control form-control-midnight form-control-sm"
                 value={column.getFilterValue() ?? ''}
                 onChange={(e) => column.setFilterValue(e.target.value)}
                 placeholder={`Search ${column.columnDef.header}...`}
