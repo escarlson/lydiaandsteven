@@ -17,7 +17,6 @@ export default function Lodging() {
       <main className="pt-5">
         <div className="container mt-5">
           <h1>Lodging</h1>
-          <p>We are working on securing a potential hotel block. In the meantime, here are some recommended hotels.</p>
           <h2>Recommended Lodging</h2>
           <div className="row">
             <div className="col-md-6">
