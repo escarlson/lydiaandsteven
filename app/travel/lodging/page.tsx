@@ -27,7 +27,7 @@ export default function Lodging() {
                   <li><Link href={"https://www.laspalomas.com/"} target="_blank" rel="noopener noreferrer">Las Palomas</Link></li>
                   <li><Link href={"https://www.hotelglorietasantafe.com/"} target="_blank" rel="noopener noreferrer">Hotel Glorieta</Link></li>
                   <li><Link href={"https://themysticsantafe.com/"} target="_blank" rel="noopener noreferrer">The Mystic</Link></li>
-                  <li><Link href={"https://www.bestwestern.com/en_US/book/hotels-in-santa-fe/best-western-plus-inn-of-santa-fe/propertyCode.32095.html"} target="_blank" rel="noopener noreferrer">Best Western Plus Inn of Santa Fe</Link></li>
+                  <li><Link href={"https://www.bestwestern.com/en_US/book/hotel-rooms.32095.html?groupId=2P3HC9S8"} target="_blank" rel="noopener noreferrer">Best Western Plus Inn of Santa Fe</Link> <span className="badge text-bg-success ms-2">Group rate</span></li>
                   <li><Link href={"https://thepecostrailinn.com/"} target="_blank" rel="noopener noreferrer">Pecos Trail Inn</Link></li>
                   <li><Link href={"https://santafemotel.com/"} target="_blank" rel="noopener noreferrer">Santa Fe Motel & Inn</Link></li>
                 </ul>

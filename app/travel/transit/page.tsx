@@ -68,6 +68,16 @@ export default function Transit() {
                   <h2 className="card-title">Automobile</h2>
                   <p className="card-text">Santa Fe is accessible via Interstate 25 and U.S. Route 84/285. From 1926 to 1937, Route 66 passed through Santa Fe.</p>
                 </div>
+                <div className="card-footer">
+                  <figure>
+                    <blockquote className="blockquote">
+                      <p>[Roads] join village to village, for between villages marriages are made.</p>
+                    </blockquote>
+                    <figcaption className="blockquote-footer">
+                      Antoine de Saint-Exupéry in <em>Wind, Sand and Stars</em>
+                    </figcaption>
+                  </figure>
+                </div>
               </div>
             </div>
           </div>
