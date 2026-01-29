@@ -18,10 +18,17 @@ type InviteGuestRow = {
   guest_updated_at: Date;
 };
 
+// Helper function to strip honorific titles from names
+function stripHonorific(name: string): string {
+  // Match common honorifics at the start, with optional period and required space
+  const honorificPattern = /^(mr\.?|mrs\.?|ms\.?|miss\.?|dr\.?|rev\.?|fr\.?|sr\.?|br\.?|prof\.?|kh\.?|dk\.?|sh\.?|dn\.?)\s+/i;
+  return name.trim().replace(honorificPattern, '');
+}
+
 // use GET request with query parameters for searching RSVPs
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const givenNameQuery = searchParams.get("givenName")?.trim() ?? "";
+  const givenNameQuery = stripHonorific(searchParams.get("givenName")?.trim() ?? "");
   const familyNameQuery = searchParams.get("familyName")?.trim() ?? "";
   const postalCodeQuery = searchParams.get("postalCode")?.trim() ?? "";
 
