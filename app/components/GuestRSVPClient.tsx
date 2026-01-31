@@ -126,6 +126,13 @@ const GuestRSVPClient = forwardRef<GuestRSVPClientHandle, { inviteId: string; in
     setEditFamilyName('');
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent, guestId: string) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      saveGuestName(guestId);
+    }
+  };
+
   const saveGuestName = async (guestId: string) => {
     if (!editGivenName.trim() || !editFamilyName.trim()) {
       showToast('Both first and last name are required', 'danger');
@@ -269,6 +276,7 @@ const GuestRSVPClient = forwardRef<GuestRSVPClientHandle, { inviteId: string; in
                       style={{ maxWidth: '120px' }}
                       value={editTitle}
                       onChange={(e) => setEditTitle(e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(e, guest.guest_id)}
                       placeholder="Title"
                       aria-label="Edit title"
                     />
@@ -278,6 +286,7 @@ const GuestRSVPClient = forwardRef<GuestRSVPClientHandle, { inviteId: string; in
                       style={{ maxWidth: '150px' }}
                       value={editGivenName}
                       onChange={(e) => setEditGivenName(e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(e, guest.guest_id)}
                       placeholder="First name"
                       aria-label="Edit first name"
                     />
@@ -287,6 +296,7 @@ const GuestRSVPClient = forwardRef<GuestRSVPClientHandle, { inviteId: string; in
                       style={{ maxWidth: '150px' }}
                       value={editFamilyName}
                       onChange={(e) => setEditFamilyName(e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(e, guest.guest_id)}
                       placeholder="Last name"
                       aria-label="Edit last name"
                     />
