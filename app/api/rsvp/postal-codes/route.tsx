@@ -1,0 +1,145 @@
+import { NextResponse } from "next/server";
+import { auth } from "@/app/lib/auth";
+import pool from '@/app/lib/db';
+
+type PostalCodeStats = {
+  postal_code: string;
+  total_invites: number;
+  pending_guests: number;
+  accepted_guests: number;
+  declined_guests: number;
+  total_guests: number;
+  latitude?: number;
+  longitude?: number;
+};
+
+type GeocodedPostalCode = {
+  postal_code: string;
+  latitude: number;
+  longitude: number;
+};
+
+async function geocodePostalCode(
+  postalCode: string
+): Promise<{ lat: number; lon: number; countryCode?: string } | null> {
+  try {
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/search?postalcode=${encodeURIComponent(postalCode)}&format=json&limit=1&addressdetails=1`,
+      {
+        headers: {
+          'User-Agent': 'Wedding RSVP Map'
+        }
+      }
+    );
+    
+    if (response.ok) {
+      const data = await response.json();
+      if (data.length > 0) {
+        return {
+          lat: parseFloat(data[0].lat),
+          lon: parseFloat(data[0].lon),
+          countryCode: data[0]?.address?.country_code?.toString()?.toUpperCase()
+        };
+      }
+    }
+  } catch (error) {
+    console.error(`Failed to geocode ${postalCode}:`, error);
+  }
+  return null;
+}
+
+export async function GET(request: Request) {
+  // Require authentication for admin operations
+  const session = await auth.api.getSession({ headers: request.headers });
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    // Get postal code statistics
+    const [statsResult] = await pool.query(
+      `SELECT 
+         i.postal_code,
+         COUNT(DISTINCT i.invite_id) as total_invites,
+         SUM(CASE WHEN g.rsvp_status = 'pending' THEN 1 ELSE 0 END) as pending_guests,
+         SUM(CASE WHEN g.rsvp_status = 'accepted' THEN 1 ELSE 0 END) as accepted_guests,
+         SUM(CASE WHEN g.rsvp_status = 'declined' THEN 1 ELSE 0 END) as declined_guests,
+         COUNT(g.guest_id) as total_guests
+       FROM invites i
+       LEFT JOIN guests g ON i.invite_id = g.invite_id
+       WHERE i.postal_code IS NOT NULL AND i.postal_code != ''
+       GROUP BY i.postal_code
+       ORDER BY i.postal_code`
+    );
+
+    const stats = statsResult as PostalCodeStats[];
+    
+    if (stats.length === 0) {
+      return NextResponse.json({ postalCodes: [] }, { status: 200 });
+    }
+
+    // Get cached geocoding data
+    const postalCodeList = stats.map(s => s.postal_code);
+    const [geocodedResult] = await pool.query(
+      `SELECT postal_code, latitude, longitude 
+       FROM postal_code_geocoding 
+       WHERE postal_code IN (?)`,
+      [postalCodeList]
+    );
+
+    const geocodedData = geocodedResult as GeocodedPostalCode[];
+    const geocodedMap = new Map(
+      geocodedData.map(g => [g.postal_code, { lat: g.latitude, lon: g.longitude }])
+    );
+
+    // Find postal codes that need geocoding
+    const needsGeocoding = stats.filter(s => !geocodedMap.has(s.postal_code));
+
+    // Geocode missing postal codes and cache them
+    for (const stat of needsGeocoding) {
+      const coords = await geocodePostalCode(stat.postal_code);
+      
+      if (coords) {
+        // Cache in database
+        try {
+          await pool.query(
+            `INSERT INTO postal_code_geocoding (postal_code, latitude, longitude, country_code)
+             VALUES (?, ?, ?, ?)`,
+            [stat.postal_code, coords.lat, coords.lon, coords.countryCode ?? 'US']
+          );
+          geocodedMap.set(stat.postal_code, coords);
+        } catch (err) {
+          console.error(`Failed to cache geocoding for ${stat.postal_code}:`, err);
+        }
+      }
+      
+      // Rate limit: wait 1 second between requests
+      if (needsGeocoding.indexOf(stat) < needsGeocoding.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      }
+    }
+
+    // Combine stats with geocoding data
+    const postalCodes = stats
+      .map(stat => {
+        const coords = geocodedMap.get(stat.postal_code);
+        if (coords) {
+          return {
+            ...stat,
+            latitude: coords.lat,
+            longitude: coords.lon
+          };
+        }
+        return null;
+      })
+      .filter((code): code is PostalCodeStats & { latitude: number; longitude: number } => code !== null);
+
+    return NextResponse.json({ postalCodes }, { status: 200 });
+  } catch (error) {
+    console.error("Database query error:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/app/lib/auth-client";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMap, faPlus, faList } from "@fortawesome/free-solid-svg-icons";
 
 // Force dynamic rendering so this page never serves cached HTML
 export const dynamic = "force-dynamic";
@@ -42,8 +44,9 @@ export default function Admin() {
           <p className={userName === "Lydia O'Reilly" ? "h4" : "d-none"}>Hi, Lydia! 😘</p>
           <p>Welcome to the admin panel. Here you can manage various aspects of the wedding website.</p>
           <ul className="list-unstyled">
-            <li><Link href="/admin/rsvp/create" className="btn btn-copper mb-2">Create Invitations</Link></li>
-            <li><Link href="/admin/rsvp/report" className="btn btn-copper mb-2">View Invitations</Link></li>
+            <li><Link href="/admin/rsvp/create" className="btn btn-copper mb-2"><FontAwesomeIcon icon={faPlus} /> Create Invitations</Link></li>
+            <li><Link href="/admin/rsvp/report" className="btn btn-copper mb-2"><FontAwesomeIcon icon={faList} /> View Invitations</Link></li>
+            <li><Link href="/admin/rsvp/map" className="btn btn-copper mb-2"><FontAwesomeIcon icon={faMap} /> View RSVP Map</Link></li>
         {/* <li><Link href="/admin/guests" className="btn btn-copper mb-2">Manage Guests</Link></li> */}
           </ul>
         </div>
