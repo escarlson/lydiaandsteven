@@ -27,6 +27,17 @@ const venueIcon = L.icon({
 });
 
 // Different marker for hip alternatives
+const bespokeIcon = L.icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png',
+  iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+  iconSize: [30, 50],
+  iconAnchor: [15, 50],
+  popupAnchor: [1, -40],
+  shadowSize: [41, 41],
+});
+
+// Different marker for adventurous alternatives
 const alternativeIcon = L.icon({
   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
   iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
@@ -40,6 +51,14 @@ const alternativeIcon = L.icon({
 L.Marker.prototype.setIcon(defaultIcon);
 
 interface Hotel {
+  name: string;
+  lat: number;
+  lng: number;
+  url: string;
+  description?: string;
+}
+
+interface Bespoke {
   name: string;
   lat: number;
   lng: number;
@@ -65,28 +84,11 @@ interface Venue {
 
 const hotels: Hotel[] = [
   {
-    name: 'Las Palomas',
-    lat: 35.68909638657713,
-    lng: -105.94578063919384,
-    url: 'https://www.laspalomas.com/',
-  },
-  {
     name: 'Hotel Glorieta',
     lat: 35.69898801534288,
     lng: -105.95405038344455,
-    url: 'https://www.hotelglorietasantafe.com/'
-  },
-  {
-    name: 'The Mystic',
-    lat: 35.656720780883695,
-    lng: -105.98765681680555,
-    url: 'https://themysticsantafe.com/'
-  },
-  { name: 'El Rey Court',
-    lat: 35.66421311537713,
-    lng: -105.97357554361085,
-    url: 'http://www.elreycourt.com/',
-    description: 'A classic motor court with polished Southwestern style'
+    url: 'https://www.hotelglorietasantafe.com/',
+    description: 'A more secluded hotel with a view of the Sangre de Cristo mountains'
   },
   {
     name: 'Pecos Trail Inn',
@@ -100,12 +102,14 @@ const hotels: Hotel[] = [
     lat: 35.68263688051911,
     lng: -105.94513543824881,
     url: 'https://santafemotel.com/',
+    description: 'A small and affordable option close to the plaza. EV charging available on site.'
   },
   {
     name: 'Best Western Plus Inn of Santa Fe',
     lat: 35.64456462134519,
     lng: -106.00723673465295,
-    url: 'https://www.bestwestern.com/en_US/book/hotels-in-santa-fe/best-western-plus-inn-of-santa-fe/propertyCode.32095.html',
+    url: 'https://www.bestwestern.com/en_US/book/hotel-rooms.32095.html?groupId=2P3HC9S8',
+    description: 'A 3.5 star hotel with unusually good reviews. Use our group code 2P3HC9S8 for a discounted rate.'
   }
 ];
 
@@ -126,6 +130,27 @@ const venues: Venue[] = [
   }
 ];
 
+const bespoke: Bespoke[] = [
+  {
+    name: 'The Mystic',
+    lat: 35.656720780883695,
+    lng: -105.98765681680555,
+    url: 'https://themysticsantafe.com/'
+  },
+  {
+    name: 'Las Palomas',
+    lat: 35.68909638657713,
+    lng: -105.94578063919384,
+    url: 'https://www.laspalomas.com/',
+  },
+  { name: 'El Rey Court',
+    lat: 35.66421311537713,
+    lng: -105.97357554361085,
+    url: 'http://www.elreycourt.com/',
+    description: 'A classic motor court with polished Southwestern style'
+  }
+];
+
 const alternatives: Alternative[] = [
   {
     name: 'Santa Fe International Hostel',
@@ -139,6 +164,7 @@ const alternatives: Alternative[] = [
     lat: 35.590139508223274,
     lng: -105.84387090081567,
     url: 'https://santafetreehousecamp.org/',
+    description: 'Unique treehouse cabins offering off-grid adventures. Check the details for the type of accommodation you\'re booking to know what you\'re getting into.'
   },
   {
     name: 'The Enchanted Llama Ranch',
@@ -187,6 +213,16 @@ export default function HotelsMap() {
                 {hotel.name}
               </a>
               {hotel.description && <p style={{ margin: '8px 0 0 0' }}>{hotel.description}</p>}
+            </Popup>
+          </Marker>
+        ))}
+        {bespoke.map((place) => (
+          <Marker key={place.name} position={[place.lat, place.lng]} icon={bespokeIcon}>
+            <Popup>
+              <a href={place.url} target="_blank" rel="noopener noreferrer" style={{ fontWeight: 'bold' }}>
+                {place.name}
+              </a>
+              {place.description && <p style={{ margin: '8px 0 0 0' }}>{place.description}</p>}
             </Popup>
           </Marker>
         ))}
