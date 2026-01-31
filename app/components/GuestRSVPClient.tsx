@@ -115,6 +115,11 @@ const GuestRSVPClient = forwardRef<GuestRSVPClientHandle, { inviteId: string; in
   };
 
   const cancelEditingGuest = () => {
+    // If canceling a temporary guest with no name fields filled, remove it
+    if (editingGuest?.startsWith('temp-') && !editGivenName.trim() && !editFamilyName.trim()) {
+      setGuests(prev => prev.filter(g => g.guest_id !== editingGuest));
+    }
+    
     setEditingGuest(null);
     setEditTitle('');
     setEditGivenName('');
