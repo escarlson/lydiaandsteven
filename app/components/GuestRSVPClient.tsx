@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 
@@ -16,7 +16,12 @@ type Guest = {
   updated_at?: string | Date;
 };
 
-export default function GuestRSVPClient({ inviteId, initialGuests, readOnly = false }: { inviteId: string; initialGuests: Guest[]; readOnly?: boolean }) {
+export type GuestRSVPClientHandle = {
+  addChild: () => void;
+};
+
+const GuestRSVPClient = forwardRef<GuestRSVPClientHandle, { inviteId: string; initialGuests: Guest[]; readOnly?: boolean }>(
+  ({ inviteId, initialGuests, readOnly = false }, ref) => {
   const [guests, setGuests] = useState<Guest[]>(initialGuests);
   const [loadingGuest, setLoadingGuest] = useState<string | null>(null);
   const [editingGuest, setEditingGuest] = useState<string | null>(null);
@@ -130,26 +135,67 @@ export default function GuestRSVPClient({ inviteId, initialGuests, readOnly = fa
     setLoadingGuest(guestId);
 
     try {
-      const res = await fetch(`/api/rsvp/${inviteId}/guest/${guestId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: editTitle.trim() || null, given_name: editGivenName.trim(), family_name: editFamilyName.trim() }),
-      });
+      // Check if this is a new guest (temp ID starts with 'temp-')
+      const isNewGuest = guestId.startsWith('temp-');
+      
+      if (isNewGuest) {
+        // Create new guest via API
+        const res = await fetch(`/api/rsvp/${inviteId}/guest`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            title: editTitle.trim() || null, 
+            given_name: editGivenName.trim(), 
+            family_name: editFamilyName.trim(),
+            is_adult: false // Default for children
+          }),
+        });
 
-      if (!res.ok) {
-        const body = await res.json().catch(() => null);
-        const msg = body?.error || `Request failed: ${res.status}`;
-        showToast(msg, 'danger');
-        return;
+        if (!res.ok) {
+          const body = await res.json().catch(() => null);
+          const msg = body?.error || `Request failed: ${res.status}`;
+          showToast(msg, 'danger');
+          return;
+        }
+
+        const data = await res.json();
+        const newGuest = data.guest;
+        
+        // Replace temp guest with real guest from server
+        setGuests(prev => prev.map(g => 
+          g.guest_id === guestId 
+            ? { 
+                ...newGuest, 
+                created_at: new Date(), 
+                updated_at: new Date() 
+              } 
+            : g
+        ));
+        showToast('Child added successfully', 'success');
+      } else {
+        // Update existing guest via API
+        const res = await fetch(`/api/rsvp/${inviteId}/guest/${guestId}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title: editTitle.trim() || null, given_name: editGivenName.trim(), family_name: editFamilyName.trim() }),
+        });
+
+        if (!res.ok) {
+          const body = await res.json().catch(() => null);
+          const msg = body?.error || `Request failed: ${res.status}`;
+          showToast(msg, 'danger');
+          return;
+        }
+
+        // update local state
+        setGuests(prev => prev.map(g => 
+          g.guest_id === guestId 
+            ? { ...g, title: editTitle.trim() || null, given_name: editGivenName.trim(), family_name: editFamilyName.trim() } 
+            : g
+        ));
+        showToast('Guest name updated successfully', 'success');
       }
-
-      // update local state
-      setGuests(prev => prev.map(g => 
-        g.guest_id === guestId 
-          ? { ...g, title: editTitle.trim() || null, given_name: editGivenName.trim(), family_name: editFamilyName.trim() } 
-          : g
-      ));
-      showToast('Guest name updated successfully', 'success');
+      
       setEditingGuest(null);
       setEditTitle('');
       setEditGivenName('');
@@ -161,6 +207,28 @@ export default function GuestRSVPClient({ inviteId, initialGuests, readOnly = fa
       setLoadingGuest(null);
     }
   };
+
+  const addChild = () => {
+    // Create a temporary guest with edit mode enabled
+    const tempGuestId = `temp-${Date.now()}`;
+    const newGuest: Guest = {
+      guest_id: tempGuestId,
+      title: null,
+      given_name: '',
+      family_name: '',
+      rsvp_status: 'pending',
+      is_adult: false,
+      seat_requested: false,
+    };
+    
+    setGuests(prev => [...prev, newGuest]);
+    startEditingGuest(newGuest);
+  };
+
+  // Expose addChild method to parent components via ref
+  useImperativeHandle(ref, () => ({
+    addChild,
+  }));
 
   return (
     <div>
@@ -290,4 +358,8 @@ export default function GuestRSVPClient({ inviteId, initialGuests, readOnly = fa
       </ul>
     </div>
   );
-}
+});
+
+GuestRSVPClient.displayName = 'GuestRSVPClient';
+
+export default GuestRSVPClient;

@@ -1,7 +1,5 @@
 import { fetchInviteById } from "../../lib/rsvp-server";
-import GuestRSVPClient from "../../components/GuestRSVPClient";
-import RSVPNavClient from "../../components/RSVPNavClient";
-import ErrorBoundary from "@/app/components/ErrorBoundary";
+import RSVPPageClient from "./RSVPPageClient";
 
 type Guest = {
   guest_id: string;
@@ -54,33 +52,7 @@ export default async function RSVP({
           <p>{error}</p>
         </div>
       ) : (
-        <>
-          <div className="row">
-            <div className="col">
-              <h1>You&apos;re invited!</h1>
-              <p><strong>Please RSVP by May 31st.</strong></p>
-              <ErrorBoundary>
-                <h2>{inviteDetails?.household_name}</h2>
-                <p>{( inviteDetails?.guests?.length ? inviteDetails.guests.length : "")} {(inviteDetails?.guests?.length === 1 ? "Guest" : "Guests")}</p>
-              </ErrorBoundary>
-            </div>
-          </div>
-          <div className="row justify-content-center mt-4">
-            <div className="col-md-8 col-lg-6">
-              {/* Client-side interactive RSVP list */}
-              <ErrorBoundary>
-                <GuestRSVPClient inviteId={inviteDetails?.invite_id ?? ''} initialGuests={inviteDetails?.guests ?? []} />
-              </ErrorBoundary>
-            </div>
-          </div>
-          <div className="row mt-4">
-            <div className="col justify-content-evenly d-flex gap-3">
-              <ErrorBoundary>
-                <RSVPNavClient inviteId={inviteDetails?.invite_id ?? ''} />
-              </ErrorBoundary>
-            </div>
-          </div>
-        </>
+        <RSVPPageClient inviteDetails={inviteDetails} />
       )}
     </div>
   </main>

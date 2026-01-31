@@ -2,16 +2,18 @@
 
 import { useRouter } from "next/navigation";
 
-type NavButton = "back" | "submit" | "lodging" | "registry";
+type NavButton = "back" | "submit" | "lodging" | "registry" | "addChild";
 
 type Props = {
   inviteId: string;
   buttons?: NavButton[];
+  onAddChild?: () => void;
 };
 
 export default function RSVPNavClient({
   inviteId,
   buttons,
+  onAddChild,
 }: Props) {
   const router = useRouter();
 
@@ -30,10 +32,16 @@ export default function RSVPNavClient({
 
   const handleRegistry = () => {
     router.push("/registry");
+  };
+
+  const handleAddChild = () => {
+    if (onAddChild) {
+      onAddChild();
+    }
   }; 
 
   const finalButtons: NavButton[] =
-    buttons ?? (["back", "submit"]);
+    buttons ?? (["back", "addChild", "submit"]);
 
   return (
     <>
@@ -44,6 +52,17 @@ export default function RSVPNavClient({
           onClick={handleBack}
         >
           Back
+        </button>
+      )}
+
+      {finalButtons.includes("addChild") && (
+        <button
+          type="button"
+          className="btn btn-outline-midnight"
+          onClick={handleAddChild}
+          disabled={!inviteId || !onAddChild}
+        >
+          Add Child
         </button>
       )}
 
