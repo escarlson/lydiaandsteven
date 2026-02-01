@@ -20,11 +20,24 @@ type GeocodedPostalCode = {
 };
 
 async function geocodePostalCode(
-  postalCode: string
+  postalCode: string,
+  countryCode?: string
 ): Promise<{ lat: number; lon: number; countryCode?: string } | null> {
   try {
+    const params = new URLSearchParams({
+      postalcode: postalCode,
+      format: 'json',
+      limit: '1',
+      addressdetails: '1'
+    });
+    
+    // Add country code filter if provided
+    if (countryCode && countryCode.length === 2) {
+      params.append('countrycodes', countryCode.toLowerCase());
+    }
+    
     const response = await fetch(
-      `https://nominatim.openstreetmap.org/search?postalcode=${encodeURIComponent(postalCode)}&format=json&limit=1&addressdetails=1`,
+      `https://nominatim.openstreetmap.org/search?${params.toString()}`,
       {
         headers: {
           'User-Agent': 'Wedding RSVP Map'
@@ -56,10 +69,11 @@ export async function GET(request: Request) {
   }
 
   try {
-    // Get postal code statistics
+    // Get postal code statistics with country codes
     const [statsResult] = await pool.query(
       `SELECT 
          i.postal_code,
+         i.country,
          COUNT(DISTINCT i.invite_id) as total_invites,
          SUM(CASE WHEN g.rsvp_status = 'pending' THEN 1 ELSE 0 END) as pending_guests,
          SUM(CASE WHEN g.rsvp_status = 'accepted' THEN 1 ELSE 0 END) as accepted_guests,
@@ -68,11 +82,14 @@ export async function GET(request: Request) {
        FROM invites i
        LEFT JOIN guests g ON i.invite_id = g.invite_id
        WHERE i.postal_code IS NOT NULL AND i.postal_code != ''
-       GROUP BY i.postal_code
+       GROUP BY i.postal_code, i.country
        ORDER BY i.postal_code`
     );
 
-    const stats = statsResult as PostalCodeStats[];
+    const stats = (statsResult as any[]).map(row => ({
+      ...row,
+      country: row.country || 'US'
+    }));
     
     if (stats.length === 0) {
       return NextResponse.json({ postalCodes: [] }, { status: 200 });
@@ -95,19 +112,17 @@ export async function GET(request: Request) {
     // Find postal codes that need geocoding
     const needsGeocoding = stats.filter(s => !geocodedMap.has(s.postal_code));
 
-    // Geocode missing postal codes and cache them
     for (const stat of needsGeocoding) {
-      const coords = await geocodePostalCode(stat.postal_code);
-      
+      const coords = await geocodePostalCode(stat.postal_code, stat.country);
       if (coords) {
         // Cache in database
         try {
           await pool.query(
             `INSERT INTO postal_code_geocoding (postal_code, latitude, longitude, country_code)
              VALUES (?, ?, ?, ?)`,
-            [stat.postal_code, coords.lat, coords.lon, coords.countryCode ?? 'US']
+            [stat.postal_code, coords.lat, coords.lon, coords.countryCode ?? stat.country ?? 'US']
           );
-          geocodedMap.set(stat.postal_code, coords);
+          geocodedMap.set(stat.postal_code, { lat: coords.lat, lon: coords.lon });
         } catch (err) {
           console.error(`Failed to cache geocoding for ${stat.postal_code}:`, err);
         }

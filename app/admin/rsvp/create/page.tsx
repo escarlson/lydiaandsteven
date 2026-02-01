@@ -16,6 +16,7 @@ type NewGuest = {
 export default function CreateInvitations() {
   const [householdName, setHouseholdName] = useState("");
   const [postalCode, setPostalCode] = useState("");
+  const [country, setCountry] = useState("US");
   const [guests, setGuests] = useState<NewGuest[]>([
     { title: "", given_name: "", family_name: "", rsvp_status: "pending", is_adult: true, seat_requested: false },
   ]);
@@ -31,6 +32,22 @@ export default function CreateInvitations() {
     const t = window.setTimeout(() => setToastVisible(false), 3500);
     return () => window.clearTimeout(t);
   }, [toastVisible]);
+
+  // Auto-detect country based on postal code format
+  const handlePostalCodeChange = (newPostalCode: string) => {
+    setPostalCode(newPostalCode);
+    
+    // If it's exactly 5 digits, assume US
+    if (/^\d{5}$/.test(newPostalCode)) {
+      setCountry("US");
+    }
+    // If it looks like a UK postcode (alphanumeric), suggest GB
+    else if (/^[A-Z0-9]{2,4}\s?[A-Z0-9]{2,3}$/i.test(newPostalCode)) {
+      setCountry("GB");
+    }
+    // For other formats, keep current selection or default to empty
+    // (user can manually select country)
+  };
 
   const updateGuest = (index: number, patch: Partial<NewGuest>) =>
     setGuests(prev => prev.map((g, i) => (i === index ? { ...g, ...patch } : g)));
@@ -63,6 +80,7 @@ export default function CreateInvitations() {
       const body = {
         household_name: householdName,
         postal_code: postalCode || null,
+        country: country || null,
         guests: guests.map(g => ({
           title: g.title?.trim() || null,
           given_name: g.given_name,
@@ -135,13 +153,17 @@ export default function CreateInvitations() {
           <form onSubmit={handleSubmit}>
             
             <div className="row g-2 mb-3">
-              <div className="col-md-10">
+              <div className="col-md-8">
               <label className="form-label">Household Name</label>
               <input className="form-control form-control-midnight" value={householdName} onChange={e => setHouseholdName(e.target.value)} required />
             </div>
               <div className="col-md-2">
                 <label className="form-label">Postal Code</label>
-                <input className="form-control form-control-midnight" value={postalCode} onChange={e => setPostalCode(e.target.value)} />
+                <input className="form-control form-control-midnight" value={postalCode} onChange={e => handlePostalCodeChange(e.target.value)} />
+              </div>
+              <div className="col-md-2">
+                <label className="form-label">Country Code</label>
+                <input className="form-control form-control-midnight" value={country} onChange={e => setCountry(e.target.value.toUpperCase())} placeholder="US, GB, etc." maxLength={2} />
               </div>
             </div>
 

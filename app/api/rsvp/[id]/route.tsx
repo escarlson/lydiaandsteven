@@ -125,6 +125,8 @@ export async function POST(
 
       const body = await request.json().catch(() => ({}));
       const household_name = (body.household_name ?? '').toString().trim();
+      const postal_code = (body.postal_code ?? '').toString().trim() || null;
+      const country = (body.country ?? '').toString().trim() || null;
       const guests = Array.isArray(body.guests) ? body.guests : [];
 
       if (!household_name) {
@@ -158,12 +160,13 @@ export async function POST(
         await pool.query('START TRANSACTION');
 
         await pool.query(
-          `INSERT INTO invites (invite_id, household_name, postal_code)
-           VALUES (?, ?, ?)`,
+          `INSERT INTO invites (invite_id, household_name, postal_code, country)
+           VALUES (?, ?, ?, ?)`,
           [
             inviteIdNew,
             body.household_name ?? null,
-            body.postal_code ?? null,
+            postal_code,
+            country,
           ]
         );
 
@@ -197,7 +200,8 @@ export async function POST(
         const invite = {
           invite_id: inviteIdNew,
           household_name: body.household_name,
-          postal_code: body.postal_code ?? null,
+          postal_code: postal_code,
+          country: country,
           guests: createdGuests,
         };
 
