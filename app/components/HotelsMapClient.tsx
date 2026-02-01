@@ -177,7 +177,7 @@ const alternatives: Alternative[] = [
     name: 'Enchanted Yurt',
     lat: 35.661338104736245,
     lng: -106.02723531693823,
-    url: 'https://www.airbnb.com/rooms/5401743',
+    url: 'https://glampinghub.com/unitedstatesofamerica/southwest/newmexico/santafe/vacation-rental-desert-santa-fe-new-mexico/',
     description: 'Spacious yurt on the Enchanted Llama Ranch'
   }
 ];
