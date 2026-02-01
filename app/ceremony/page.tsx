@@ -32,7 +32,6 @@ export default function Ceremony() {
               </figure>
             </div>
           </div>
-          
           <h2>Time</h2>
           <p><strong>The wedding will begin at 3:00pm sharp. Please arrive early.</strong></p>
           <h2>Seating</h2>
@@ -40,6 +39,22 @@ export default function Ceremony() {
           <a href="https://form.jotform.com/253634634923057" target="_blank" rel="noopener noreferrer" className="btn btn-midnight mb-3 inline-link"><FontAwesomeIcon icon={faChair} className="button-icon" />Ceremony Seating Accommodation Form</a>
           <p>For everyone else, the wedding will be standing room only. Plan on packing in close to the front of the church and around the couple. Please move in from the doors so that other guests can enter. Additional standing room can be found in the balcony (up the hallway stairs and through the door to your left).</p> 
           <p>The wedding ceremony is about 45 minutes to an hour long.</p>
+          <div className="row">
+            <div className="col-md-12 col-lg-6">
+              <figure className="figure">
+                <Image
+                  src="/where_to_stand.webp"
+                  placeholder="blur"
+                  blurDataURL="data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAACwAgCdASoEAAMAABgAJ7ACdLoB+AH6ANkAA6tbhLgA/vKT3b/6Y3+3qrv4cfMKk9eb/742PbXmPIic4VwwMaNM9/8f/g3/9AI//J//y/PcjSxO/8nJG2KaXt3/qygA"
+                  alt="Annotated image showing where to stand in the church"
+                  className="img-fluid figure-img my-4 rounded"
+                  width={1600}
+                  height={1200}
+                />
+                <figcaption className="figure-caption" style={{ fontSize: "1em" }}>Come close! Move forward and in! Don&apos;t amass in the back!</figcaption>
+              </figure>
+            </div>
+          </div>
           <h2>Parking</h2>
           <p>Parking will be tight! Please consider carpooling. Some parking near the church will be reserved for the wedding party and family. A couple of wheelchair accessible parking spots will be available near the church.</p>
           <p>Parking map coming soon!</p>
