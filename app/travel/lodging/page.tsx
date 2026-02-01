@@ -39,7 +39,7 @@ export default function Lodging() {
                 <ul>
                   <li><Link href={"https://www.hostelsantafe.org/"} target="_blank" rel="noopener noreferrer">Santa Fe International Hostel</Link></li>
                   <li><Link href={"https://santafetreehousecamp.org/"} target="_blank" rel="noopener noreferrer">Santa Fe Tree-House Camp</Link> (bring your own linens for some treehouses)</li>
-                  <li><Link href={"https://www.hipcamp.com/en-US/land/new-mexico-the-enchanted-llama-ranch-wz6hm5y1"} target="_blank" rel="noopener noreferrer">The Enchanted Llama Ranch</Link> (bring your own RV/camper, unless you book the <Link href={"https://glampinghub.com/unitedstatesofamerica/southwest/newmexico/santafe/vacation-rental-desert-santa-fe-new-mexico/"} target="_blank" rel="noopener noreferrer">Enchanted Yurt</Link>)</li>
+                  <li><Link href={"https://www.hipcamp.com/en-US/land/new-mexico-the-enchanted-llama-ranch-wz6hm5y1"} target="_blank" rel="noopener noreferrer">The Enchanted Llama Ranch</Link> (bring your own RV/camper)</li>
                   <li>There are many beautiful <Link href={'https://www.recreation.gov/search?q=santa%20fe%2C%20nm&radius=50&inventory_type=camping&sort=available'} target="_blank" rel="noopener noreferrer">campsites along the Pecos River and in the mountains</Link> surrounding Santa Fe.</li>
                   <li>Check out <Link href={"https://www.hipcamp.com/en-US"} target="_blank" rel="noopener noreferrer">HipCamp</Link> for other unique listings of places to park your camper or bus, or to pitch a tent.</li>
                 </ul>

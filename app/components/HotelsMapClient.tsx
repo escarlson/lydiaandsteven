@@ -172,13 +172,6 @@ const alternatives: Alternative[] = [
     lng: -106.027047063487,
     url: 'https://www.hipcamp.com/en-US/land/new-mexico-the-enchanted-llama-ranch-wz6hm5y1',
     description: 'RV/trailer campsite with llamas!'
-  },
-  {
-    name: 'Enchanted Yurt',
-    lat: 35.661338104736245,
-    lng: -106.02723531693823,
-    url: 'https://glampinghub.com/unitedstatesofamerica/southwest/newmexico/santafe/vacation-rental-desert-santa-fe-new-mexico/',
-    description: 'Spacious yurt on the Enchanted Llama Ranch'
   }
 ];
 
