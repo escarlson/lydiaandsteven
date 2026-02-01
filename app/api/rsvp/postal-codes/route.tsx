@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/app/lib/auth";
-import pool from '@/app/lib/db';
+import pool from "@/app/lib/db";
+import type { RowDataPacket } from "mysql2/promise";
 
 type PostalCodeStats = {
   postal_code: string;
+  country: string;
   total_invites: number;
   pending_guests: number;
   accepted_guests: number;
@@ -13,10 +15,28 @@ type PostalCodeStats = {
   longitude?: number;
 };
 
-type GeocodedPostalCode = {
+type GeocodedPostalCode = RowDataPacket & {
   postal_code: string;
   latitude: number;
   longitude: number;
+};
+
+type StatsRow = RowDataPacket & {
+  postal_code: string;
+  country?: string | null;
+  total_invites: number;
+  pending_guests: number;
+  accepted_guests: number;
+  declined_guests: number;
+  total_guests: number;
+};
+
+type NominatimResult = {
+  lat: string;
+  lon: string;
+  address?: {
+    country_code?: string;
+  };
 };
 
 async function geocodePostalCode(
@@ -46,8 +66,8 @@ async function geocodePostalCode(
     );
     
     if (response.ok) {
-      const data = await response.json();
-      if (data.length > 0) {
+      const data = (await response.json()) as NominatimResult[];
+      if (Array.isArray(data) && data.length > 0) {
         return {
           lat: parseFloat(data[0].lat),
           lon: parseFloat(data[0].lon),
@@ -70,7 +90,7 @@ export async function GET(request: Request) {
 
   try {
     // Get postal code statistics with country codes
-    const [statsResult] = await pool.query(
+    const [statsResult] = await pool.query<StatsRow[]>(
       `SELECT 
          i.postal_code,
          i.country,
@@ -86,9 +106,14 @@ export async function GET(request: Request) {
        ORDER BY i.postal_code`
     );
 
-    const stats = (statsResult as any[]).map(row => ({
-      ...row,
-      country: row.country || 'US'
+    const stats: PostalCodeStats[] = (statsResult as StatsRow[]).map((row) => ({
+      postal_code: row.postal_code,
+      country: row.country ?? "US",
+      total_invites: Number(row.total_invites ?? 0),
+      pending_guests: Number(row.pending_guests ?? 0),
+      accepted_guests: Number(row.accepted_guests ?? 0),
+      declined_guests: Number(row.declined_guests ?? 0),
+      total_guests: Number(row.total_guests ?? 0),
     }));
     
     if (stats.length === 0) {
@@ -97,16 +122,15 @@ export async function GET(request: Request) {
 
     // Get cached geocoding data
     const postalCodeList = stats.map(s => s.postal_code);
-    const [geocodedResult] = await pool.query(
+    const [geocodedResult] = await pool.query<GeocodedPostalCode[]>(
       `SELECT postal_code, latitude, longitude 
        FROM postal_code_geocoding 
        WHERE postal_code IN (?)`,
       [postalCodeList]
     );
 
-    const geocodedData = geocodedResult as GeocodedPostalCode[];
     const geocodedMap = new Map(
-      geocodedData.map(g => [g.postal_code, { lat: g.latitude, lon: g.longitude }])
+      geocodedResult.map(g => [g.postal_code, { lat: g.latitude, lon: g.longitude }])
     );
 
     // Find postal codes that need geocoding
@@ -147,7 +171,10 @@ export async function GET(request: Request) {
         }
         return null;
       })
-      .filter((code): code is PostalCodeStats & { latitude: number; longitude: number } => code !== null);
+      .filter(
+        (code): code is PostalCodeStats & { latitude: number; longitude: number } =>
+          code !== null
+      );
 
     return NextResponse.json({ postalCodes }, { status: 200 });
   } catch (error) {
