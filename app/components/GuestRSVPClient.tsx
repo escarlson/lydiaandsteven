@@ -269,53 +269,59 @@ const GuestRSVPClient = forwardRef<GuestRSVPClientHandle, { inviteId: string; in
               // Edit mode
               <div className="row align-items-center">
                 <div className={readOnly ? "col-12" : "col-8 col-sm-9"}>
-                  <div className="d-flex gap-2 flex-wrap align-items-center">
-                    <input
-                      type="text"
-                      className="form-control form-control-midnight form-control-sm"
-                      style={{ maxWidth: '120px' }}
-                      value={editTitle}
-                      onChange={(e) => setEditTitle(e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, guest.guest_id)}
-                      placeholder="Title"
-                      aria-label="Edit title"
-                    />
-                    <input
-                      type="text"
-                      className="form-control form-control-midnight form-control-sm"
-                      style={{ maxWidth: '150px' }}
-                      value={editGivenName}
-                      onChange={(e) => setEditGivenName(e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, guest.guest_id)}
-                      placeholder="First name"
-                      aria-label="Edit first name"
-                    />
-                    <input
-                      type="text"
-                      className="form-control form-control-midnight form-control-sm"
-                      style={{ maxWidth: '150px' }}
-                      value={editFamilyName}
-                      onChange={(e) => setEditFamilyName(e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, guest.guest_id)}
-                      placeholder="Last name"
-                      aria-label="Edit last name"
-                    />
-                    <button
-                      onClick={() => saveGuestName(guest.guest_id)}
-                      className="btn btn-sm btn-midnight"
-                      disabled={loadingGuest === guest.guest_id}
-                      aria-label="Save changes"
-                    >
-                      {loadingGuest === guest.guest_id ? '...' : 'Save'}
-                    </button>
-                    <button
-                      onClick={cancelEditingGuest}
-                      className="btn btn-sm btn-outline-midnight"
-                      disabled={loadingGuest === guest.guest_id}
-                      aria-label="Cancel editing"
-                    >
-                      Cancel
-                    </button>
+                  <div>
+                    <div className="d-flex gap-2 flex-wrap align-items-center mb-2">
+                      {!guest.guest_id.startsWith('temp-') && (
+                        <input
+                          type="text"
+                          className="form-control form-control-midnight form-control-sm"
+                          style={{ maxWidth: '4em' }}
+                          value={editTitle}
+                          onChange={(e) => setEditTitle(e.target.value)}
+                          onKeyDown={(e) => handleKeyDown(e, guest.guest_id)}
+                          placeholder="Title"
+                          aria-label="Edit title"
+                        />
+                      )}
+                      <input
+                        type="text"
+                        className="form-control form-control-midnight form-control-sm"
+                        style={{ maxWidth: '150px' }}
+                        value={editGivenName}
+                        onChange={(e) => setEditGivenName(e.target.value)}
+                        onKeyDown={(e) => handleKeyDown(e, guest.guest_id)}
+                        placeholder="First name"
+                        aria-label="Edit first name"
+                      />
+                      <input
+                        type="text"
+                        className="form-control form-control-midnight form-control-sm"
+                        style={{ maxWidth: '150px' }}
+                        value={editFamilyName}
+                        onChange={(e) => setEditFamilyName(e.target.value)}
+                        onKeyDown={(e) => handleKeyDown(e, guest.guest_id)}
+                        placeholder="Last name"
+                        aria-label="Edit last name"
+                      />
+                    </div>
+                    <div className="d-flex gap-2">
+                      <button
+                        onClick={() => saveGuestName(guest.guest_id)}
+                        className="btn btn-sm btn-midnight"
+                        disabled={loadingGuest === guest.guest_id}
+                        aria-label="Save changes"
+                      >
+                        {loadingGuest === guest.guest_id ? '...' : 'Save'}
+                      </button>
+                      <button
+                        onClick={cancelEditingGuest}
+                        className="btn btn-sm btn-outline-midnight"
+                        disabled={loadingGuest === guest.guest_id}
+                        aria-label="Cancel editing"
+                      >
+                        Cancel
+                      </button>
+                    </div>
                   </div>
                 </div>
                 {!readOnly && <div className="col-4 col-sm-3"></div>}
