@@ -106,18 +106,17 @@ export async function POST(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  // Require authentication for RSVP mutations
-  const session = await auth.api.getSession({ headers: request.headers });
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   const urlParams = await params;
   const inviteId = urlParams.id;
 
   try {
     // creation flow: POST to /api/rsvp/create will create a new invitation + guests
     if (inviteId === 'create') {
+      // Require authentication for creating invitations
+      const session = await auth.api.getSession({ headers: request.headers });
+      if (!session) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
       const contentType = request.headers.get('content-type') || '';
       if (!contentType.includes('application/json')) {
         return NextResponse.json({ error: 'JSON body required for invite creation' }, { status: 400 });
