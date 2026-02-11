@@ -5,7 +5,6 @@ import "../styles/custom.min.css";
 import "./globals.css";
 import Header from "./components/Header";
 import BootstrapClient from "./components/BootstrapClient";
-import ErrorLogger from "./components/ErrorLogger";
 
 export const metadata: Metadata = {
   title: "Lydia & Steven",
@@ -26,7 +25,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={lato.className}>
-        <ErrorLogger />
         <Header />
         {children}
         <BootstrapClient />
