@@ -51,9 +51,9 @@ export async function GET(request: Request) {
          g.updated_at AS guest_updated_at
        FROM invites i
        JOIN guests g ON i.invite_id = g.invite_id
-       WHERE LOWER(g.given_name) = LOWER(?)
-         AND LOWER(g.family_name) = LOWER(?)
-         AND LOWER(i.postal_code) = LOWER(?)`,
+       WHERE LOWER(TRIM(g.given_name)) = LOWER(?)
+         AND LOWER(TRIM(g.family_name)) = LOWER(?)
+         AND LOWER(TRIM(i.postal_code)) = LOWER(?)`,
       [givenNameQuery, familyNameQuery, postalCodeQuery]
     );
     const rows = result as InviteGuestRow[];
