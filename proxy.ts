@@ -5,6 +5,8 @@ const protectedRoutes = ["/admin"];
 
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const url = request.nextUrl;
+  const method = request.method;
 
   // Check if the current path is protected
   const isProtectedRoute = protectedRoutes.some((route) =>
@@ -31,6 +33,27 @@ export async function proxy(request: NextRequest) {
     redirectResponse.headers.set("Pragma", "no-cache");
     redirectResponse.headers.set("Expires", "0");
     return redirectResponse;
+  }
+
+  // Log Server Action requests (they use POST to special endpoints)
+  if (method === 'POST') {
+    const isServerAction = 
+      request.headers.get('next-action') !== null ||
+      url.pathname.includes('/_next/data/');
+    
+    if (isServerAction) {
+      const actionId = request.headers.get('next-action');
+      const timestamp = new Date().toISOString();
+      
+      console.log(`[${timestamp}] Server Action Request:`, {
+        method,
+        pathname: url.pathname,
+        actionId,
+        origin: request.headers.get('origin'),
+        referer: request.headers.get('referer'),
+        userAgent: request.headers.get('user-agent')?.substring(0, 50),
+      });
+    }
   }
 
   // For authenticated protected routes, disable caching to avoid showing stale pages after sign-out
