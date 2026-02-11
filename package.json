@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "deploy": "pm2 stop lydiaandsteven || true && rm -rf .next && npm ci && npm run build && pm2 start ecosystem.config.js --only lydiaandsteven"
+    "deploy": "pm2 stop lydiaandsteven || true && rm -rf .next && npm ci && npm run build && pm2 delete lydiaandsteven || true && pm2 start ecosystem.config.js --only lydiaandsteven"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
