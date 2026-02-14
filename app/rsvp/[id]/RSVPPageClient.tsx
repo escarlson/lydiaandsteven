@@ -47,7 +47,7 @@ export default function RSVPPageClient({ inviteDetails }: { inviteDetails: Invit
           <p><strong>Please RSVP by May 31st.</strong></p>
           <ErrorBoundary>
             <h2>{inviteDetails?.household_name}</h2>
-            <p>{( inviteDetails?.guests?.length ? inviteDetails.guests.length : "")} {(inviteDetails?.guests?.length === 1 ? "Guest" : "Guests")}</p>
+            <p>Party of {inviteDetails?.guests?.length}</p>
           </ErrorBoundary>
         </div>
       </div>

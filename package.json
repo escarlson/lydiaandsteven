@@ -1,6 +1,6 @@
 {
   "name": "lydiaandsteven",
-  "version": "0.9.9",
+  "version": "0.9.10",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,8 +15,8 @@
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/react-fontawesome": "^3.1.1",
     "@tanstack/react-table": "^8.21.3",
-    "baseline-browser-mapping": "^2.9.15",
-    "better-auth": "^1.4.17",
+    "baseline-browser-mapping": "^2.9.19",
+    "better-auth": "^1.4.18",
     "bootstrap": "^5.3.8",
     "dayjs": "^1.11.19",
     "dotenv": "^17.2.3",
@@ -25,7 +25,7 @@
     "next": "^16.1.6",
     "node": "^24.11.1",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3",
+    "react-dom": "^19.2.4",
     "react-leaflet": "^5.0.0"
   },
   "devDependencies": {
