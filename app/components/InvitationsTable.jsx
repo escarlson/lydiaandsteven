@@ -48,6 +48,7 @@ export default function InvitationsTable() {
               ? guest.rsvp_status.charAt(0).toUpperCase() + guest.rsvp_status.slice(1)
               : 'Pending',
             isAdult: guest.is_adult,
+            updatedAt: guest.updated_at,
           }))
         );
 
@@ -105,7 +106,16 @@ export default function InvitationsTable() {
           return filterValue.includes(row.getValue(columnId));
         },
       }),
-   ],
+      columnHelper.accessor('updatedAt', {
+        header: 'Last Updated',
+        cell: (info) => {
+          const date = new Date(info.getValue());
+          return date.toLocaleString();
+        },
+        enableSorting: true,
+        enableColumnFilter: false,
+      })
+    ],
     []
   );
 

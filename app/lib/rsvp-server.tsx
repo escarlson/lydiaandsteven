@@ -134,10 +134,11 @@ const fetchAllInvitationsWithGuests = async () => {
          g.given_name,
          g.family_name,
          g.rsvp_status,
-         g.is_adult
+         g.is_adult,
+         g.updated_at
        FROM invites i
        LEFT JOIN guests g ON i.invite_id = g.invite_id
-       ORDER BY i.invite_id, g.guest_id`
+       ORDER BY g.updated_at, g.guest_id`
     );
 
     const rows = result as Array<{
@@ -151,6 +152,7 @@ const fetchAllInvitationsWithGuests = async () => {
       title: string | null;
       rsvp_status: string | null;
       is_adult: number | boolean | null;
+      updated_at: Date | null;
     }>;
 
     // Group by invitation
@@ -177,6 +179,7 @@ const fetchAllInvitationsWithGuests = async () => {
           family_name: row.family_name,
           rsvp_status: row.rsvp_status,
           is_adult: !!row.is_adult,
+          updated_at: row.updated_at,
         });
       }
     }
