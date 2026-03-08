@@ -34,6 +34,7 @@ export default function Lodging() {
                   <li><Link href={"https://www.laspalomas.com/"} target="_blank" rel="noopener noreferrer">Las Palomas</Link></li>
                   <li><Link href={"https://elreycourt.com/"} target="_blank" rel="noopener noreferrer">El Rey Court</Link></li>
                   <li><Link href={"https://themysticsantafe.com/"} target="_blank" rel="noopener noreferrer">The Mystic</Link></li>
+                  <li><Link href={"https://www.pueblobonitoinn.com/"} target="_blank" rel="noopener noreferrer">Pueblo Bonito Inn</Link></li>
                 </ul>
               <h3 className="h4">Adventurous Alternatives</h3>
                 <ul>

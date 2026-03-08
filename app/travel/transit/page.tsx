@@ -27,7 +27,7 @@ export default function Transit() {
                   <p className="card-text">Santa Fe is served by one international airport and one regional airport.</p>
                   <ul className="card-text">
                     <li><strong>Santa Fe Regional Airport (SAF)</strong>: The Santa Fe Regional Airport is located about 20 minutes away from the church. This airport has routes connecting Santa Fe to Denver, Dallas, Phoenix, and Los Angeles.</li>
-                    <li><strong>Albuquerque International Sunport (ABQ)</strong>: The Albuquerque International Sunport is a roughly one hour drive from Santa Fe and offers a wider range of flight options. If you are foregoing a rental car, you can use the Rail Runner Express between Albuquerque and Santa Fe, with some bus rides on each end.</li>
+                    <li><strong>Albuquerque International Sunport (ABQ)</strong>: The Albuquerque International Sunport is a roughly one hour drive from Santa Fe and offers a wider range of flight options. If you are foregoing a rental car, you can use the <Link href={"https://www.riometro.org/395/New-Mexico-Rail-Runner-Express"} target="_blank">Rail Runner Express</Link> between Albuquerque and Santa Fe, with some bus rides on each end.</li>
                   </ul>
                 </div>
               </div>  
@@ -66,7 +66,7 @@ export default function Transit() {
                 </figure>
                 <div className="card-body">
                   <h2 className="card-title">Automobile</h2>
-                  <p className="card-text">Santa Fe is accessible via Interstate 25 and U.S. Route 84/285. From 1926 to 1937, Route 66 passed through Santa Fe.</p>
+                  <p className="card-text">Santa Fe is accessible via Interstate 25 and U.S. Route 84/285. Fun fact: from 1926 to 1937, Route 66 passed through Santa Fe. You&apos;ll also find signs around town marking the route of the Santa Fe Trail.</p>
                 </div>
                 <div className="card-footer">
                   <figure>

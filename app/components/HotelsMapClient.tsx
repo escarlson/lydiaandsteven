@@ -17,7 +17,7 @@ const defaultIcon = L.icon({
 
 // Ceremony/reception markers use a bolder red and slightly larger size
 const venueIcon = L.icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
   iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
   iconSize: [30, 50],
@@ -142,12 +142,19 @@ const bespoke: Bespoke[] = [
     lat: 35.68909638657713,
     lng: -105.94578063919384,
     url: 'https://www.laspalomas.com/',
+    description: 'A hip inn with custom furnishings. Located near attractions downtown.'
   },
   { name: 'El Rey Court',
     lat: 35.66421311537713,
     lng: -105.97357554361085,
     url: 'http://www.elreycourt.com/',
     description: 'A classic motor court with polished Southwestern style'
+  },
+  { name: 'Pueblo Bonito Inn',
+    lat: 35.6819814,
+    lng: -105.9453032,
+    url: 'https://www.pueblobonitoinn.com/',
+    description: 'A charming boutique inn preserved from the 19th century. Located in the historic district just a few blocks from the plaza.'
   }
 ];
 
