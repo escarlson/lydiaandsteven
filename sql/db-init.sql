@@ -18,11 +18,12 @@ CREATE TABLE invites (
 CREATE TABLE guests (
     guest_id UUID PRIMARY KEY DEFAULT SYS_GUID(),
     invite_id UUID,
-  title VARCHAR(50),
+    title VARCHAR(50),
     given_name VARCHAR(100) NOT NULL,
     family_name VARCHAR(100) NOT NULL,
     rsvp_status ENUM('pending', 'accepted', 'declined') DEFAULT 'pending',
     is_adult BOOLEAN DEFAULT TRUE,
+    food_eater BOOLEAN DEFAULT FALSE,
     seat_requested BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
