@@ -1,9 +1,10 @@
 import { SignInClient } from "@/app/components/SignInClient";
 
-export default function SignInPage({
+export default async function SignInPage({
   searchParams,
 }: {
-  searchParams: { callbackUrl?: string };
+  searchParams: Promise<{ callbackUrl?: string }>;
 }) {
-  return <SignInClient callbackUrl={searchParams.callbackUrl} />;
+  const { callbackUrl } = await searchParams;
+  return <SignInClient callbackUrl={callbackUrl} />;
 }
