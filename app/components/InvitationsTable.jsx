@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import {
   useReactTable,
@@ -19,6 +19,11 @@ export default function InvitationsTable() {
   const [error, setError] = useState(null);
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
+  const [editingGuest, setEditingGuest] = useState(null);
+  const [editForm, setEditForm] = useState({ title: '', givenName: '', familyName: '' });
+  const [saveError, setSaveError] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const titleInputRef = useRef(null);
 
   // Fetch data from API on mount
   useEffect(() => {
@@ -65,6 +70,109 @@ export default function InvitationsTable() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (editingGuest && titleInputRef.current) {
+      titleInputRef.current.focus();
+    }
+  }, [editingGuest]);
+
+  const openEditModal = (guest) => {
+    setEditingGuest(guest);
+    setEditForm({
+      title: guest.title || '',
+      givenName: guest.givenName || '',
+      familyName: guest.familyName || '',
+    });
+    setSaveError(null);
+  };
+
+  const closeEditModal = () => {
+    if (isSaving) return;
+    setEditingGuest(null);
+    setSaveError(null);
+  };
+
+  const handleSaveGuest = async () => {
+    if (!editingGuest) return;
+
+    const givenName = editForm.givenName.trim();
+    const familyName = editForm.familyName.trim();
+    const title = editForm.title.trim();
+
+    if (!givenName || !familyName) {
+      setSaveError('Given name and family name are required.');
+      return;
+    }
+
+    try {
+      setIsSaving(true);
+      setSaveError(null);
+
+      const response = await fetch(
+        `/api/rsvp/${editingGuest.inviteId}/guest/${editingGuest.id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            title,
+            given_name: givenName,
+            family_name: familyName,
+          }),
+        }
+      );
+
+      const payload = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(payload.error || 'Failed to update guest');
+      }
+
+      const updatedTitle = payload.title || '';
+      const updatedGiven = payload.given_name || givenName;
+      const updatedFamily = payload.family_name || familyName;
+
+      setData((prev) =>
+        prev.map((row) =>
+          row.id === editingGuest.id
+            ? {
+                ...row,
+                title: updatedTitle,
+                givenName: updatedGiven,
+                familyName: updatedFamily,
+                guestName: `${updatedTitle ? updatedTitle + ' ' : ''}${updatedGiven} ${updatedFamily}`,
+                updatedAt: new Date().toISOString(),
+              }
+            : row
+        )
+      );
+
+      setEditingGuest(null);
+    } catch (err) {
+      setSaveError(err.message || 'Failed to update guest');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleModalKeyDown = (event) => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeEditModal();
+      return;
+    }
+
+    if (event.key === 'Enter') {
+      const targetTagName = event.target?.tagName?.toLowerCase();
+      if (targetTagName === 'textarea') return;
+      event.preventDefault();
+      if (!isSaving) {
+        handleSaveGuest();
+      }
+    }
+  };
+
 
   const columns = useMemo(
     () => [
@@ -83,7 +191,18 @@ export default function InvitationsTable() {
       }),
       columnHelper.accessor('guestName', {
         header: 'Guest Name',
-        cell: (info) => info.getValue(),
+        cell: (info) => {
+          const row = info.row.original;
+          return (
+            <button
+              type="button"
+              className="btn btn-link p-0 text-decoration-none text-start"
+              onClick={() => openEditModal(row)}
+            >
+              {info.getValue()}
+            </button>
+          );
+        },
         enableSorting: true,
         enableColumnFilter: true,
       }),
@@ -306,6 +425,98 @@ export default function InvitationsTable() {
           entries
         </small>
       </div>
+        </>
+      )}
+
+      {editingGuest && (
+        <>
+          <div
+            className="modal fade show d-block"
+            tabIndex="-1"
+            role="dialog"
+            aria-modal="true"
+            onKeyDown={handleModalKeyDown}
+          >
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Edit Guest</h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    aria-label="Close"
+                    onClick={closeEditModal}
+                    disabled={isSaving}
+                  />
+                </div>
+                <div className="modal-body">
+                  {saveError && (
+                    <div className="alert alert-danger" role="alert">
+                      {saveError}
+                    </div>
+                  )}
+                  <div className="mb-3">
+                    <label htmlFor="edit-title" className="form-label">Title</label>
+                    <input
+                      ref={titleInputRef}
+                      id="edit-title"
+                      type="text"
+                      className="form-control"
+                      maxLength={50}
+                      value={editForm.title}
+                      onChange={(e) => setEditForm((prev) => ({ ...prev, title: e.target.value }))}
+                      disabled={isSaving}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="edit-given-name" className="form-label">Given Name</label>
+                    <input
+                      id="edit-given-name"
+                      type="text"
+                      className="form-control"
+                      value={editForm.givenName}
+                      onChange={(e) =>
+                        setEditForm((prev) => ({ ...prev, givenName: e.target.value }))
+                      }
+                      disabled={isSaving}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="edit-family-name" className="form-label">Family Name</label>
+                    <input
+                      id="edit-family-name"
+                      type="text"
+                      className="form-control"
+                      value={editForm.familyName}
+                      onChange={(e) =>
+                        setEditForm((prev) => ({ ...prev, familyName: e.target.value }))
+                      }
+                      disabled={isSaving}
+                    />
+                  </div>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-midnight-outline"
+                    onClick={closeEditModal}
+                    disabled={isSaving}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-midnight"
+                    onClick={handleSaveGuest}
+                    disabled={isSaving}
+                  >
+                    {isSaving ? 'Saving...' : 'Save'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="modal-backdrop fade show" onClick={closeEditModal} />
         </>
       )}
     </div>
