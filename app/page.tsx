@@ -74,7 +74,8 @@ export default function Home() {
               <figure className="figure">       
                 <Image
                   src="/little_prince_sunset_cropped.jpg"
-                  alt="The Little Prince observes the sunset from Asteroid B-612"
+                  alt=""
+                  aria-labelledby="littlePrinceCaption"
                   width={1200}
                   height={800}
                   className="figure-img img-fluid z-10"
@@ -86,7 +87,7 @@ export default function Home() {
                     height: 'auto',
                   }}
                 />
-                <figcaption className="figure-caption">
+                <figcaption className="figure-caption" id="littlePrinceCaption">
                 The Little Prince observes the sunset from Asteroid B-612. Antoine de Saint-Exupéry, 1943.
                 </figcaption>
               </figure>
