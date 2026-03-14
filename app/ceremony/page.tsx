@@ -37,7 +37,8 @@ export default function Ceremony() {
           <h2>Seating</h2>
           <p>It is traditional to stand during Orthodox services, and many Orthodox churches (including Holy Trinity) have an open floor plan with no rows of seats! <strong>Seating is extremely limited and will be strictly reserved for those in need of this accommodation.</strong> If you know that you or someone in your party will need a seat, please fill out this short form so that we can be sure to have a chair reserved for you:</p>
           <a href="https://form.jotform.com/253634634923057" target="_blank" rel="noopener noreferrer" className="btn btn-midnight mb-3 inline-link"><FontAwesomeIcon icon={faChair} className="button-icon" />Ceremony Seating Accommodation Form</a>
-          <p>For everyone else, the wedding will be standing room only. Plan on packing in close to the front of the church and around the couple. Please move in from the doors so that other guests can enter. Additional standing room can be found in the balcony (up the hallway stairs and through the door to your left).</p> 
+          <p>For everyone else, the wedding will be standing room only. Plan on packing in close to the front of the church and around the couple. Please move in from the doors so that other guests can enter. Additional standing room can be found in the balcony (up the hallway stairs and through the door to your left).</p>
+          <p>Guests are welcome to sit on the floor before the service begins and during the homily. This is normal.</p>
           <p>The wedding ceremony is about 45 minutes to an hour long.</p>
           <div className="row">
             <div className="col-md-12 col-lg-6">
