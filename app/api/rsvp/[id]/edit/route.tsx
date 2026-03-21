@@ -3,8 +3,6 @@ import type { ResultSetHeader, RowDataPacket } from 'mysql2/promise';
 import pool from '@/app/lib/db';
 import { auth } from '@/app/lib/auth';
 
-const UUID_V4_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-
 type EditPayload = {
   guest_id?: string;
   given_name?: string;
@@ -27,14 +25,11 @@ export async function POST(
     }
 
     const { id: inviteId } = await params;
-    if (!UUID_V4_PATTERN.test(inviteId)) {
-      return NextResponse.json({ error: 'Invalid invitation id' }, { status: 400 });
-    }
 
     const body = (await request.json()) as EditPayload;
     const { guest_id, given_name, family_name, title, is_adult, food_eater } = body;
 
-    if (!guest_id || !UUID_V4_PATTERN.test(guest_id)) {
+    if (!guest_id) {
       return NextResponse.json({ error: 'Invalid guest_id' }, { status: 400 });
     }
 

@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/app/lib/db';
 import { auth } from '@/app/lib/auth';
 
-const UUID_V4_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -32,13 +30,6 @@ export async function POST(
     if (typeof guest_id !== 'string' || typeof given_name !== 'string' || typeof family_name !== 'string') {
       return NextResponse.json(
         { error: 'guest_id and names must be strings' },
-        { status: 400 }
-      );
-    }
-
-    if (!UUID_V4_PATTERN.test(guest_id)) {
-      return NextResponse.json(
-        { error: 'guest_id must be a valid UUID' },
         { status: 400 }
       );
     }
