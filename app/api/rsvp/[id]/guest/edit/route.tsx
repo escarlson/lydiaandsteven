@@ -19,7 +19,7 @@ export async function POST(
     const { id: inviteId } = await params;
     const body = await request.json();
     
-    const { guest_id, given_name, family_name, title, is_adult, food_eater } = body;
+    const { guest_id, given_name, family_name, title, is_adult, food_eater, rsvp_status } = body;
 
     // Validate input
     if (!guest_id || !given_name || !family_name) {
@@ -60,6 +60,13 @@ export async function POST(
     if (food_eater !== undefined && typeof food_eater !== 'boolean') {
       return NextResponse.json(
         { error: 'food_eater must be a boolean if provided' },
+        { status: 400 }
+      );
+    }
+
+    if (rsvp_status !== undefined && !['pending', 'accepted', 'declined'].includes(rsvp_status)) {
+      return NextResponse.json(
+        { error: 'rsvp_status must be pending, accepted, or declined' },
         { status: 400 }
       );
     }
@@ -110,8 +117,11 @@ export async function POST(
 
     // Update guest information
     await pool.query(
-      'UPDATE guests SET given_name = ?, family_name = ?, title = ?, is_adult = ?, food_eater = ? WHERE guest_id = ?',
-      [trimmedGivenName, trimmedFamilyName, trimmedTitle, is_adult, food_eater, guest_id]
+      `UPDATE guests SET given_name = ?, family_name = ?, title = ?, is_adult = ?, food_eater = ?,
+        rsvp_status = COALESCE(?, rsvp_status)
+       WHERE guest_id = ?`,
+      [trimmedGivenName, trimmedFamilyName, trimmedTitle, is_adult, food_eater ?? null,
+       rsvp_status ?? null, guest_id]
     );
 
     return NextResponse.json({ message: 'Guest information updated successfully' });

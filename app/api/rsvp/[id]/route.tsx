@@ -10,6 +10,7 @@ type InviteGuestRow = {
   invite_id: string;
   household_name: string;
   invite_postal_code: string;
+  country: string | null;
   sent_at: Date | null;
   guest_id: string;
   title: string | null;
@@ -17,7 +18,7 @@ type InviteGuestRow = {
   family_name: string;
   rsvp_status: string | null;
   is_adult: number | boolean;
-  seat_requested: number | boolean;
+  food_eater: number | boolean;
   guest_created_at: Date;
   guest_updated_at: Date;
 };
@@ -38,6 +39,7 @@ export async function GET(
          i.invite_id,
          i.household_name,
          i.postal_code AS invite_postal_code,
+         i.country,
          i.sent_at,
          g.guest_id,
          g.title,
@@ -45,7 +47,7 @@ export async function GET(
          g.family_name,
          g.rsvp_status,
          g.is_adult,
-         g.seat_requested,
+         g.food_eater,
          g.created_at AS guest_created_at,
          g.updated_at AS guest_updated_at
        FROM invites i
@@ -73,6 +75,7 @@ export async function GET(
           invite_id: r.invite_id,
           household_name: r.household_name,
           postal_code: r.invite_postal_code,
+          country: r.country,
           sent_at: r.sent_at,
           guests: [],
         });
@@ -84,8 +87,7 @@ export async function GET(
         given_name: r.given_name,
         family_name: r.family_name,
         rsvp_status: r.rsvp_status,
-        is_adult: !!r.is_adult,
-        seat_requested: !!r.seat_requested,
+        is_adult: !!r.is_adult,        food_eater: !!r.food_eater,
         created_at: r.guest_created_at,
         updated_at: r.guest_updated_at,
       });
@@ -174,13 +176,12 @@ export async function POST(
           const guestIdNew = crypto.randomUUID();
           const rsvp_status = g.rsvp_status ?? 'pending';
           const is_adult = (typeof g.is_adult === 'boolean') ? g.is_adult : true;
-          const seat_requested = (typeof g.seat_requested === 'boolean') ? g.seat_requested : false;
           const title = g.title ? g.title.toString().trim() : null;
 
           await pool.query(
-            `INSERT INTO guests (guest_id, invite_id, title, given_name, family_name, rsvp_status, is_adult, seat_requested)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-            [guestIdNew, inviteIdNew, title, g.given_name, g.family_name, rsvp_status, is_adult ? 1 : 0, seat_requested ? 1 : 0]
+            `INSERT INTO guests (guest_id, invite_id, title, given_name, family_name, rsvp_status, is_adult)
+             VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [guestIdNew, inviteIdNew, title, g.given_name, g.family_name, rsvp_status, is_adult ? 1 : 0]
           );
 
           createdGuests.push({
@@ -190,7 +191,6 @@ export async function POST(
             family_name: g.family_name,
             rsvp_status,
             is_adult,
-            seat_requested,
           });
         }
 
@@ -248,6 +248,76 @@ export async function POST(
     return NextResponse.redirect(redirectUrl, { status: 303 });
   } catch (error) {
     console.error('Error processing RSVP POST', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
+}
+
+export async function PATCH(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const urlParams = await params;
+  const inviteId = urlParams.id;
+
+  try {
+    const session = await auth.api.getSession({ headers: request.headers });
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const body = await request.json().catch(() => ({}));
+    const household_name = (body.household_name ?? '').toString().trim();
+    const postal_code = body.postal_code ? body.postal_code.toString().trim() : null;
+    const country = body.country ? body.country.toString().trim().toUpperCase() : null;
+
+    if (!household_name) {
+      return NextResponse.json({ error: 'household_name is required' }, { status: 400 });
+    }
+
+    const [result] = await pool.query(
+      'UPDATE invites SET household_name = ?, postal_code = ?, country = ? WHERE invite_id = ?',
+      [household_name, postal_code, country, inviteId]
+    ) as [import('mysql2').ResultSetHeader, unknown];
+
+    if (result.affectedRows === 0) {
+      return NextResponse.json({ error: 'Invitation not found' }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Error updating invitation:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
+}
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const urlParams = await params;
+  const inviteId = urlParams.id;
+
+  try {
+    const session = await auth.api.getSession({ headers: request.headers });
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Delete guests first (foreign key constraint), then the invite
+    await pool.query('DELETE FROM guests WHERE invite_id = ?', [inviteId]);
+
+    const [result] = await pool.query(
+      'DELETE FROM invites WHERE invite_id = ?',
+      [inviteId]
+    ) as [import('mysql2').ResultSetHeader, unknown];
+
+    if (result.affectedRows === 0) {
+      return NextResponse.json({ error: 'Invitation not found' }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Error deleting invitation:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

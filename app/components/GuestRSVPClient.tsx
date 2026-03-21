@@ -11,7 +11,6 @@ type Guest = {
   family_name: string;
   rsvp_status: string | null;
   is_adult?: boolean;
-  seat_requested?: boolean;
   created_at?: string | Date;
   updated_at?: string | Date;
 };
@@ -230,7 +229,6 @@ const GuestRSVPClient = forwardRef<GuestRSVPClientHandle, { inviteId: string; in
       family_name: '',
       rsvp_status: 'pending',
       is_adult: false,
-      seat_requested: false,
     };
     
     setGuests(prev => [...prev, newGuest]);

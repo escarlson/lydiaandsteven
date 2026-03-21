@@ -9,7 +9,6 @@ type Guest = {
   family_name: string;
   rsvp_status: string | null;
   is_adult?: boolean;
-  seat_requested?: boolean;
   created_at?: string | Date;
   updated_at?: string | Date;
 };

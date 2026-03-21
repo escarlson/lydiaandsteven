@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { updateGuestName } from '@/app/lib/rsvp-server';
+import pool from '@/app/lib/db';
+import { auth } from '@/app/lib/auth';
 
 export async function PATCH(
   request: NextRequest,
@@ -80,5 +82,33 @@ export async function PATCH(
       { error: 'Internal server error' },
       { status: 500 }
     );
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string; guestId: string }> }
+) {
+  try {
+    const session = await auth.api.getSession({ headers: request.headers });
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { id: inviteId, guestId } = await params;
+
+    const [result] = await pool.query(
+      'DELETE FROM guests WHERE guest_id = ? AND invite_id = ?',
+      [guestId, inviteId]
+    ) as [import('mysql2').ResultSetHeader, unknown];
+
+    if (result.affectedRows === 0) {
+      return NextResponse.json({ error: 'Guest not found' }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Error deleting guest:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

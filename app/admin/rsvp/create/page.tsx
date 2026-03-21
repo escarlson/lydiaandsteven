@@ -10,7 +10,6 @@ type NewGuest = {
   family_name: string;
   rsvp_status?: "pending" | "accepted" | "declined";
   is_adult?: boolean;
-  seat_requested?: boolean;
 };
 
 export default function CreateInvitations() {
@@ -18,7 +17,7 @@ export default function CreateInvitations() {
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("US");
   const [guests, setGuests] = useState<NewGuest[]>([
-    { title: "", given_name: "", family_name: "", rsvp_status: "pending", is_adult: true, seat_requested: false },
+    { title: "", given_name: "", family_name: "", rsvp_status: "pending", is_adult: true },
   ]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -53,7 +52,7 @@ export default function CreateInvitations() {
     setGuests(prev => prev.map((g, i) => (i === index ? { ...g, ...patch } : g)));
 
   const addGuest = () =>
-    setGuests(prev => [...prev, { title: "", given_name: "", family_name: "", rsvp_status: "pending", is_adult: true, seat_requested: false }]);
+    setGuests(prev => [...prev, { title: "", given_name: "", family_name: "", rsvp_status: "pending", is_adult: true }]);
 
   const removeGuest = (index: number) =>
     setGuests(prev => prev.filter((_, i) => i !== index));
@@ -87,7 +86,6 @@ export default function CreateInvitations() {
           family_name: g.family_name,
           rsvp_status: g.rsvp_status ?? "pending",
           is_adult: g.is_adult ?? true,
-          seat_requested: g.seat_requested ?? false,
         })),
       };
 

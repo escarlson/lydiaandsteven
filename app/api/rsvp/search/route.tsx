@@ -13,7 +13,6 @@ type InviteGuestRow = {
   family_name: string;
   rsvp_status: string | null;
   is_adult: number | boolean;
-  seat_requested: number | boolean;
   guest_created_at: Date;
   guest_updated_at: Date;
 };
@@ -46,7 +45,6 @@ export async function GET(request: Request) {
          g.family_name,
          g.rsvp_status,
          g.is_adult,
-         g.seat_requested,
          g.created_at AS guest_created_at,
          g.updated_at AS guest_updated_at
        FROM invites i
@@ -88,7 +86,6 @@ export async function GET(request: Request) {
         family_name: r.family_name,
         rsvp_status: r.rsvp_status,
         is_adult: !!r.is_adult,
-        seat_requested: !!r.seat_requested,
         created_at: r.guest_created_at,
         updated_at: r.guest_updated_at,
       });

@@ -67,8 +67,8 @@ export async function POST(
     // Create new guest
     const guestId = crypto.randomUUID();
     await pool.query(
-      `INSERT INTO guests (guest_id, invite_id, title, given_name, family_name, rsvp_status, is_adult, seat_requested)
-       VALUES (?, ?, ?, ?, ?, 'pending', ?, 0)`,
+      `INSERT INTO guests (guest_id, invite_id, title, given_name, family_name, rsvp_status, is_adult)
+       VALUES (?, ?, ?, ?, ?, 'pending', ?)`,
       [guestId, inviteId, trimmedTitle, trimmedGivenName, trimmedFamilyName, is_adult ? 1 : 0]
     );
 
@@ -81,7 +81,6 @@ export async function POST(
         family_name: trimmedFamilyName,
         rsvp_status: 'pending',
         is_adult,
-        seat_requested: false,
       },
     }, { status: 201 });
   } catch (error) {
