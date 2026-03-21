@@ -451,7 +451,7 @@ export default function EditInvitation() {
           </form>
 
           <hr className="my-4" />
-          <div className="d-flex align-items-center gap-2 flex-wrap">
+          <div className="d-flex align-items-center gap-2 flex-wrap mb-3">
             <Link href="/admin/rsvp/report" className="btn btn-sm btn-outline-secondary">
               Back to Report
             </Link>
