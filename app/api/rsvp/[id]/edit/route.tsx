@@ -16,7 +16,7 @@ type EditPayload = {
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const conn = await pool.getConnection();
 
@@ -26,7 +26,7 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const inviteId = params.id;
+    const { id: inviteId } = await params;
     if (!UUID_V4_PATTERN.test(inviteId)) {
       return NextResponse.json({ error: 'Invalid invitation id' }, { status: 400 });
     }
