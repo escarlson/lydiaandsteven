@@ -181,7 +181,7 @@ export default function InvitationsTable() {
         cell: (info) => {
           const row = info.row.original;
           return (
-            <Link href={`/rsvp/${row.inviteId}`} className="text-decoration-none">
+            <Link href={`/admin/rsvp/${row.inviteId}`} className="text-decoration-none">
               {info.getValue()}
             </Link>
           );
