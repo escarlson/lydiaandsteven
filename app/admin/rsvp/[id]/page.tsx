@@ -465,7 +465,7 @@ export default function EditInvitation() {
               </button>
             ) : (
               <div className="ms-auto d-flex align-items-center gap-2">
-                <span className="text-danger small fw-semibold">Do you renounce this invitation and all its pomp, and all its might, all its guests?</span>
+                <span className="text-danger small fw-semibold">Do you renounce this invitation and all its guests, and all its might, all its pomp?</span>
                 <button
                   type="button"
                   className="btn btn-sm btn-danger"

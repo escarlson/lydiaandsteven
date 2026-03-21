@@ -1,105 +1,36 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-type Guest = {
-  guest_id: string;
-  title?: string | null;
-  given_name: string;
-  family_name: string;
-  rsvp_status: string | null;
-  is_adult?: boolean;
-  created_at?: string | Date;
-  updated_at?: string | Date;
-};
-
-type Invitation = {
-  invite_id: string;
-  household_name: string;
-  address_line1: string;
-  address_line2: string | null;
-  city: string;
-  state_province: string;
-  postal_code: string;
-  country: string;
-  sent_at: Date | null;
-  guests: Guest[];
-};
-
-type InvitationsResponse = {
-  success?: boolean;
-  count?: number;
-  invitations?: Invitation[];
-  error?: string;
+type RsvpSummary = {
+  accepted: number;
+  declined: number;
+  pending: number;
+  total: number;
 };
 
 // Component to display a high-level summary of invitations
 export default function InvitationsSummary() {
-  const [data, setData] = useState<Invitation[]>([]);
+  const [summary, setSummary] = useState<RsvpSummary | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const guestSummary = useMemo(() => {
-    let accepted = 0;
-    let declined = 0;
-    let pending = 0;
-
-    const invitations: Invitation[] = Array.isArray(data) ? data : [];
-
-    for (const invitation of invitations) {
-      const guests: Guest[] = Array.isArray(invitation.guests) ? invitation.guests : [];
-
-      for (const guest of guests) {
-        if (guest.rsvp_status === 'accepted') {
-          accepted += 1;
-        } else if (guest.rsvp_status === 'declined') {
-          declined += 1;
-        } else {
-          pending += 1;
-        }
-      }
-    }
-
-    const total = accepted + declined + pending;
-
-    return {
-      accepted,
-      declined,
-      pending,
-      total,
-      acceptedPct: total ? (accepted / total) * 100 : 0,
-      declinedPct: total ? (declined / total) * 100 : 0,
-      pendingPct: total ? (pending / total) * 100 : 0,
-    };
-  }, [data]);
-  
-  // Fetch data from API on mount
+  // Fetch pre-computed counts from API on mount
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/api/rsvp/all');
-        
+        const response = await fetch('/api/rsvp/summary');
+
         if (!response.ok) {
-          throw new Error('Failed to fetch invitations');
+          throw new Error('Failed to fetch RSVP summary');
         }
 
-        const result: Invitation[] | InvitationsResponse = await response.json();
-
-        const invitations = Array.isArray(result)
-          ? result
-          : Array.isArray(result.invitations)
-            ? result.invitations
-            : null;
-
-        if (!invitations) {
-          throw new Error('Unexpected invitations response format');
-        }
-
-        setData(invitations);
+        const result: RsvpSummary = await response.json();
+        setSummary(result);
         setError(null);
       } catch (err) {
-        console.error('Error fetching invitations:', err as Error);
+        console.error('Error fetching RSVP summary:', err as Error);
         setError((err as Error).message);
       } finally {
         setLoading(false);
@@ -109,8 +40,9 @@ export default function InvitationsSummary() {
     fetchData();
   }, []);
 
-  
-
+  const acceptedPct = summary && summary.total ? (summary.accepted / summary.total) * 100 : 0;
+  const declinedPct = summary && summary.total ? (summary.declined / summary.total) * 100 : 0;
+  const pendingPct  = summary && summary.total ? (summary.pending  / summary.total) * 100 : 0;
 
   return (
     <div className="container mt-4">
@@ -131,37 +63,37 @@ export default function InvitationsSummary() {
         </div>
       )}
 
-      {!loading && !error && (
+      {!loading && !error && summary && (
         <div className="card">
           <div className="card-body">
             <h3 className="card-title mb-2">Guest RSVP Progress</h3>
-            <p className="mb-3">Total Guests: <strong>{guestSummary.total}</strong></p>
+            <p className="mb-3">Total Guests: <strong>{summary.total}</strong></p>
 
-            <div className="progress" role="progressbar" style={{ height: "25px" }} aria-label="Guest RSVP progress" aria-valuenow={guestSummary.total} aria-valuemin={0} aria-valuemax={guestSummary.total || 100}>
+            <div className="progress" role="progressbar" style={{ height: "25px" }} aria-label="Guest RSVP progress" aria-valuenow={summary.total} aria-valuemin={0} aria-valuemax={summary.total || 100}>
               <div
                 className="progress-bar bg-success"
-                style={{ width: `${guestSummary.acceptedPct}%` }}
+                style={{ width: `${acceptedPct}%` }}
               >
-                {guestSummary.accepted > 0 ? guestSummary.accepted : ''}
+                {summary.accepted > 0 ? summary.accepted : ''}
               </div>
               <div
                 className="progress-bar bg-danger"
-                style={{ width: `${guestSummary.declinedPct}%` }}
+                style={{ width: `${declinedPct}%` }}
               >
-                {guestSummary.declined > 0 ? guestSummary.declined : ''}
+                {summary.declined > 0 ? summary.declined : ''}
               </div>
               <div
                 className="progress-bar bg-warning text-dark"
-                style={{ width: `${guestSummary.pendingPct}%` }}
+                style={{ width: `${pendingPct}%` }}
               >
-                {guestSummary.pending > 0 ? guestSummary.pending : ''}
+                {summary.pending > 0 ? summary.pending : ''}
               </div>
             </div>
 
             <div className="d-flex gap-3 mt-3 flex-wrap small">
-              <span><strong className="text-success">Accepted:</strong> {guestSummary.accepted}</span>
-              <span><strong className="text-danger">Declined:</strong> {guestSummary.declined}</span>
-              <span><strong className="text-warning-emphasis">Pending:</strong> {guestSummary.pending}</span>
+              <span><strong className="text-success">Accepted:</strong> {summary.accepted}</span>
+              <span><strong className="text-danger">Declined:</strong> {summary.declined}</span>
+              <span><strong className="text-warning-emphasis">Pending:</strong> {summary.pending}</span>
             </div>
           </div>
         </div>

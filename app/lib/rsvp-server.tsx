@@ -188,4 +188,33 @@ const fetchAllInvitationsWithGuests = async () => {
   }
 };
 
-export { fetchInviteById, updateGuestRSVP, updateGuestName, fetchAllInvitationsWithGuests };
+const fetchRsvpSummary = async () => {
+  try {
+    const [rows] = await pool.query(
+      `SELECT rsvp_status, COUNT(*) AS count FROM guests GROUP BY rsvp_status`
+    );
+
+    let accepted = 0;
+    let declined = 0;
+    let pending = 0;
+
+    for (const row of rows as Array<{ rsvp_status: string | null; count: number }>) {
+      const count = Number(row.count);
+      if (row.rsvp_status === 'accepted') {
+        accepted = count;
+      } else if (row.rsvp_status === 'declined') {
+        declined = count;
+      } else {
+        pending += count;
+      }
+    }
+
+    const total = accepted + declined + pending;
+    return { accepted, declined, pending, total };
+  } catch (error) {
+    console.error('Database query error:', error);
+    throw error;
+  }
+};
+
+export { fetchInviteById, updateGuestRSVP, updateGuestName, fetchAllInvitationsWithGuests, fetchRsvpSummary };
