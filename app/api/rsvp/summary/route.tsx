@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { fetchRsvpSummary } from '@/app/lib/rsvp-server';
+import { fetchRsvpSummary, fetchFoodEaterSummary } from '@/app/lib/rsvp-server';
 import { auth } from '@/app/lib/auth';
 
 export async function GET(request: Request) {
@@ -8,8 +8,8 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   try {
-    const summary = await fetchRsvpSummary();
-    return NextResponse.json(summary);
+    const [summary, foodEaters] = await Promise.all([fetchRsvpSummary(), fetchFoodEaterSummary()]);
+    return NextResponse.json({ ...summary, foodEaters });
   } catch (error) {
     console.error('Error fetching RSVP summary:', error);
     return NextResponse.json({ error: 'Failed to fetch RSVP summary' }, { status: 500 });

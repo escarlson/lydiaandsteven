@@ -217,4 +217,29 @@ const fetchRsvpSummary = async () => {
   }
 };
 
-export { fetchInviteById, updateGuestRSVP, updateGuestName, fetchAllInvitationsWithGuests, fetchRsvpSummary };
+const fetchFoodEaterSummary = async () => {
+  try {
+    const [rows] = await pool.query(
+      `SELECT rsvp_status, COUNT(*) AS count FROM guests WHERE food_eater = 1 GROUP BY rsvp_status`
+    );
+
+    let accepted = 0;
+    let pending = 0;
+
+    for (const row of rows as Array<{ rsvp_status: string | null; count: number }>) {
+      const count = Number(row.count);
+      if (row.rsvp_status === 'accepted') {
+        accepted = count;
+      } else if (row.rsvp_status !== 'declined') {
+        pending += count;
+      }
+    }
+
+    return { accepted, pending };
+  } catch (error) {
+    console.error('Database query error:', error);
+    throw error;
+  }
+};
+
+export { fetchInviteById, updateGuestRSVP, updateGuestName, fetchAllInvitationsWithGuests, fetchRsvpSummary, fetchFoodEaterSummary };

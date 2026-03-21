@@ -7,6 +7,10 @@ type RsvpSummary = {
   declined: number;
   pending: number;
   total: number;
+  foodEaters: {
+    accepted: number;
+    pending: number;
+  };
 };
 
 // Component to display a high-level summary of invitations
@@ -64,39 +68,76 @@ export default function InvitationsSummary() {
       )}
 
       {!loading && !error && summary && (
-        <div className="card">
-          <div className="card-body">
-            <h3 className="card-title mb-2">Guest RSVP Progress</h3>
-            <p className="mb-3">Total Guests: <strong>{summary.total}</strong></p>
+        <>
+        <div className="row mb-4">
+          <div className="col col-12 col-md-6">
+            <div className="card">
+              <div className="card-body">
+          <h3 className="card-title mb-2">Guest RSVP Progress</h3>
+          <p className="mb-3">Total Guests: <strong>{summary.total}</strong></p>
 
-            <div className="progress" role="progressbar" style={{ height: "25px" }} aria-label="Guest RSVP progress" aria-valuenow={summary.total} aria-valuemin={0} aria-valuemax={summary.total || 100}>
-              <div
-                className="progress-bar bg-success"
-                style={{ width: `${acceptedPct}%` }}
-              >
-                {summary.accepted > 0 ? summary.accepted : ''}
-              </div>
-              <div
-                className="progress-bar bg-danger"
-                style={{ width: `${declinedPct}%` }}
-              >
-                {summary.declined > 0 ? summary.declined : ''}
-              </div>
-              <div
-                className="progress-bar bg-warning text-dark"
-                style={{ width: `${pendingPct}%` }}
-              >
-                {summary.pending > 0 ? summary.pending : ''}
-              </div>
+          <div className="progress" role="progressbar" style={{ height: "25px" }} aria-label="Guest RSVP progress" aria-valuenow={summary.total} aria-valuemin={0} aria-valuemax={summary.total || 100}>
+            <div
+              className="progress-bar bg-success"
+              style={{ width: `${acceptedPct}%` }}
+            >
+              {summary.accepted > 0 ? summary.accepted : ''}
             </div>
-
-            <div className="d-flex gap-3 mt-3 flex-wrap small">
-              <span><strong className="text-success">Accepted:</strong> {summary.accepted}</span>
-              <span><strong className="text-danger">Declined:</strong> {summary.declined}</span>
-              <span><strong className="text-warning-emphasis">Pending:</strong> {summary.pending}</span>
+            <div
+              className="progress-bar bg-danger"
+              style={{ width: `${declinedPct}%` }}
+            >
+              {summary.declined > 0 ? summary.declined : ''}
+            </div>
+            <div
+              className="progress-bar bg-warning text-dark"
+              style={{ width: `${pendingPct}%` }}
+            >
+              {summary.pending > 0 ? summary.pending : ''}
             </div>
           </div>
+
+          <div className="d-flex gap-3 mt-3 flex-wrap small">
+            <span><strong className="text-success">Accepted:</strong> {summary.accepted}</span>
+            <span><strong className="text-danger">Declined:</strong> {summary.declined}</span>
+            <span><strong className="text-warning-emphasis">Pending:</strong> {summary.pending}</span>
+          </div>
+              </div>
+            </div>
+          </div>
+          <div className="col col-12 col-md-6 d-flex">
+            {summary.foodEaters && (
+              <div className="card w-100">
+              <div className="card-body">
+                <h3 className="card-title mb-2">Meal Counts</h3>
+                <p className="mb-3">Total potential meals: <strong>{summary.foodEaters.accepted + summary.foodEaters.pending}</strong></p>
+
+                <div className="progress" role="progressbar" style={{ height: "25px" }} aria-label="Food eater RSVP progress" aria-valuenow={summary.foodEaters.accepted + summary.foodEaters.pending} aria-valuemin={0} aria-valuemax={summary.foodEaters.accepted + summary.foodEaters.pending || 100}>
+                  <div
+                    className="progress-bar bg-success"
+                    style={{ width: `${(summary.foodEaters.accepted + summary.foodEaters.pending) > 0 ? (summary.foodEaters.accepted / (summary.foodEaters.accepted + summary.foodEaters.pending)) * 100 : 0}%` }}
+                  >
+                    {summary.foodEaters.accepted > 0 ? summary.foodEaters.accepted : ''}
+                  </div>
+                  <div
+                    className="progress-bar bg-warning text-dark"
+                    style={{ width: `${(summary.foodEaters.accepted + summary.foodEaters.pending) > 0 ? (summary.foodEaters.pending / (summary.foodEaters.accepted + summary.foodEaters.pending)) * 100 : 0}%` }}
+                  >
+                    {summary.foodEaters.pending > 0 ? summary.foodEaters.pending : ''}
+                  </div>
+                </div>
+
+                <div className="d-flex gap-3 mt-3 flex-wrap small">
+                  <span><strong className="text-success">Accepted:</strong> {summary.foodEaters.accepted}</span>
+                  <span><strong className="text-warning-emphasis">Pending:</strong> {summary.foodEaters.pending}</span>
+                </div>
+              </div>
+              </div>
+            )}
+          </div>
         </div>
+        
+        </>
       )}
 
     </div>
