@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import GuestRSVPClient, { GuestRSVPClientHandle } from "../../components/GuestRSVPClient";
 import RSVPNavClient from "../../components/RSVPNavClient";
 import ErrorBoundary from "@/app/components/ErrorBoundary";
@@ -31,12 +31,17 @@ type InviteDetails = {
 
 export default function RSVPPageClient({ inviteDetails }: { inviteDetails: InviteDetails | null }) {
   const guestRSVPRef = useRef<GuestRSVPClientHandle>(null);
+  const [partyCount, setPartyCount] = useState<number>(inviteDetails?.guests?.length ?? 0);
 
   const handleAddChild = () => {
     if (guestRSVPRef.current) {
       guestRSVPRef.current.addChild();
     }
   };
+
+  const handleGuestsChange = useCallback((guests: { guest_id: string }[]) => {
+    setPartyCount(guests.length);
+  }, []);
 
   return (
     <>
@@ -46,7 +51,7 @@ export default function RSVPPageClient({ inviteDetails }: { inviteDetails: Invit
           <p><strong>Please RSVP by May 31st.</strong></p>
           <ErrorBoundary>
             <h2>{inviteDetails?.household_name}</h2>
-            <p>Party of {inviteDetails?.guests?.length}</p>
+            <p>Party of {partyCount}</p>
           </ErrorBoundary>
         </div>
       </div>
@@ -58,6 +63,7 @@ export default function RSVPPageClient({ inviteDetails }: { inviteDetails: Invit
               ref={guestRSVPRef}
               inviteId={inviteDetails?.invite_id ?? ''} 
               initialGuests={inviteDetails?.guests ?? []} 
+              onGuestsChange={handleGuestsChange}
             />
           </ErrorBoundary>
         </div>

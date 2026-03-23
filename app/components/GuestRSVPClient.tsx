@@ -19,8 +19,8 @@ export type GuestRSVPClientHandle = {
   addChild: () => void;
 };
 
-const GuestRSVPClient = forwardRef<GuestRSVPClientHandle, { inviteId: string; initialGuests: Guest[]; readOnly?: boolean }>(
-  ({ inviteId, initialGuests, readOnly = false }, ref) => {
+const GuestRSVPClient = forwardRef<GuestRSVPClientHandle, { inviteId: string; initialGuests: Guest[]; readOnly?: boolean; onGuestsChange?: (guests: Guest[]) => void }>(
+  ({ inviteId, initialGuests, readOnly = false, onGuestsChange }, ref) => {
   const [guests, setGuests] = useState<Guest[]>(initialGuests);
   const [loadingGuest, setLoadingGuest] = useState<string | null>(null);
   const [editingGuest, setEditingGuest] = useState<string | null>(null);
@@ -68,6 +68,10 @@ const GuestRSVPClient = forwardRef<GuestRSVPClientHandle, { inviteId: string; in
       if (toastTimerRef.current) window.clearTimeout(toastTimerRef.current);
     };
   }, []);
+
+  useEffect(() => {
+    onGuestsChange?.(guests);
+  }, [guests, onGuestsChange]);
 
   const showToast = (message: string, variant: 'success' | 'danger' = 'success', duration = 3500) => {
     setToastMessage(message);
