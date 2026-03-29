@@ -176,7 +176,7 @@ export async function POST(
           const guestIdNew = crypto.randomUUID();
           const rsvp_status = g.rsvp_status ?? 'pending';
           const is_adult = (typeof g.is_adult === 'boolean') ? g.is_adult : true;
-          const food_eater = (typeof g.food_eater === 'boolean') ? g.food_eater : false;
+          const food_eater = (typeof g.food_eater === 'boolean') ? g.food_eater : true;
           const title = g.title ? g.title.toString().trim() : null;
 
           await pool.query(

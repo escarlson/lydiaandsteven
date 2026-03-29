@@ -18,7 +18,7 @@ export default function CreateInvitations() {
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("US");
   const [guests, setGuests] = useState<NewGuest[]>([
-    { title: "", given_name: "", family_name: "", rsvp_status: "pending", is_adult: true, food_eater: false },
+    { title: "", given_name: "", family_name: "", rsvp_status: "pending", is_adult: true, food_eater: true },
   ]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -53,7 +53,7 @@ export default function CreateInvitations() {
     setGuests(prev => prev.map((g, i) => (i === index ? { ...g, ...patch } : g)));
 
   const addGuest = () =>
-    setGuests(prev => [...prev, { title: "", given_name: "", family_name: "", rsvp_status: "pending", is_adult: true, food_eater: false }]);
+    setGuests(prev => [...prev, { title: "", given_name: "", family_name: "", rsvp_status: "pending", is_adult: true, food_eater: true }]);
 
   const removeGuest = (index: number) =>
     setGuests(prev => prev.filter((_, i) => i !== index));
@@ -87,7 +87,7 @@ export default function CreateInvitations() {
           family_name: g.family_name,
           rsvp_status: g.rsvp_status ?? "pending",
           is_adult: g.is_adult ?? true,
-          food_eater: g.food_eater ?? false,
+          food_eater: g.food_eater ?? true,
         })),
       };
 
