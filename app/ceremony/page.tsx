@@ -34,6 +34,40 @@ export default function Ceremony() {
           </div>
           <h2>Time</h2>
           <p><strong>The wedding will begin at 3:00pm sharp. Please arrive early.</strong></p>
+          <div className="mb-4">
+            <div className="dropdown">
+              <button
+                className="btn btn-outline-midnight btn-sm dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Add to Calendar
+              </button>
+              <ul className="dropdown-menu dropdown-menu-midnight">
+                <li>
+                  <a
+                    href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Lydia+and+Steven+Carlson+Wedding+Ceremony&dates=20260920T150000/20260920T160000&location=Holy+Trinity+Orthodox+Church,+231+E+Cordova+Rd,+Santa+Fe,+NM+87505&details=https%3A%2F%2Flydiaandsteven.wedding"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="dropdown-item"
+                  >
+                    Google Calendar
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Lydia+and+Steven+Carlson+Wedding+Ceremony&location=Holy+Trinity+Orthodox+Church,+231+E+Cordova+Rd,+Santa+Fe,+NM+87505&startdt=2026-09-20T15:00:00&enddt=2026-09-20T16:00:00&body=https%3A%2F%2Flydiaandsteven.wedding"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="dropdown-item"
+                  >
+                    Outlook Calendar
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
           <h2>Seating</h2>
           <p>It is traditional to stand during Orthodox services, and many Orthodox churches (including Holy Trinity) have an open floor plan with no rows of seats! <strong>Seating is extremely limited and will be strictly reserved for those in need of this accommodation.</strong> If you know that you or someone in your party will need a seat, please fill out this short form so that we can be sure to have a chair reserved for you:</p>
           <a href="https://form.jotform.com/253634634923057" target="_blank" rel="noopener noreferrer" className="btn btn-midnight mb-3 inline-link"><FontAwesomeIcon icon={faChair} className="button-icon" />Ceremony Seating Accommodation Form</a>
