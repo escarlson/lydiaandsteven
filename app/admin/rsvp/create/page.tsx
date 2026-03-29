@@ -10,6 +10,7 @@ type NewGuest = {
   family_name: string;
   rsvp_status?: "pending" | "accepted" | "declined";
   is_adult?: boolean;
+  food_eater?: boolean;
 };
 
 export default function CreateInvitations() {
@@ -17,7 +18,7 @@ export default function CreateInvitations() {
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("US");
   const [guests, setGuests] = useState<NewGuest[]>([
-    { title: "", given_name: "", family_name: "", rsvp_status: "pending", is_adult: true },
+    { title: "", given_name: "", family_name: "", rsvp_status: "pending", is_adult: true, food_eater: true },
   ]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -52,7 +53,7 @@ export default function CreateInvitations() {
     setGuests(prev => prev.map((g, i) => (i === index ? { ...g, ...patch } : g)));
 
   const addGuest = () =>
-    setGuests(prev => [...prev, { title: "", given_name: "", family_name: "", rsvp_status: "pending", is_adult: true }]);
+    setGuests(prev => [...prev, { title: "", given_name: "", family_name: "", rsvp_status: "pending", is_adult: true, food_eater: true }]);
 
   const removeGuest = (index: number) =>
     setGuests(prev => prev.filter((_, i) => i !== index));
@@ -86,6 +87,7 @@ export default function CreateInvitations() {
           family_name: g.family_name,
           rsvp_status: g.rsvp_status ?? "pending",
           is_adult: g.is_adult ?? true,
+          food_eater: g.food_eater ?? true,
         })),
       };
 
@@ -194,6 +196,10 @@ export default function CreateInvitations() {
                       <div className="form-check mt-2">
                         <input className="form-check-input form-check-input-midnight" type="checkbox" id={`adult-${i}`} checked={!!g.is_adult} onChange={e => updateGuest(i, { is_adult: e.target.checked })} />
                         <label className="form-check-label" htmlFor={`adult-${i}`}>Adult</label>
+                      </div>
+                      <div className="form-check">
+                        <input className="form-check-input form-check-input-midnight" type="checkbox" id={`food-${i}`} checked={!!g.food_eater} onChange={e => updateGuest(i, { food_eater: e.target.checked })} />
+                        <label className="form-check-label" htmlFor={`food-${i}`}>Food</label>
                       </div>
                     </div>
                     <div className="col-md-1 text-end">
