@@ -176,12 +176,13 @@ export async function POST(
           const guestIdNew = crypto.randomUUID();
           const rsvp_status = g.rsvp_status ?? 'pending';
           const is_adult = (typeof g.is_adult === 'boolean') ? g.is_adult : true;
+          const food_eater = (typeof g.food_eater === 'boolean') ? g.food_eater : false;
           const title = g.title ? g.title.toString().trim() : null;
 
           await pool.query(
-            `INSERT INTO guests (guest_id, invite_id, title, given_name, family_name, rsvp_status, is_adult)
-             VALUES (?, ?, ?, ?, ?, ?, ?)`,
-            [guestIdNew, inviteIdNew, title, g.given_name, g.family_name, rsvp_status, is_adult ? 1 : 0]
+            `INSERT INTO guests (guest_id, invite_id, title, given_name, family_name, rsvp_status, is_adult, food_eater)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+            [guestIdNew, inviteIdNew, title, g.given_name, g.family_name, rsvp_status, is_adult ? 1 : 0, food_eater ? 1 : 0]
           );
 
           createdGuests.push({
@@ -191,6 +192,7 @@ export async function POST(
             family_name: g.family_name,
             rsvp_status,
             is_adult,
+            food_eater,
           });
         }
 
