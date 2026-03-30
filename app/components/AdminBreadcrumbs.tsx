@@ -14,7 +14,8 @@ export default function AdminBreadcrumbs({ items }: AdminBreadcrumbsProps) {
     <nav aria-label="Admin breadcrumb" className="admin-breadcrumb mb-4">
       <ol className="breadcrumb mb-0">
         {items.map((item, index) => {
-          const isCurrentPage = index === items.length - 1 || !item.href;
+          const href = item.href;
+          const isCurrentPage = index === items.length - 1 || !href;
 
           return (
             <li
@@ -22,7 +23,7 @@ export default function AdminBreadcrumbs({ items }: AdminBreadcrumbsProps) {
               className={`breadcrumb-item${isCurrentPage ? " active" : ""}`}
               aria-current={isCurrentPage ? "page" : undefined}
             >
-              {isCurrentPage ? item.label : <Link href={item.href}>{item.label}</Link>}
+              {isCurrentPage || !href ? item.label : <Link href={href}>{item.label}</Link>}
             </li>
           );
         })}
