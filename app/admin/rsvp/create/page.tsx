@@ -126,11 +126,9 @@ export default function CreateInvitations() {
   };
 
   return (
-    <div>
-      <main className="pt-5">
-        <div className="container mt-5">
-          <h1>Create Invitations</h1>
-          <p>Create invitations and their related guests.</p>
+    <>
+      <h1>Create Invitations</h1>
+      <p>Create invitations and their related guests.</p>
 
           {error && <div className="alert alert-danger">{error}</div>}
           {/* Keep a persistent success link (optional) */}
@@ -226,8 +224,6 @@ export default function CreateInvitations() {
               </button>
             </div>
           </form>
-        </div>
-      </main>
-    </div>
+    </>
   );
 }

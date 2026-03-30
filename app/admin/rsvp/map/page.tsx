@@ -11,7 +11,7 @@ export default async function RSVPMapPage() {
   }
 
   return (
-    <main className="container mt-5 py-5">
+    <div className="py-2">
       <div className="row mb-4">
         <div className="col">
           <h1>RSVP Map</h1>
@@ -26,6 +26,6 @@ export default async function RSVPMapPage() {
           <RSVPMapClient />
         </div>
       </div>
-    </main>
+    </div>
   );
 }

@@ -265,228 +265,220 @@ export default function EditInvitation() {
 
   if (notFound) {
     return (
-      <div>
-        <main className="pt-5">
-          <div className="container mt-5">
-            <h1>Invitation Not Found</h1>
-            <p>
-              No invitation was found with ID <code>{inviteId}</code>.
-            </p>
-            <Link href="/admin/rsvp/report" className="btn btn-outline-midnight">
-              Back to Report
-            </Link>
-          </div>
-        </main>
-      </div>
+      <>
+        <h1>Invitation Not Found</h1>
+        <p>
+          No invitation was found with ID <code>{inviteId}</code>.
+        </p>
+        <Link href="/admin/rsvp/report" className="btn btn-outline-midnight">
+          Back to Report
+        </Link>
+      </>
     );
   }
 
   // ── Form ────────────────────────────────────────────────────────────────
 
   return (
-    <div>
-      <main className="pt-5">
-        <div className="container mt-5">
-          <div className="d-flex align-items-center gap-3 mb-1">
-            <h1 className="mb-0">Edit Invitation</h1>
-            <Link href={`/rsvp/${inviteId}`} className="btn btn-sm btn-outline-midnight">
-              View RSVP
-            </Link>
-          </div>
-          <p className="text-muted font-monospace small mb-3">{inviteId}</p>
+    <>
+      <div className="d-flex align-items-center gap-3 mb-1">
+        <h1 className="mb-0">Edit Invitation</h1>
+        <Link href={`/rsvp/${inviteId}`} className="btn btn-sm btn-outline-midnight">
+          View RSVP
+        </Link>
+      </div>
+      <p className="text-muted font-monospace small mb-3">{inviteId}</p>
 
-          {error && <div className="alert alert-danger">{error}</div>}
+      {error && <div className="alert alert-danger">{error}</div>}
 
-          {/* Success toast */}
-          {toastVisible && (
-            <div className="position-fixed bottom-0 end-0 p-3" style={{ zIndex: 1080 }}>
-              <div
-                className="toast show align-items-center text-white bg-success border-0"
-                role="alert"
-                aria-live="assertive"
-                aria-atomic="true"
-              >
-                <div className="d-flex">
-                  <div className="toast-body">Invitation saved successfully.</div>
-                  <button
-                    type="button"
-                    className="btn-close btn-close-white me-2 m-auto"
-                    aria-label="Close"
-                    onClick={() => setToastVisible(false)}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit}>
-            {/* ── Invitation fields ── */}
-            <div className="row g-2 mb-3">
-              <div className="col-md-8">
-                <label className="form-label">Household Name</label>
-                <input
-                  className="form-control form-control-midnight"
-                  value={householdName}
-                  onChange={e => setHouseholdName(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="col-md-2">
-                <label className="form-label">Postal Code</label>
-                <input
-                  className="form-control form-control-midnight"
-                  value={postalCode}
-                  onChange={e => handlePostalCodeChange(e.target.value)}
-                />
-              </div>
-              <div className="col-md-2">
-                <label className="form-label">Country Code</label>
-                <input
-                  className="form-control form-control-midnight"
-                  value={country}
-                  onChange={e => setCountry(e.target.value.toUpperCase())}
-                  placeholder="US, GB, etc."
-                  maxLength={2}
-                />
-              </div>
-            </div>
-
-            {/* ── Guests ── */}
-            <h2 className="h5 mt-4">Guests</h2>
-            {guests.map((g, i) => (
-              <div key={g.guest_id ?? `new-${i}`} className="card mb-3">
-                <div className="card-body">
-                  <div className="row g-2 align-items-end">
-                    <div className="col-md-2">
-                      <label className="form-label">Title</label>
-                      <input
-                        className="form-control form-control-midnight"
-                        value={g.title}
-                        onChange={e => updateGuest(i, { title: e.target.value })}
-                        placeholder="e.g., Fr."
-                        maxLength={50}
-                      />
-                    </div>
-                    <div className="col-md-3">
-                      <label className="form-label">Given Name</label>
-                      <input
-                        className="form-control form-control-midnight"
-                        value={g.given_name}
-                        onChange={e => updateGuest(i, { given_name: e.target.value })}
-                        required
-                      />
-                    </div>
-                    <div className="col-md-3">
-                      <label className="form-label">Family Name</label>
-                      <input
-                        className="form-control form-control-midnight"
-                        value={g.family_name}
-                        onChange={e => updateGuest(i, { family_name: e.target.value })}
-                        required
-                      />
-                    </div>
-                    <div className="col-md-2">
-                      <label className="form-label">RSVP Status</label>
-                      <select
-                        className="form-select form-select-midnight"
-                        value={g.rsvp_status}
-                        onChange={e =>
-                          updateGuest(i, { rsvp_status: e.target.value as GuestEntry["rsvp_status"] })
-                        }
-                      >
-                        <option value="pending">Pending</option>
-                        <option value="accepted">Accepted</option>
-                        <option value="declined">Declined</option>
-                      </select>
-                    </div>
-                    <div className="col-md-1">
-                      <div className="form-check mt-2">
-                        <input
-                          className="form-check-input form-check-input-midnight"
-                          type="checkbox"
-                          id={`adult-${i}`}
-                          checked={!!g.is_adult}
-                          onChange={e => updateGuest(i, { is_adult: e.target.checked })}
-                        />
-                        <label className="form-check-label" htmlFor={`adult-${i}`}>
-                          Adult
-                        </label>
-                      </div>
-                      <div className="form-check">
-                        <input
-                          className="form-check-input form-check-input-midnight"
-                          type="checkbox"
-                          id={`food-${i}`}
-                          checked={!!g.food_eater}
-                          onChange={e => updateGuest(i, { food_eater: e.target.checked })}
-                        />
-                        <label className="form-check-label" htmlFor={`food-${i}`}>
-                          Food
-                        </label>
-                      </div>
-                    </div>
-                    <div className="col-md-1 text-end">
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-danger"
-                        onClick={() => removeGuest(i)}
-                        disabled={guests.length === 1}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-
-            <div className="mb-3">
-              <button type="button" className="btn btn-outline-midnight me-2" onClick={addGuest}>
-                Add Guest
-              </button>
-              <button type="submit" className="btn btn-midnight" disabled={submitting}>
-                {submitting ? "Saving…" : "Save Changes"}
-              </button>
-            </div>
-          </form>
-
-          <hr className="my-4" />
-          <div className="d-flex align-items-center gap-2 flex-wrap mb-3">
-            <Link href="/admin/rsvp/report" className="btn btn-sm btn-outline-secondary">
-              Back to Report
-            </Link>
-            {!confirmDelete ? (
+      {/* Success toast */}
+      {toastVisible && (
+        <div className="position-fixed bottom-0 end-0 p-3" style={{ zIndex: 1080 }}>
+          <div
+            className="toast show align-items-center text-white bg-success border-0"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+          >
+            <div className="d-flex">
+              <div className="toast-body">Invitation saved successfully.</div>
               <button
                 type="button"
-                className="btn btn-sm btn-outline-danger ms-auto"
-                onClick={() => setConfirmDelete(true)}
-              >
-                Delete Invitation
-              </button>
-            ) : (
-              <div className="ms-auto d-flex align-items-center gap-2">
-                <span className="text-danger small fw-semibold">Do you renounce this invitation and all its guests, and all its might, all its pomp?</span>
-                <button
-                  type="button"
-                  className="btn btn-sm btn-danger"
-                  onClick={handleDelete}
-                  disabled={deleting}
-                >
-                  {deleting ? "Deleting…" : "Yes, delete"}
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-sm btn-outline-secondary"
-                  onClick={() => setConfirmDelete(false)}
-                  disabled={deleting}
-                >
-                  Cancel
-                </button>
-              </div>
-            )}
+                className="btn-close btn-close-white me-2 m-auto"
+                aria-label="Close"
+                onClick={() => setToastVisible(false)}
+              />
+            </div>
           </div>
         </div>
-      </main>
-    </div>
+      )}
+
+      <form onSubmit={handleSubmit}>
+        {/* ── Invitation fields ── */}
+        <div className="row g-2 mb-3">
+          <div className="col-md-8">
+            <label className="form-label">Household Name</label>
+            <input
+              className="form-control form-control-midnight"
+              value={householdName}
+              onChange={e => setHouseholdName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="col-md-2">
+            <label className="form-label">Postal Code</label>
+            <input
+              className="form-control form-control-midnight"
+              value={postalCode}
+              onChange={e => handlePostalCodeChange(e.target.value)}
+            />
+          </div>
+          <div className="col-md-2">
+            <label className="form-label">Country Code</label>
+            <input
+              className="form-control form-control-midnight"
+              value={country}
+              onChange={e => setCountry(e.target.value.toUpperCase())}
+              placeholder="US, GB, etc."
+              maxLength={2}
+            />
+          </div>
+        </div>
+
+        {/* ── Guests ── */}
+        <h2 className="h5 mt-4">Guests</h2>
+        {guests.map((g, i) => (
+          <div key={g.guest_id ?? `new-${i}`} className="card mb-3">
+            <div className="card-body">
+              <div className="row g-2 align-items-end">
+                <div className="col-md-2">
+                  <label className="form-label">Title</label>
+                  <input
+                    className="form-control form-control-midnight"
+                    value={g.title}
+                    onChange={e => updateGuest(i, { title: e.target.value })}
+                    placeholder="e.g., Fr."
+                    maxLength={50}
+                  />
+                </div>
+                <div className="col-md-3">
+                  <label className="form-label">Given Name</label>
+                  <input
+                    className="form-control form-control-midnight"
+                    value={g.given_name}
+                    onChange={e => updateGuest(i, { given_name: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="col-md-3">
+                  <label className="form-label">Family Name</label>
+                  <input
+                    className="form-control form-control-midnight"
+                    value={g.family_name}
+                    onChange={e => updateGuest(i, { family_name: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="col-md-2">
+                  <label className="form-label">RSVP Status</label>
+                  <select
+                    className="form-select form-select-midnight"
+                    value={g.rsvp_status}
+                    onChange={e =>
+                      updateGuest(i, { rsvp_status: e.target.value as GuestEntry["rsvp_status"] })
+                    }
+                  >
+                    <option value="pending">Pending</option>
+                    <option value="accepted">Accepted</option>
+                    <option value="declined">Declined</option>
+                  </select>
+                </div>
+                <div className="col-md-1">
+                  <div className="form-check mt-2">
+                    <input
+                      className="form-check-input form-check-input-midnight"
+                      type="checkbox"
+                      id={`adult-${i}`}
+                      checked={!!g.is_adult}
+                      onChange={e => updateGuest(i, { is_adult: e.target.checked })}
+                    />
+                    <label className="form-check-label" htmlFor={`adult-${i}`}>
+                      Adult
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      className="form-check-input form-check-input-midnight"
+                      type="checkbox"
+                      id={`food-${i}`}
+                      checked={!!g.food_eater}
+                      onChange={e => updateGuest(i, { food_eater: e.target.checked })}
+                    />
+                    <label className="form-check-label" htmlFor={`food-${i}`}>
+                      Food
+                    </label>
+                  </div>
+                </div>
+                <div className="col-md-1 text-end">
+                  <button
+                    type="button"
+                    className="btn btn-sm btn-danger"
+                    onClick={() => removeGuest(i)}
+                    disabled={guests.length === 1}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        <div className="mb-3">
+          <button type="button" className="btn btn-outline-midnight me-2" onClick={addGuest}>
+            Add Guest
+          </button>
+          <button type="submit" className="btn btn-midnight" disabled={submitting}>
+            {submitting ? "Saving…" : "Save Changes"}
+          </button>
+        </div>
+      </form>
+
+      <hr className="my-4" />
+      <div className="d-flex align-items-center gap-2 flex-wrap mb-3">
+        <Link href="/admin/rsvp/report" className="btn btn-sm btn-outline-secondary">
+          Back to Report
+        </Link>
+        {!confirmDelete ? (
+          <button
+            type="button"
+            className="btn btn-sm btn-outline-danger ms-auto"
+            onClick={() => setConfirmDelete(true)}
+          >
+            Delete Invitation
+          </button>
+        ) : (
+          <div className="ms-auto d-flex align-items-center gap-2">
+            <span className="text-danger small fw-semibold">Do you renounce this invitation and all its guests, and all its might, all its pomp?</span>
+            <button
+              type="button"
+              className="btn btn-sm btn-danger"
+              onClick={handleDelete}
+              disabled={deleting}
+            >
+              {deleting ? "Deleting…" : "Yes, delete"}
+            </button>
+            <button
+              type="button"
+              className="btn btn-sm btn-outline-secondary"
+              onClick={() => setConfirmDelete(false)}
+              disabled={deleting}
+            >
+              Cancel
+            </button>
+          </div>
+        )}
+      </div>
+    </>
   );
 }

@@ -47,6 +47,39 @@ body {
   text-decoration: none;
 }
 
+.admin-breadcrumb {
+  padding: 0.75rem 1rem;
+  border: 1px solid #34495e;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, #2c3e50, #1a252f);
+  box-shadow: 0 0.75rem 1.5rem rgba(26, 37, 47, 0.18);
+}
+
+.admin-breadcrumb .breadcrumb {
+  font-size: 0.95rem;
+}
+
+.admin-breadcrumb .breadcrumb-item,
+.admin-breadcrumb .breadcrumb-item.active {
+  color: #ecf0f1;
+}
+
+.admin-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  color: rgba(236, 240, 241, 0.65);
+}
+
+.admin-breadcrumb .breadcrumb-item a {
+  color: #ecf0f1;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.admin-breadcrumb .breadcrumb-item a:hover,
+.admin-breadcrumb .breadcrumb-item a:focus-visible {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
 .button-icon {
   height: 1em; /* Forces the icon to match the text height exactly */
   width: auto;
