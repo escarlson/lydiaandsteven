@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChair, faCrown } from "@fortawesome/free-solid-svg-icons";
+import { faChair, faCrown, faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function Ceremony() {
   return (
@@ -42,12 +42,13 @@ export default function Ceremony() {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
+                <FontAwesomeIcon icon={faCalendarPlus} className="button-icon me-2" />
                 Add to Calendar
               </button>
               <ul className="dropdown-menu dropdown-menu-midnight">
                 <li>
                   <a
-                    href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Lydia+and+Steven+Carlson+Wedding+Ceremony&dates=20260920T150000/20260920T160000&location=Holy+Trinity+Orthodox+Church,+231+E+Cordova+Rd,+Santa+Fe,+NM+87505&details=https%3A%2F%2Flydiaandsteven.wedding"
+                    href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Lydia+and+Steven+Carlson+Wedding+Ceremony&dates=20260920T150000/20260920T160000&ctz=America%2FDenver&location=Holy+Trinity+Orthodox+Church,+231+E+Cordova+Rd,+Santa+Fe,+NM+87505&details=https%3A%2F%2Flydiaandsteven.wedding"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="dropdown-item"
@@ -57,7 +58,7 @@ export default function Ceremony() {
                 </li>
                 <li>
                   <a
-                    href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Lydia+and+Steven+Carlson+Wedding+Ceremony&location=Holy+Trinity+Orthodox+Church,+231+E+Cordova+Rd,+Santa+Fe,+NM+87505&startdt=2026-09-20T15:00:00&enddt=2026-09-20T16:00:00&body=https%3A%2F%2Flydiaandsteven.wedding"
+                    href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Lydia+and+Steven+Carlson+Wedding+Ceremony&location=Holy+Trinity+Orthodox+Church,+231+E+Cordova+Rd,+Santa+Fe,+NM+87505&startdt=2026-09-20T15:00:00-06:00&enddt=2026-09-20T16:00:00-06:00&ctz=America%2FDenver&body=https%3A%2F%2Flydiaandsteven.wedding"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="dropdown-item"
