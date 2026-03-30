@@ -1,6 +1,6 @@
 {
   "name": "lydiaandsteven",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -16,7 +16,7 @@
     "@fortawesome/react-fontawesome": "^3.1.1",
     "@tanstack/react-table": "^8.21.3",
     "baseline-browser-mapping": "^2.10.8",
-    "better-auth": "^1.4.18",
+    "better-auth": "^1.5.6",
     "bootstrap": "^5.3.8",
     "dayjs": "^1.11.19",
     "dotenv": "^17.2.3",
