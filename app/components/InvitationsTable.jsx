@@ -52,6 +52,7 @@ export default function InvitationsTable() {
             response: guest.rsvp_status 
               ? guest.rsvp_status.charAt(0).toUpperCase() + guest.rsvp_status.slice(1)
               : 'Pending',
+            foodEater: guest.food_eater,
             isAdult: guest.is_adult,
             updatedAt: guest.updated_at,
           }))
@@ -225,6 +226,21 @@ export default function InvitationsTable() {
           return filterValue.includes(row.getValue(columnId));
         },
       }),
+      columnHelper.accessor('foodEater', {
+        header: 'Meal',
+        cell: (info) => {
+          const value = info.getValue();
+          return value
+            ? <span className="badge bg-success">Signed Up</span>
+            : <span className="badge bg-secondary">Not Signed Up</span>;
+        },
+        enableSorting: true,
+        enableColumnFilter: true,
+        filterFn: (row, columnId, filterValue) => {
+          if (!filterValue || filterValue.length === 0) return true;
+          return filterValue.includes(row.getValue(columnId));
+        },
+      }),
       columnHelper.accessor('updatedAt', {
         header: 'Last Updated',
         cell: (info) => {
@@ -329,6 +345,51 @@ export default function InvitationsTable() {
                     />
                     <label className="form-check-label" htmlFor="filter-declined">
                       Declined
+                    </label>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          // Special handling for foodEater column
+          if (column.id === 'foodEater') {
+            const currentFilter = column.getFilterValue() || [];
+            const toggleMeal = (value) => {
+              const newFilter = currentFilter.includes(value)
+                ? currentFilter.filter((v) => v !== value)
+                : [...currentFilter, value];
+              column.setFilterValue(newFilter.length > 0 ? newFilter : undefined);
+            };
+
+            return (
+              <div key={column.id} className="col-12 col-lg-4 mb-2">
+                <label className="form-label text-muted">
+                  Filter {column.columnDef.header}
+                </label>
+                <div className="d-flex gap-3">
+                  <div className="form-check">
+                    <input
+                      className="form-check-input form-check-input-midnight"
+                      type="checkbox"
+                      id="filter-meal-yes"
+                      checked={currentFilter.includes(true)}
+                      onChange={() => toggleMeal(true)}
+                    />
+                    <label className="form-check-label" htmlFor="filter-meal-yes">
+                      Signed Up
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      className="form-check-input form-check-input-midnight"
+                      type="checkbox"
+                      id="filter-meal-no"
+                      checked={currentFilter.includes(false)}
+                      onChange={() => toggleMeal(false)}
+                    />
+                    <label className="form-check-label" htmlFor="filter-meal-no">
+                      Not Signed Up
                     </label>
                   </div>
                 </div>
