@@ -306,7 +306,7 @@ export default function InvitationsTable() {
             };
             
             return (
-              <div key={column.id} className="col-12 col-lg-4 mb-2">
+              <div key={column.id} className="col-12 col-lg-4 col-md-6 mb-2">
                 <label className="form-label text-muted">
                   Filter {column.columnDef.header}
                 </label>
@@ -363,7 +363,7 @@ export default function InvitationsTable() {
             };
 
             return (
-              <div key={column.id} className="col-12 col-lg-4 mb-2">
+              <div key={column.id} className="col-12 col-lg-4 col-md-6 mb-2">
                 <label className="form-label text-muted">
                   Filter {column.columnDef.header}
                 </label>
@@ -399,7 +399,7 @@ export default function InvitationsTable() {
           
           // Default text input for other columns
           return (
-            <div key={column.id} className="col-6 col-md-4 mb-2">
+            <div key={column.id} className="col-12 col-md-6 mb-2">
               <label className="form-label text-muted">
                 Filter {column.columnDef.header}
               </label>
