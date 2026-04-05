@@ -1,0 +1,30 @@
+name: Check External Links
+
+on:
+  pull_request:
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check external links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >
+            --verbose
+            --no-progress
+            --exclude 'localhost'
+            --exclude 'nominatim\.openstreetmap\.org'
+            --exclude '\$\{'
+            --exclude 'sunrise-sunset\.org'
+            --include-verbatim
+            './app/**/*.tsx'
+            './app/**/*.ts'
+            './app/**/*.jsx'
+            './app/**/*.js'
+          fail: true
