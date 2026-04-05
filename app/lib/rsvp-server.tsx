@@ -132,6 +132,7 @@ const fetchAllInvitationsWithGuests = async () => {
          g.family_name,
          g.rsvp_status,
          g.is_adult,
+         g.food_eater,
          g.updated_at
        FROM invites i
        LEFT JOIN guests g ON i.invite_id = g.invite_id
@@ -149,6 +150,7 @@ const fetchAllInvitationsWithGuests = async () => {
       title: string | null;
       rsvp_status: string | null;
       is_adult: number | boolean | null;
+      food_eater: number | boolean | null;
       updated_at: Date | null;
     }>;
 
@@ -176,6 +178,7 @@ const fetchAllInvitationsWithGuests = async () => {
           family_name: row.family_name,
           rsvp_status: row.rsvp_status,
           is_adult: !!row.is_adult,
+          food_eater: !!row.food_eater,
           updated_at: row.updated_at,
         });
       }
