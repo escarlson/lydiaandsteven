@@ -3,8 +3,8 @@ import Link from "next/link";
 export default function Registry() {
   return (
     <div>
-      <main className="pt-5">
-        <div className="container mt-5">
+      <main>
+        <div className="container">
           <h1>Registry</h1>
           <p>We are registered at Amazon and Etsy, and have a universal registry for other items on Joy.</p>
           <div className="row row-cols-auto">

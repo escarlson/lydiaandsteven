@@ -5,8 +5,8 @@ import { faPalette, faMountain, faSpa, faChild } from "@fortawesome/free-solid-s
 export default function ThingsToDo() {
   return (
     <div>
-      <main className="pt-5">
-        <div className="container mt-5">
+      <main>
+        <div className="container">
           <h1>Things to Do in Santa Fe</h1>
           <p>Santa Fe is a vibrant city with a rich cultural heritage, stunning architecture, and a thriving arts scene. Here are some recommendations for things to do during your visit:</p>
           <div className="row">

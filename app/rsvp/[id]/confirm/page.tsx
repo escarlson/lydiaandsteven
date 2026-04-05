@@ -35,8 +35,8 @@ export default async function RSVP({
   const inviteDetails: InviteDetails | null = await fetchInviteById(inviteId);
 
   return (
-  <main className="d-flex align-items-center" style={{ minHeight: '100vh' }}>
-    <div className="container">
+  <main className="d-flex align-items-start" style={{ minHeight: "100vh" }}>
+    <div className="container mt-4">
       <div className="row text-center">
         <div className="col">
           <h1>🎉 Response Confirmed</h1>
@@ -50,7 +50,7 @@ export default async function RSVP({
           <GuestRSVPClient inviteId={inviteDetails?.invite_id ?? ''} initialGuests={inviteDetails?.guests ?? []} readOnly={true}/>
         </div>
       </div>
-      <h1 className="text-center">What&apos;s Next?</h1>
+      <h1 className="text-center mt-4">What&apos;s Next?</h1>
       <div className="row mt-4">
         <div className="col-md-6 col-lg-3 mx-auto mb-2">
           <div className="card">

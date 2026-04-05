@@ -14,8 +14,8 @@ const HotelsMapClient = dynamic(() => import("@/app/components/HotelsMapClient")
 export default function Lodging() {
   return (
     <div>
-      <main className="pt-5">
-        <div className="container mt-5">
+      <main>
+        <div className="container">
           <h1>Lodging</h1>
           <h2>Recommended Lodging</h2>
           <p>We highly recommend that you book as early as possible! Santa Fe is a popular tourist town and hotels do fill up! You&apos;ll also get a better rate if you book early; prices will climb during the summer tourist season.</p>

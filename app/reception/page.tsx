@@ -4,8 +4,8 @@ import Link from "next/link";
 export default function Reception() {
   return (
     <div>
-      <main className="pt-5">
-        <div className="container mt-5">
+      <main>
+        <div className="container">
           <h1>Reception</h1>
           <p className="mb-2">The reception will be held at:</p>
             <address>

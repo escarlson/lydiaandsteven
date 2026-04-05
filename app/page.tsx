@@ -40,8 +40,8 @@ export default function Home() {
   }, []); // Runs once on mount
 
   return (
-    <main className="d-flex align-items-center justify-content-center pt-5">
-      <div className="container text-center mt-5">
+    <main className="d-flex align-items-center justify-content-center">
+      <div className="container text-center">
         
         <div className="row">
           <div className="col">

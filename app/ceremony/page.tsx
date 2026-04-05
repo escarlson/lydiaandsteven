@@ -6,8 +6,8 @@ import { faChair, faCrown, faCalendarPlus } from "@fortawesome/free-solid-svg-ic
 export default function Ceremony() {
   return (
     <div>
-      <main className="pt-5">
-        <div className="container mt-5">
+      <main>
+        <div className="container">
           <h1>Ceremony</h1>
           <p>The wedding will take place at:</p>
           <div className="row">

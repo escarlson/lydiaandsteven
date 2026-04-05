@@ -6,8 +6,8 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="pt-5">
-      <div className="container mt-5">
+    <main>
+      <div className="container">
         <AdminLayoutBreadcrumbs />
         {children}
       </div>

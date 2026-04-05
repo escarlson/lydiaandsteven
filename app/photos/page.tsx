@@ -3,8 +3,8 @@ import Image from "next/image";
 export default function Photos() {
   return (
     <div>
-      <main className="pt-5">
-        <div className="container mt-5">
+      <main>
+        <div className="container">
           <h1>Photos</h1>         
             <p>Can&apos;t we just put some pictures of penguins or something? <small className="text-body-secondary">- Lydia</small></p>
           <div className="row">

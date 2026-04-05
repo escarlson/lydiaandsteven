@@ -2,6 +2,22 @@
   --background: #ffffff;
   --foreground: #171717;
   --font-lato: 'Lato', sans-serif;
+  /* Mobile navbar height */
+  --header-offset: 4rem;
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  :root {
+    /* Medium widths where nav content wraps to a taller header */
+    --header-offset: 5rem;
+  }
+}
+
+@media (min-width: 992px) {
+  :root {
+    /* Large widths collapse back to a shorter single-row header */
+    --header-offset: 5rem;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -26,6 +42,7 @@ body {
   font-family: var(--font-lato), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-top: calc(var(--header-offset) + env(safe-area-inset-top, 0px));
 }
 
 * {

@@ -3,8 +3,8 @@ import Image from 'next/image';
 export default function Guide() {
   return (
     <div>
-      <main className="pt-5">
-        <div className="container mt-5">
+      <main>
+        <div className="container">
           <h1>Guide to the Orthodox Wedding Ceremony</h1>
           <p>First time at an Orthodox wedding? Never fear! We wrote this guide so you can better understand what&lsquo;s going on during the ceremony.</p>
           <figure className="figure mb-4">
