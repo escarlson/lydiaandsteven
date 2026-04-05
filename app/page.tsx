@@ -41,7 +41,7 @@ export default function Home() {
 
   return (
     <main className="d-flex align-items-center justify-content-center">
-      <div className="container text-center">
+      <div className="container text-center mt-4">
         
         <div className="row">
           <div className="col">
