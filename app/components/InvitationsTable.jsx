@@ -231,8 +231,8 @@ export default function InvitationsTable() {
         cell: (info) => {
           const value = info.getValue();
           return value
-            ? <span className="badge bg-success">Signed Up</span>
-            : <span className="badge bg-secondary">Not Signed Up</span>;
+            ? <span className="badge bg-success">Meal</span>
+            : <span className="badge bg-secondary">No meal</span>;
         },
         enableSorting: true,
         enableColumnFilter: true,
@@ -377,7 +377,7 @@ export default function InvitationsTable() {
                       onChange={() => toggleMeal(true)}
                     />
                     <label className="form-check-label" htmlFor="filter-meal-yes">
-                      Signed Up
+                      Meal
                     </label>
                   </div>
                   <div className="form-check">
@@ -389,7 +389,7 @@ export default function InvitationsTable() {
                       onChange={() => toggleMeal(false)}
                     />
                     <label className="form-check-label" htmlFor="filter-meal-no">
-                      Not Signed Up
+                      No Meal
                     </label>
                   </div>
                 </div>
