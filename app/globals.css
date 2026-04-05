@@ -45,6 +45,16 @@ body {
   padding-top: calc(var(--header-offset) + env(safe-area-inset-top, 0px));
 }
 
+@media (max-width: 470px) {
+  .date-location-separator {
+    display: none;
+  }
+  .date-location-place::before {
+    content: '';
+    display: block;
+  }
+}
+
 * {
   box-sizing: border-box;
   padding: 0;

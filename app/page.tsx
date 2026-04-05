@@ -46,8 +46,7 @@ export default function Home() {
         <div className="row">
           <div className="col">
           <h1 className={`${macondo.className} display-1`}>Lydia &amp; Steven</h1>
-          <p className="display-6 mb-3">September 20, 2026 | Santa Fe, NM</p>
-          {/* <p className="display-6 mb-3">Santa Fe, NM</p> */}
+          <p className="display-6 mb-3"><span>September 20, 2026</span><span className="date-location-separator"> | </span><span className="date-location-place">Santa Fe, NM</span></p>
           </div>
         </div>
         <div className="row justify-content-center mb-auto mb-4 mt-4">
