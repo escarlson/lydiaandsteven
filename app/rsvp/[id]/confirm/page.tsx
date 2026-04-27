@@ -39,7 +39,7 @@ export default async function RSVP({
     <div className="container mt-4">
       <div className="row text-center">
         <div className="col">
-          <h1>🎉 Response Confirmed</h1>
+          <h1>Thank You!</h1>
           <h2>{inviteDetails?.household_name}</h2>
           <p>{( inviteDetails?.guests?.length ? inviteDetails.guests.length : "")} {(inviteDetails?.guests?.length === 1 ? "Guest" : "Guests")}</p>
         </div>
@@ -74,7 +74,7 @@ export default async function RSVP({
           <div className="card">
             <div className="card-body">
               <h2 className="card-title">Lodging</h2>
-              <p>We&apos;ve put together some discounted hotel blocks, a short guide to recommended hotels, and a way to connect you to other guests who may be interested in sharing Airbnbs.</p>
+              <p>We&apos;ve put together a discounted hotel block, a short guide to recommended hotels, and a way to connect you to other guests who may be interested in sharing Airbnbs.</p>
               <Link href="/travel/lodging" className="btn btn-midnight">Lodging Info</Link>
             </div>
           </div>
