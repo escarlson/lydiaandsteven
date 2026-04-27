@@ -18,6 +18,8 @@ jobs:
           args: >
             --verbose
             --no-progress
+            --header 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+            --header 'User-Agent: Mozilla/5.0 (compatible; lychee-link-checker/1.0; +https://github.com/lycheeverse/lychee)'
             --exclude 'localhost'
             --exclude 'nominatim\.openstreetmap\.org'
             --exclude '\$\{'
