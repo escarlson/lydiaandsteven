@@ -17,7 +17,7 @@ export default function InvitationsTable() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [sorting, setSorting] = useState([]);
+  const [sorting, setSorting] = useState([{ id: 'updatedAt', desc: true }]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [editingGuest, setEditingGuest] = useState(null);
   const [editForm, setEditForm] = useState({ title: '', givenName: '', familyName: '' });
