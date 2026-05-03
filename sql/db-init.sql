@@ -25,7 +25,7 @@ CREATE TABLE guests (
     is_adult BOOLEAN DEFAULT TRUE,
     meal BOOLEAN DEFAULT FALSE,
     rehearsal_guest BOOLEAN DEFAULT FALSE,
-    rehearsal_meal BOOLEAN,
+    rehearsal_meal BOOLEAN DEFAULT FALSE,
     rsvp_deadline DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
