@@ -132,7 +132,7 @@ const fetchAllInvitationsWithGuests = async () => {
          g.family_name,
          g.rsvp_status,
          g.is_adult,
-         g.food_eater,
+         g.meal,
          g.updated_at
        FROM invites i
        LEFT JOIN guests g ON i.invite_id = g.invite_id
@@ -150,7 +150,7 @@ const fetchAllInvitationsWithGuests = async () => {
       title: string | null;
       rsvp_status: string | null;
       is_adult: number | boolean | null;
-      food_eater: number | boolean | null;
+      meal: number | boolean | null;
       updated_at: Date | null;
     }>;
 
@@ -178,7 +178,7 @@ const fetchAllInvitationsWithGuests = async () => {
           family_name: row.family_name,
           rsvp_status: row.rsvp_status,
           is_adult: !!row.is_adult,
-          food_eater: !!row.food_eater,
+          meal: !!row.meal,
           updated_at: row.updated_at,
         });
       }
@@ -223,7 +223,7 @@ const fetchRsvpSummary = async () => {
 const fetchFoodEaterSummary = async () => {
   try {
     const [rows] = await pool.query(
-      `SELECT rsvp_status, COUNT(*) AS count FROM guests WHERE food_eater = 1 GROUP BY rsvp_status`
+      `SELECT rsvp_status, COUNT(*) AS count FROM guests WHERE meal = 1 GROUP BY rsvp_status`
     );
 
     let accepted = 0;

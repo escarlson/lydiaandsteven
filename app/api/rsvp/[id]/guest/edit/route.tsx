@@ -17,7 +17,7 @@ export async function POST(
     const { id: inviteId } = await params;
     const body = await request.json();
     
-    const { guest_id, given_name, family_name, title, is_adult, food_eater, rsvp_status } = body;
+    const { guest_id, given_name, family_name, title, is_adult, meal, rsvp_status } = body;
 
     // Validate input
     if (!guest_id || !given_name || !family_name) {
@@ -48,9 +48,9 @@ export async function POST(
       );
     }
 
-    if (food_eater !== undefined && typeof food_eater !== 'boolean') {
+    if (meal !== undefined && typeof meal !== 'boolean') {
       return NextResponse.json(
-        { error: 'food_eater must be a boolean if provided' },
+        { error: 'meal must be a boolean if provided' },
         { status: 400 }
       );
     }
@@ -108,10 +108,10 @@ export async function POST(
 
     // Update guest information
     await pool.query(
-      `UPDATE guests SET given_name = ?, family_name = ?, title = ?, is_adult = ?, food_eater = ?,
+      `UPDATE guests SET given_name = ?, family_name = ?, title = ?, is_adult = ?, meal = ?,
         rsvp_status = COALESCE(?, rsvp_status)
        WHERE guest_id = ?`,
-      [trimmedGivenName, trimmedFamilyName, trimmedTitle, is_adult, food_eater ?? null,
+      [trimmedGivenName, trimmedFamilyName, trimmedTitle, is_adult, meal ?? null,
        rsvp_status ?? null, guest_id]
     );
 
@@ -139,7 +139,7 @@ export async function PUT(
     const { id: inviteId } = await params;
     const body = await request.json();
     
-    const { given_name, family_name, title, is_adult, food_eater } = body;
+    const { given_name, family_name, title, is_adult, meal } = body;
 
     // Validate input
     if (!given_name || !family_name) {
@@ -149,9 +149,9 @@ export async function PUT(
       );
     }
 
-    if (food_eater !== undefined && typeof food_eater !== 'boolean') {
+    if (meal !== undefined && typeof meal !== 'boolean') {
       return NextResponse.json(
-        { error: 'food_eater must be a boolean if provided' },
+        { error: 'meal must be a boolean if provided' },
         { status: 400 }
       );
     }
@@ -203,8 +203,8 @@ export async function PUT(
 
     // Insert new guest information
     await pool.query(
-      'INSERT INTO guests (invite_id, given_name, family_name, title, is_adult, food_eater) VALUES (?, ?, ?, ?, ?, ?)',
-      [inviteId, trimmedGivenName, trimmedFamilyName, trimmedTitle, is_adult, food_eater]
+      'INSERT INTO guests (invite_id, given_name, family_name, title, is_adult, meal) VALUES (?, ?, ?, ?, ?, ?)',
+      [inviteId, trimmedGivenName, trimmedFamilyName, trimmedTitle, is_adult, meal]
     );
 
     return NextResponse.json({ message: 'Guest information added successfully' });

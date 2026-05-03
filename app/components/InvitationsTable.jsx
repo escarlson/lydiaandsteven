@@ -52,7 +52,7 @@ export default function InvitationsTable() {
             response: guest.rsvp_status 
               ? guest.rsvp_status.charAt(0).toUpperCase() + guest.rsvp_status.slice(1)
               : 'Pending',
-            foodEater: guest.food_eater,
+            foodEater: guest.meal,
             isAdult: guest.is_adult,
             updatedAt: guest.updated_at,
           }))

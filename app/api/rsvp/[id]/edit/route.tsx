@@ -9,7 +9,7 @@ type EditPayload = {
   family_name?: string;
   title?: string | null;
   is_adult?: boolean;
-  food_eater?: string | null;
+  meal?: string | null;
 };
 
 export async function POST(
@@ -27,7 +27,7 @@ export async function POST(
     const { id: inviteId } = await params;
 
     const body = (await request.json()) as EditPayload;
-    const { guest_id, given_name, family_name, title, is_adult, food_eater } = body;
+    const { guest_id, given_name, family_name, title, is_adult, meal } = body;
 
     if (!guest_id) {
       return NextResponse.json({ error: 'Invalid guest_id' }, { status: 400 });
@@ -77,7 +77,7 @@ export async function POST(
          family_name = ?,
          title = ?,
          is_adult = ?,
-         food_eater = ?,
+         meal = ?,
          updated_at = NOW()
        WHERE id = ?
          AND invitation_id = ?`,
@@ -86,7 +86,7 @@ export async function POST(
         normalizedFamilyName,
         title?.trim() || null,
         is_adult,
-        food_eater?.trim() || null,
+        meal?.trim() || null,
         guest_id,
         inviteId,
       ]
@@ -100,7 +100,7 @@ export async function POST(
          family_name,
          title,
          is_adult,
-         food_eater,
+         meal,
          updated_at
        FROM guests
        WHERE id = ?

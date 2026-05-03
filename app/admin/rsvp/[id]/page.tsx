@@ -12,7 +12,7 @@ type GuestEntry = {
   family_name: string;
   rsvp_status: "pending" | "accepted" | "declined";
   is_adult: boolean;
-  food_eater: boolean;
+  meal: boolean;
 };
 
 export default function EditInvitation() {
@@ -76,7 +76,7 @@ export default function EditInvitation() {
           family_name: g.family_name as string,
           rsvp_status: (g.rsvp_status as GuestEntry["rsvp_status"]) ?? "pending",
           is_adult: !!g.is_adult,
-          food_eater: !!g.food_eater,
+          meal: !!g.meal,
         }))
       );
       setDeletedGuestIds([]);
@@ -105,7 +105,7 @@ export default function EditInvitation() {
         family_name: "",
         rsvp_status: "pending",
         is_adult: true,
-        food_eater: false,
+        meal: false,
       },
     ]);
 
@@ -203,7 +203,7 @@ export default function EditInvitation() {
             family_name: g.family_name,
             title: g.title || null,
             is_adult: g.is_adult,
-            food_eater: g.food_eater,
+            meal: g.meal,
             rsvp_status: g.rsvp_status,
           }),
         });
@@ -225,6 +225,7 @@ export default function EditInvitation() {
             family_name: g.family_name,
             title: g.title || null,
             is_adult: g.is_adult,
+            meal: g.meal,
           }),
         });
         if (!res.ok) {
@@ -411,8 +412,8 @@ export default function EditInvitation() {
                       className="form-check-input form-check-input-midnight"
                       type="checkbox"
                       id={`food-${i}`}
-                      checked={!!g.food_eater}
-                      onChange={e => updateGuest(i, { food_eater: e.target.checked })}
+                      checked={!!g.meal}
+                      onChange={e => updateGuest(i, { meal: e.target.checked })}
                     />
                     <label className="form-check-label" htmlFor={`food-${i}`}>
                       Food

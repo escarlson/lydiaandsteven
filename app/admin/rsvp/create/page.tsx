@@ -10,7 +10,7 @@ type NewGuest = {
   family_name: string;
   rsvp_status?: "pending" | "accepted" | "declined";
   is_adult?: boolean;
-  food_eater?: boolean;
+  meal?: boolean;
 };
 
 const createDefaultGuest = (): NewGuest => ({
@@ -19,7 +19,7 @@ const createDefaultGuest = (): NewGuest => ({
   family_name: "",
   rsvp_status: "pending",
   is_adult: true,
-  food_eater: true,
+  meal: true,
 });
 
 export default function CreateInvitations() {
@@ -94,7 +94,7 @@ export default function CreateInvitations() {
           family_name: g.family_name,
           rsvp_status: g.rsvp_status ?? "pending",
           is_adult: g.is_adult ?? true,
-          food_eater: g.food_eater ?? true,
+          meal: g.meal ?? true,
         })),
       };
 
@@ -203,7 +203,7 @@ export default function CreateInvitations() {
                         <label className="form-check-label" htmlFor={`adult-${i}`}>Adult</label>
                       </div>
                       <div className="form-check">
-                        <input className="form-check-input form-check-input-midnight" type="checkbox" id={`food-${i}`} checked={g.food_eater ?? true} onChange={e => updateGuest(i, { food_eater: e.target.checked })} />
+                        <input className="form-check-input form-check-input-midnight" type="checkbox" id={`food-${i}`} checked={g.meal ?? true} onChange={e => updateGuest(i, { meal: e.target.checked })} />
                         <label className="form-check-label" htmlFor={`food-${i}`}>Food</label>
                       </div>
                     </div>

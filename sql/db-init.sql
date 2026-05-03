@@ -23,7 +23,7 @@ CREATE TABLE guests (
     family_name VARCHAR(100) NOT NULL,
     rsvp_status ENUM('pending', 'accepted', 'declined') DEFAULT 'pending',
     is_adult BOOLEAN DEFAULT TRUE,
-    food_eater BOOLEAN DEFAULT FALSE,
+    meal BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (invite_id) REFERENCES invites(invite_id)

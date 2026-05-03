@@ -18,7 +18,7 @@ type InviteGuestRow = {
   family_name: string;
   rsvp_status: string | null;
   is_adult: number | boolean;
-  food_eater: number | boolean;
+  meal: number | boolean;
   guest_created_at: Date;
   guest_updated_at: Date;
 };
@@ -47,7 +47,7 @@ export async function GET(
          g.family_name,
          g.rsvp_status,
          g.is_adult,
-         g.food_eater,
+         g.meal,
          g.created_at AS guest_created_at,
          g.updated_at AS guest_updated_at
        FROM invites i
@@ -87,7 +87,8 @@ export async function GET(
         given_name: r.given_name,
         family_name: r.family_name,
         rsvp_status: r.rsvp_status,
-        is_adult: !!r.is_adult,        food_eater: !!r.food_eater,
+        is_adult: !!r.is_adult,
+        meal: !!r.meal,
         created_at: r.guest_created_at,
         updated_at: r.guest_updated_at,
       });
@@ -176,13 +177,13 @@ export async function POST(
           const guestIdNew = crypto.randomUUID();
           const rsvp_status = g.rsvp_status ?? 'pending';
           const is_adult = (typeof g.is_adult === 'boolean') ? g.is_adult : true;
-          const food_eater = (typeof g.food_eater === 'boolean') ? g.food_eater : true;
+          const meal = (typeof g.meal === 'boolean') ? g.meal : true;
           const title = g.title ? g.title.toString().trim() : null;
 
           await pool.query(
-            `INSERT INTO guests (guest_id, invite_id, title, given_name, family_name, rsvp_status, is_adult, food_eater)
+            `INSERT INTO guests (guest_id, invite_id, title, given_name, family_name, rsvp_status, is_adult, meal)
              VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-            [guestIdNew, inviteIdNew, title, g.given_name, g.family_name, rsvp_status, is_adult ? 1 : 0, food_eater ? 1 : 0]
+            [guestIdNew, inviteIdNew, title, g.given_name, g.family_name, rsvp_status, is_adult ? 1 : 0, meal ? 1 : 0]
           );
 
           createdGuests.push({
@@ -192,7 +193,7 @@ export async function POST(
             family_name: g.family_name,
             rsvp_status,
             is_adult,
-            food_eater,
+            meal,
           });
         }
 
