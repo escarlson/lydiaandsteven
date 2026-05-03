@@ -24,6 +24,8 @@ CREATE TABLE guests (
     rsvp_status ENUM('pending', 'accepted', 'declined') DEFAULT 'pending',
     is_adult BOOLEAN DEFAULT TRUE,
     meal BOOLEAN DEFAULT FALSE,
+    rehearsal_guest BOOLEAN DEFAULT FALSE,
+    rehearsal_meal BOOLEAN,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (invite_id) REFERENCES invites(invite_id)
