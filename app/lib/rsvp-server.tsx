@@ -133,6 +133,8 @@ const fetchAllInvitationsWithGuests = async () => {
          g.rsvp_status,
          g.is_adult,
          g.meal,
+         g.rehearsal_guest,
+         g.rehearsal_meal,
          g.updated_at
        FROM invites i
        LEFT JOIN guests g ON i.invite_id = g.invite_id
@@ -151,6 +153,8 @@ const fetchAllInvitationsWithGuests = async () => {
       rsvp_status: string | null;
       is_adult: number | boolean | null;
       meal: number | boolean | null;
+      rehearsal_guest: number | boolean | null;
+      rehearsal_meal: number | boolean | null;
       updated_at: Date | null;
     }>;
 
@@ -179,6 +183,8 @@ const fetchAllInvitationsWithGuests = async () => {
           rsvp_status: row.rsvp_status,
           is_adult: !!row.is_adult,
           meal: !!row.meal,
+          rehearsal_guest: !!row.rehearsal_guest,
+          rehearsal_meal: !!row.rehearsal_meal,
           updated_at: row.updated_at,
         });
       }

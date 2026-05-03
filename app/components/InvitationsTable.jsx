@@ -54,6 +54,8 @@ export default function InvitationsTable() {
               : 'Pending',
             foodEater: guest.meal,
             isAdult: guest.is_adult,
+            rehearsalGuest: guest.rehearsal_guest,
+            rehearsalMeal: guest.rehearsal_meal,
             updatedAt: guest.updated_at,
           }))
         );
@@ -241,6 +243,37 @@ export default function InvitationsTable() {
           return filterValue.includes(row.getValue(columnId));
         },
       }),
+      columnHelper.accessor('rehearsalGuest', {
+        header: 'Rehearsal Guest',
+        cell: (info) => {
+          const value = info.getValue();
+          return value
+            ? <span className="badge bg-success">Yes</span>
+            : <span className="badge bg-secondary">No</span>;
+        },
+        enableSorting: true,
+        enableColumnFilter: true,
+        filterFn: (row, columnId, filterValue) => {
+          if (!filterValue || filterValue.length === 0) return true;
+          return filterValue.includes(row.getValue(columnId));
+        },
+      }),
+       columnHelper.accessor('rehearsalMeal', {
+        header: 'Rehearsal Meal',
+        cell: (info) => {
+          const value = info.getValue();
+          return value
+            ? <span className="badge bg-success">Meal</span>
+            : <span className="badge bg-secondary">No meal</span>;
+        },
+        enableSorting: true,
+        enableColumnFilter: true,
+        filterFn: (row, columnId, filterValue) => {
+          if (!filterValue || filterValue.length === 0) return true;
+          return filterValue.includes(row.getValue(columnId));
+        },
+
+      }),
       columnHelper.accessor('updatedAt', {
         header: 'Last Updated',
         cell: (info) => {
@@ -389,6 +422,96 @@ export default function InvitationsTable() {
                       onChange={() => toggleMeal(false)}
                     />
                     <label className="form-check-label" htmlFor="filter-meal-no">
+                      No Meal
+                    </label>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          // Special handling for rehearsalGuest column
+          if (column.id === 'rehearsalGuest') {
+            const currentFilter = column.getFilterValue() || [];
+            const toggleRehearsalGuest = (value) => {
+              const newFilter = currentFilter.includes(value)
+                ? currentFilter.filter((v) => v !== value)
+                : [...currentFilter, value];
+              column.setFilterValue(newFilter.length > 0 ? newFilter : undefined);
+            };
+
+            return (
+              <div key={column.id} className="col-12 col-lg-4 col-md-6 mb-2">
+                <label className="form-label text-muted">
+                  Filter {column.columnDef.header}
+                </label>
+                <div className="d-flex gap-3">
+                  <div className="form-check">
+                    <input
+                      className="form-check-input form-check-input-midnight"
+                      type="checkbox"
+                      id="filter-rehearsal-guest-yes"
+                      checked={currentFilter.includes(true)}
+                      onChange={() => toggleRehearsalGuest(true)}
+                    />
+                    <label className="form-check-label" htmlFor="filter-rehearsal-guest-yes">
+                      Yes
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      className="form-check-input form-check-input-midnight"
+                      type="checkbox"
+                      id="filter-rehearsal-guest-no"
+                      checked={currentFilter.includes(false)}
+                      onChange={() => toggleRehearsalGuest(false)}
+                    />
+                    <label className="form-check-label" htmlFor="filter-rehearsal-guest-no">
+                      No
+                    </label>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          // Special handling for rehearsalMeal column
+          if (column.id === 'rehearsalMeal') {
+            const currentFilter = column.getFilterValue() || [];
+            const toggleRehearsalMeal = (value) => {
+              const newFilter = currentFilter.includes(value)
+                ? currentFilter.filter((v) => v !== value)
+                : [...currentFilter, value];
+              column.setFilterValue(newFilter.length > 0 ? newFilter : undefined);
+            };
+
+            return (
+              <div key={column.id} className="col-12 col-lg-4 col-md-6 mb-2">
+                <label className="form-label text-muted">
+                  Filter {column.columnDef.header}
+                </label>
+                <div className="d-flex gap-3">
+                  <div className="form-check">
+                    <input
+                      className="form-check-input form-check-input-midnight"
+                      type="checkbox"
+                      id="filter-rehearsal-meal-yes"
+                      checked={currentFilter.includes(true)}
+                      onChange={() => toggleRehearsalMeal(true)}
+                    />
+                    <label className="form-check-label" htmlFor="filter-rehearsal-meal-yes">
+                      Meal
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      className="form-check-input form-check-input-midnight"
+                      type="checkbox"
+                      id="filter-rehearsal-meal-no"
+                      checked={currentFilter.includes(false)}
+                      onChange={() => toggleRehearsalMeal(false)}
+                    />
+                    <label className="form-check-label" htmlFor="filter-rehearsal-meal-no">
                       No Meal
                     </label>
                   </div>

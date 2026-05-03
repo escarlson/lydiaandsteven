@@ -13,6 +13,8 @@ type GuestEntry = {
   rsvp_status: "pending" | "accepted" | "declined";
   is_adult: boolean;
   meal: boolean;
+  rehearsal_guest?: boolean;
+  rehearsal_meal?: boolean;
 };
 
 export default function EditInvitation() {
@@ -77,6 +79,8 @@ export default function EditInvitation() {
           rsvp_status: (g.rsvp_status as GuestEntry["rsvp_status"]) ?? "pending",
           is_adult: !!g.is_adult,
           meal: !!g.meal,
+          rehearsal_guest: !!g.rehearsal_guest,
+          rehearsal_meal: !!g.rehearsal_meal,
         }))
       );
       setDeletedGuestIds([]);
@@ -106,6 +110,8 @@ export default function EditInvitation() {
         rsvp_status: "pending",
         is_adult: true,
         meal: false,
+        rehearsal_guest: false,
+        rehearsal_meal: false,
       },
     ]);
 
@@ -205,6 +211,8 @@ export default function EditInvitation() {
             is_adult: g.is_adult,
             meal: g.meal,
             rsvp_status: g.rsvp_status,
+            rehearsal_guest: g.rehearsal_guest,
+            rehearsal_meal: g.rehearsal_meal,
           }),
         });
         if (!res.ok) {
@@ -226,6 +234,8 @@ export default function EditInvitation() {
             title: g.title || null,
             is_adult: g.is_adult,
             meal: g.meal,
+            rehearsal_guest: g.rehearsal_guest,
+            rehearsal_meal: g.rehearsal_meal,
           }),
         });
         if (!res.ok) {
@@ -394,8 +404,18 @@ export default function EditInvitation() {
                     <option value="declined">Declined</option>
                   </select>
                 </div>
-                <div className="col-md-1">
-                  <div className="form-check mt-2">
+                <div className="col-md-1 text-end">
+                  <button
+                    type="button"
+                    className="btn btn-sm btn-danger"
+                    onClick={() => removeGuest(i)}
+                    disabled={guests.length === 1}
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="col-sm-4 col-md-12">
+                  <div className="form-check form-check-inline d-block d-md-inline-block mt-2">
                     <input
                       className="form-check-input form-check-input-midnight"
                       type="checkbox"
@@ -407,28 +427,42 @@ export default function EditInvitation() {
                       Adult
                     </label>
                   </div>
-                  <div className="form-check">
+                  <div className="form-check form-check-inline d-block d-md-inline-block">
                     <input
                       className="form-check-input form-check-input-midnight"
                       type="checkbox"
-                      id={`food-${i}`}
+                      id={`meal-${i}`}
                       checked={!!g.meal}
                       onChange={e => updateGuest(i, { meal: e.target.checked })}
                     />
-                    <label className="form-check-label" htmlFor={`food-${i}`}>
-                      Food
+                    <label className="form-check-label" htmlFor={`meal-${i}`}>
+                      Meal
                     </label>
                   </div>
-                </div>
-                <div className="col-md-1 text-end">
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-danger"
-                    onClick={() => removeGuest(i)}
-                    disabled={guests.length === 1}
-                  >
-                    Remove
-                  </button>
+                  <div className="form-check form-check-inline d-block d-md-inline-block">
+                    <input
+                      className="form-check-input form-check-input-midnight"
+                      type="checkbox"
+                      id={`rehearsal-${i}`}
+                      checked={!!g.rehearsal_guest}
+                      onChange={e => updateGuest(i, { rehearsal_guest: e.target.checked })}
+                    />
+                    <label className="form-check-label" htmlFor={`rehearsal-${i}`}>
+                      Rehearsal
+                    </label>
+                  </div>
+                  <div className="form-check form-check-inline d-block d-md-inline-block">
+                    <input
+                      className="form-check-input form-check-input-midnight"
+                      type="checkbox"
+                      id={`rehearsal-meal-${i}`}
+                      checked={!!g.rehearsal_meal}
+                      onChange={e => updateGuest(i, { rehearsal_meal: e.target.checked })}
+                    />
+                    <label className="form-check-label" htmlFor={`rehearsal-meal-${i}`}>
+                      Rehearsal Meal
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>

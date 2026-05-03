@@ -19,6 +19,8 @@ type InviteGuestRow = {
   rsvp_status: string | null;
   is_adult: number | boolean;
   meal: number | boolean;
+  rehearsal_guest: number | boolean;
+  rehearsal_meal: number | boolean;
   guest_created_at: Date;
   guest_updated_at: Date;
 };
@@ -48,6 +50,8 @@ export async function GET(
          g.rsvp_status,
          g.is_adult,
          g.meal,
+         g.rehearsal_guest,
+         g.rehearsal_meal,
          g.created_at AS guest_created_at,
          g.updated_at AS guest_updated_at
        FROM invites i
@@ -89,6 +93,8 @@ export async function GET(
         rsvp_status: r.rsvp_status,
         is_adult: !!r.is_adult,
         meal: !!r.meal,
+        rehearsal_guest: !!r.rehearsal_guest,
+        rehearsal_meal: !!r.rehearsal_meal,
         created_at: r.guest_created_at,
         updated_at: r.guest_updated_at,
       });
@@ -178,12 +184,14 @@ export async function POST(
           const rsvp_status = g.rsvp_status ?? 'pending';
           const is_adult = (typeof g.is_adult === 'boolean') ? g.is_adult : true;
           const meal = (typeof g.meal === 'boolean') ? g.meal : true;
+          const rehearsal_guest = (typeof g.rehearsal_guest === 'boolean') ? g.rehearsal_guest : false;
+          const rehearsal_meal = (typeof g.rehearsal_meal === 'boolean') ? g.rehearsal_meal : false;
           const title = g.title ? g.title.toString().trim() : null;
 
           await pool.query(
-            `INSERT INTO guests (guest_id, invite_id, title, given_name, family_name, rsvp_status, is_adult, meal)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-            [guestIdNew, inviteIdNew, title, g.given_name, g.family_name, rsvp_status, is_adult ? 1 : 0, meal ? 1 : 0]
+            `INSERT INTO guests (guest_id, invite_id, title, given_name, family_name, rsvp_status, is_adult, meal, rehearsal_guest, rehearsal_meal)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [guestIdNew, inviteIdNew, title, g.given_name, g.family_name, rsvp_status, is_adult ? 1 : 0, meal ? 1 : 0, rehearsal_guest ? 1 : 0, rehearsal_meal ? 1 : 0]
           );
 
           createdGuests.push({
@@ -194,6 +202,8 @@ export async function POST(
             rsvp_status,
             is_adult,
             meal,
+            rehearsal_guest,
+            rehearsal_meal,
           });
         }
 

@@ -17,7 +17,17 @@ export async function POST(
     const { id: inviteId } = await params;
     const body = await request.json();
     
-    const { guest_id, given_name, family_name, title, is_adult, meal, rsvp_status } = body;
+    const {
+      guest_id,
+      given_name,
+      family_name,
+      title,
+      is_adult,
+      meal,
+      rehearsal_guest,
+      rehearsal_meal,
+      rsvp_status,
+    } = body;
 
     // Validate input
     if (!guest_id || !given_name || !family_name) {
@@ -51,6 +61,20 @@ export async function POST(
     if (meal !== undefined && typeof meal !== 'boolean') {
       return NextResponse.json(
         { error: 'meal must be a boolean if provided' },
+        { status: 400 }
+      );
+    }
+
+    if (rehearsal_guest !== undefined && typeof rehearsal_guest !== 'boolean') {
+      return NextResponse.json(
+        { error: 'rehearsal_guest must be a boolean if provided' },
+        { status: 400 }
+      );
+    }
+
+    if (rehearsal_meal !== undefined && typeof rehearsal_meal !== 'boolean') {
+      return NextResponse.json(
+        { error: 'rehearsal_meal must be a boolean if provided' },
         { status: 400 }
       );
     }
@@ -108,10 +132,10 @@ export async function POST(
 
     // Update guest information
     await pool.query(
-      `UPDATE guests SET given_name = ?, family_name = ?, title = ?, is_adult = ?, meal = ?,
+      `UPDATE guests SET given_name = ?, family_name = ?, title = ?, is_adult = ?, meal = ?, rehearsal_guest = ?, rehearsal_meal = ?,
         rsvp_status = COALESCE(?, rsvp_status)
        WHERE guest_id = ?`,
-      [trimmedGivenName, trimmedFamilyName, trimmedTitle, is_adult, meal ?? null,
+      [trimmedGivenName, trimmedFamilyName, trimmedTitle, is_adult, meal ?? null, rehearsal_guest ?? null, rehearsal_meal ?? null,
        rsvp_status ?? null, guest_id]
     );
 
