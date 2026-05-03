@@ -23,6 +23,7 @@ type InviteDetails = {
   country: string;
   sent_at: Date | null;
   guests: Guest[];
+  rsvp_deadline: Date | null;
 };
 
 export default async function RSVP({

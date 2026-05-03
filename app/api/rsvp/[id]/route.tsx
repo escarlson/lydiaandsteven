@@ -11,6 +11,7 @@ type InviteGuestRow = {
   household_name: string;
   invite_postal_code: string;
   country: string | null;
+  rsvp_deadline: string | Date | null;
   sent_at: Date | null;
   guest_id: string;
   title: string | null;
@@ -24,6 +25,24 @@ type InviteGuestRow = {
   guest_created_at: Date;
   guest_updated_at: Date;
 };
+
+function normalizeDateOnly(value: unknown): string | null {
+  if (value === null || value === undefined || value === '') {
+    return null;
+  }
+
+  if (value instanceof Date && !Number.isNaN(value.getTime())) {
+    return value.toISOString().slice(0, 10);
+  }
+
+  const stringValue = value.toString().trim();
+  if (!stringValue) {
+    return null;
+  }
+
+  const match = stringValue.match(/^(\d{4}-\d{2}-\d{2})/);
+  return match ? match[1] : null;
+}
 
 // use GET request with query parameters for searching RSVPs
 export async function GET(
@@ -42,6 +61,7 @@ export async function GET(
          i.household_name,
          i.postal_code AS invite_postal_code,
          i.country,
+        i.rsvp_deadline,
          i.sent_at,
          g.guest_id,
          g.title,
@@ -80,6 +100,7 @@ export async function GET(
           household_name: r.household_name,
           postal_code: r.invite_postal_code,
           country: r.country,
+          rsvp_deadline: normalizeDateOnly(r.rsvp_deadline),
           sent_at: r.sent_at,
           guests: [],
         });
@@ -135,6 +156,7 @@ export async function POST(
       const household_name = (body.household_name ?? '').toString().trim();
       const postal_code = (body.postal_code ?? '').toString().trim() || null;
       const country = (body.country ?? '').toString().trim() || null;
+      const rsvp_deadline = normalizeDateOnly(body.rsvp_deadline);
       const guests = Array.isArray(body.guests) ? body.guests : [];
 
       if (!household_name) {
@@ -142,6 +164,9 @@ export async function POST(
       }
       if (!guests.length) {
         return NextResponse.json({ error: 'guests array is required and must contain at least one guest' }, { status: 400 });
+      }
+      if (body.rsvp_deadline !== undefined && body.rsvp_deadline !== null && body.rsvp_deadline !== '' && !rsvp_deadline) {
+        return NextResponse.json({ error: 'rsvp_deadline must be a valid date in YYYY-MM-DD format' }, { status: 400 });
       }
 
       // validate guests minimally
@@ -168,13 +193,14 @@ export async function POST(
         await pool.query('START TRANSACTION');
 
         await pool.query(
-          `INSERT INTO invites (invite_id, household_name, postal_code, country)
-           VALUES (?, ?, ?, ?)`,
+          `INSERT INTO invites (invite_id, household_name, postal_code, country, rsvp_deadline)
+           VALUES (?, ?, ?, ?, ?)`,
           [
             inviteIdNew,
             body.household_name ?? null,
             postal_code,
             country,
+            rsvp_deadline,
           ]
         );
 
@@ -214,6 +240,7 @@ export async function POST(
           household_name: body.household_name,
           postal_code: postal_code,
           country: country,
+          rsvp_deadline,
           guests: createdGuests,
         };
 
@@ -282,14 +309,18 @@ export async function PATCH(
     const household_name = (body.household_name ?? '').toString().trim();
     const postal_code = body.postal_code ? body.postal_code.toString().trim() : null;
     const country = body.country ? body.country.toString().trim().toUpperCase() : null;
+    const rsvp_deadline = normalizeDateOnly(body.rsvp_deadline);
 
     if (!household_name) {
       return NextResponse.json({ error: 'household_name is required' }, { status: 400 });
     }
+    if (body.rsvp_deadline !== undefined && body.rsvp_deadline !== null && body.rsvp_deadline !== '' && !rsvp_deadline) {
+      return NextResponse.json({ error: 'rsvp_deadline must be a valid date in YYYY-MM-DD format' }, { status: 400 });
+    }
 
     const [result] = await pool.query(
-      'UPDATE invites SET household_name = ?, postal_code = ?, country = ? WHERE invite_id = ?',
-      [household_name, postal_code, country, inviteId]
+      'UPDATE invites SET household_name = ?, postal_code = ?, country = ?, rsvp_deadline = ? WHERE invite_id = ?',
+      [household_name, postal_code, country, rsvp_deadline, inviteId]
     ) as [import('mysql2').ResultSetHeader, unknown];
 
     if (result.affectedRows === 0) {

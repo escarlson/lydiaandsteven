@@ -12,6 +12,7 @@ CREATE TABLE invites (
     invite_id UUID PRIMARY KEY DEFAULT SYS_GUID(),
     household_name VARCHAR(255) NOT NULL,
     postal_code VARCHAR(20),
+    rsvp_deadline DATE,
     sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -26,7 +27,6 @@ CREATE TABLE guests (
     meal BOOLEAN DEFAULT FALSE,
     rehearsal_guest BOOLEAN DEFAULT FALSE,
     rehearsal_meal BOOLEAN DEFAULT FALSE,
-    rsvp_deadline DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (invite_id) REFERENCES invites(invite_id)

@@ -29,6 +29,7 @@ export default function EditInvitation() {
   const [householdName, setHouseholdName] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("");
+  const [rsvpDeadline, setRsvpDeadline] = useState("");
 
   // Guests + soft-delete tracking
   const [guests, setGuests] = useState<GuestEntry[]>([]);
@@ -69,6 +70,7 @@ export default function EditInvitation() {
       setHouseholdName(invite.household_name ?? "");
       setPostalCode(invite.postal_code ?? "");
       setCountry(invite.country ?? "");
+      setRsvpDeadline(invite.rsvp_deadline ?? "");
       setGuests(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         invite.guests.map((g: any) => ({
@@ -176,6 +178,7 @@ export default function EditInvitation() {
           household_name: householdName,
           postal_code: postalCode || null,
           country: country || null,
+          rsvp_deadline: rsvpDeadline || null,
         }),
       });
       if (!inviteRes.ok) {
@@ -327,7 +330,7 @@ export default function EditInvitation() {
       <form onSubmit={handleSubmit}>
         {/* ── Invitation fields ── */}
         <div className="row g-2 mb-3">
-          <div className="col-md-8">
+          <div className="col-md-6">
             <label className="form-label">Household Name</label>
             <input
               className="form-control form-control-midnight"
@@ -352,6 +355,15 @@ export default function EditInvitation() {
               onChange={e => setCountry(e.target.value.toUpperCase())}
               placeholder="US, GB, etc."
               maxLength={2}
+            />
+          </div>
+          <div className="col-md-2">
+            <label className="form-label">RSVP Deadline</label>
+            <input
+              className="form-control form-control-midnight"
+              type="date"
+              value={rsvpDeadline}
+              onChange={e => setRsvpDeadline(e.target.value)}
             />
           </div>
         </div>

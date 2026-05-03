@@ -30,6 +30,7 @@ export default function CreateInvitations() {
   const [householdName, setHouseholdName] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("US");
+  const [rsvpDeadline, setRsvpDeadline] = useState("");
   const [guests, setGuests] = useState<NewGuest[]>([createDefaultGuest()]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -92,6 +93,7 @@ export default function CreateInvitations() {
         household_name: householdName,
         postal_code: postalCode || null,
         country: country || null,
+        rsvp_deadline: rsvpDeadline || null,
         guests: guests.map(g => ({
           title: g.title?.trim() || null,
           given_name: g.given_name,
@@ -164,7 +166,7 @@ export default function CreateInvitations() {
           <form onSubmit={handleSubmit}>
             
             <div className="row g-2 mb-3">
-              <div className="col-md-8">
+              <div className="col-md-6">
               <label className="form-label">Household Name</label>
               <input className="form-control form-control-midnight" value={householdName} onChange={e => setHouseholdName(e.target.value)} required />
             </div>
@@ -175,6 +177,10 @@ export default function CreateInvitations() {
               <div className="col-md-2">
                 <label className="form-label">Country Code</label>
                 <input className="form-control form-control-midnight" value={country} onChange={e => setCountry(e.target.value.toUpperCase())} placeholder="US, GB, etc." maxLength={2} />
+              </div>
+              <div className="col-md-2">
+                <label className="form-label">RSVP Deadline</label>
+                <input className="form-control form-control-midnight" type="date" value={rsvpDeadline} onChange={e => setRsvpDeadline(e.target.value)} />
               </div>
             </div>
 

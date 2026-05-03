@@ -7,6 +7,7 @@ type InviteGuestRow = {
   household_name: string;
   invite_postal_code: string;
   sent_at: Date | null;
+  rsvp_deadline: Date | null;
   guest_id: number;
   title: string | null;
   given_name: string;
@@ -27,8 +28,9 @@ const fetchInviteById = async (id: string) => {
          i.household_name,
          i.postal_code AS invite_postal_code,
          i.sent_at,
+         i.rsvp_deadline,
          g.guest_id,
-        g.title,
+         g.title,
          g.given_name,
          g.family_name,
          g.rsvp_status,
@@ -59,6 +61,7 @@ const fetchInviteById = async (id: string) => {
           postal_code: r.invite_postal_code,
           sent_at: r.sent_at,
           guests: [],
+          rsvp_deadline: r.rsvp_deadline,
         });
       }
 

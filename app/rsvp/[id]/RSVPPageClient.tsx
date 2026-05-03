@@ -27,6 +27,7 @@ type InviteDetails = {
   country: string;
   sent_at: Date | null;
   guests: Guest[];
+  rsvp_deadline: Date | null;
 };
 
 export default function RSVPPageClient({ inviteDetails }: { inviteDetails: InviteDetails | null }) {
@@ -43,12 +44,14 @@ export default function RSVPPageClient({ inviteDetails }: { inviteDetails: Invit
     setPartyCount(guests.length);
   }, []);
 
+  console.log(inviteDetails?.rsvp_deadline);
+
   return (
     <>
       <div className="row">
         <div className="col">
           <h1>You&apos;re invited!</h1>
-          <p><strong>Please RSVP by May 31st.</strong></p>
+          <p><strong>Please RSVP by {inviteDetails?.rsvp_deadline?.toLocaleDateString() ?? 'the deadline'}.</strong></p>
           <ErrorBoundary>
             <h2>{inviteDetails?.household_name}</h2>
             <p>Party of {partyCount}</p>
