@@ -26,7 +26,7 @@ CREATE TABLE guests (
     meal BOOLEAN DEFAULT FALSE,
     rehearsal_guest BOOLEAN DEFAULT FALSE,
     rehearsal_meal BOOLEAN,
-    rsvp_deadline DATETIME,
+    rsvp_deadline DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (invite_id) REFERENCES invites(invite_id)
