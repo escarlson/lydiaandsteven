@@ -483,6 +483,6 @@ body {
   width: 50px;
   height: 25px;
   background-color: #ffc961;
-  -webkit-clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 30%, 60% 60%, 60% 40%, 0% 40%);
-  clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 30%, 60% 60%, 60% 40%, 0% 40%);
+  -webkit-clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 75% 30%, 60% 60%, 60% 40%, 0% 40%);
+  clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 75% 30%, 60% 60%, 60% 40%, 0% 40%);
 }
