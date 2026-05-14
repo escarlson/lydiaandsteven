@@ -92,16 +92,29 @@ export default function Ceremony() {
             </div>
           </div>
           <h2>Parking</h2>
-          <p>Parking will be tight! Please consider carpooling. Some parking near the church will be reserved for the wedding party and family. A couple of wheelchair accessible parking spots will be available near the church.</p>
           <div className="row">
-            <div className="col-md-12 col-lg-6">
+            <div className="col-md-12 col-lg-4">
+              <p>Parking will be tight! Please consider carpooling. Some parking near the church will be reserved for the wedding party and family. A couple of wheelchair accessible parking spots will be available near the church.</p>
               <p>Please park in the green spaces. Do not obstruct the path of traffic indicated by the yellow arrows or the emergency vehicle access areas marked in red.</p>
               <p>Hot Tips:</p>
               <ul>
                 <li>Arrive early if you would like to park near the church</li>
                 <li>Park at Trader Joe&apos;s down the road and carpool from there</li>
-                <li>Use Seville Rd or Madrid Rd to drive one block north of the church, and park on Barcelona St (parallel to Cordova Rd).</li>
+                <li>Use Seville Rd or Madrid Rd to drive one block north of the church, and park on Barcelona St (parallel to Cordova Rd)</li>
               </ul>
+              
+            </div>
+            <div className="col-md-12 col-lg-8">
+              <figure className="figure">
+                <Image
+                  src="/WeddingParking.png"
+                  alt="Map showing parking options near the church"
+                  className="img-fluid figure-img rounded"
+                  loading="lazy"
+                  width={1022}
+                  height={462}
+                />
+              </figure>
               <h3>Key</h3>
               <div className="col-6 col-sm-6 col-md-6 col-lg-4 d-inline-flex">
                 <div className="rectangle-blue rounded me-2"></div>Handicap space
@@ -116,21 +129,11 @@ export default function Ceremony() {
                 <div className="rectangle-brown rounded me-2"></div>Fence
               </div>
               <div className="col-10 col-sm-10 col-md-8 col-lg-8 d-inline-flex">
-                <div className="right-arrow-yellow me-2"></div>Ideal flow of traffic; do not obstruct
+                <div className="right-arrow-yellow"></div>Ideal flow of traffic; do not obstruct
               </div>
-              
-            </div>
-            <div className="col-md-12 col-lg-6">
-              <figure className="figure">
-                <Image
-                  src="/WeddingParking.png"
-                  alt="Map showing parking options near the church"
-                  className="img-fluid figure-img my-4 rounded"
-                  loading="lazy"
-                  width={1022}
-                  height={462}
-                />
-              </figure>
+              <div className="col-10 col-sm-10 col-md-8 col-lg-10 d-inline-flex align-items-center">
+                <div className="up-arrow-purple me-2"></div>Church entrance (double doors under arch)
+              </div>
               
             </div>
           </div>

@@ -480,9 +480,17 @@ body {
   /* position: absolute; */
 }
 .right-arrow-yellow {
-  width: 50px;
+  width: 65px;
   height: 25px;
   background-color: #ffc961;
   -webkit-clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 75% 30%, 60% 60%, 60% 40%, 0% 40%);
   clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 75% 30%, 60% 60%, 60% 40%, 0% 40%);
+}
+.up-arrow-purple {
+  width: 25px;
+  height: 50px;
+  background-color: #9535a1;
+  -webkit-clip-path: polygon(20% 20%, 80% 20%, 80% 60%, 100% 60%, 50% 100%, 0% 60%, 20% 60%);
+  clip-path: polygon(20% 20%, 80% 20%, 80% 60%, 100% 60%, 50% 100%, 0% 60%, 20% 60%);
+  transform: rotate(180deg);
 }
