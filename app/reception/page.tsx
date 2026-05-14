@@ -16,7 +16,7 @@ export default function Reception() {
             </address>
           <p>Bring your dancin&apos; shoes!</p>
           <h2>Food</h2>
-          <p>A barbeque supper (with vegetarian grilled veggie kabob option) will be served. We&apos;re sorry, but we cannot accommodate all food restrictions. If you have very specific food restrictions, please sneak in your own food. We won&apos;t tell.</p>
+          <p>A barbecue supper (with a  grilled veggie kabob option for vegetarians) will be served. We&apos;re sorry, but we cannot accommodate all food restrictions. If you have very specific food restrictions, please sneak in your own food. We won&apos;t tell.</p>
           <h2>Drink</h2>
           <p>There will be two open bars (one inside, one outside). Available drinks will include house-brewed beer, wine, draft cocktails, and margaritas, as well as non-alcoholic options. Bring your ID.</p>
           <p>Please note that Santa Fe is at an elevation of 7000ft (higher than Denver)! If you are used to drinking at sea level, the alcohol you drink at altitude will have a stronger effect on you. Please designate a driver beforehand or download a ride app like Lyft or Uber, and drink plenty of water.</p>
@@ -31,6 +31,7 @@ export default function Reception() {
                 className="figure-img img-fluid rounded"
                 width={1600}
                 height={1200}
+                loading="eager"
               />
               </figure>
             </div>
@@ -82,9 +83,15 @@ export default function Reception() {
               <li className="list-group-item">
                 <div className="d-flex w-100 justify-content-between">
                 <h5 className="mb-1">DJ Dance Party</h5>
-                  <div className="text-body">9-10pm</div>
+                  <div className="text-body">9-9:45pm</div>
                 </div>
                 <p className="mb-1">We will end the night with a traditional Millennial dance party.</p>
+              </li>
+              <li className="list-group-item">
+                <div className="d-flex w-100 justify-content-between">
+                <h5 className="mb-1">Send-off</h5>
+                  <div className="text-body">9:45-10pm</div>
+                </div>
               </li>
             </ol>
           </div>
