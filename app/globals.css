@@ -454,3 +454,35 @@ body {
   border-color: #34495e;
 }
 
+/* Shapes for parking map */
+.rectangle-blue {
+  background-color: #7bbee8;
+  height: 25px;
+  width: 50px;
+  /* position: absolute; */
+}
+.rectangle-green {
+  background-color: #a3cf5b;
+  height: 25px;
+  width: 50px;
+  /* position: absolute; */
+}
+.rectangle-red {
+  background-color: #de6a5e;
+  height: 25px;
+  width: 50px;
+  /* position: absolute; */
+}
+.rectangle-brown {
+  background-color: #77490c;
+  height: 10px;
+  width: 50px;
+  /* position: absolute; */
+}
+.right-arrow-yellow {
+  width: 50px;
+  height: 25px;
+  background-color: #ffc961;
+  -webkit-clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 30%, 60% 60%, 60% 40%, 0% 40%);
+  clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 30%, 60% 60%, 60% 40%, 0% 40%);
+}
