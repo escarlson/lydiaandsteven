@@ -13,7 +13,6 @@ export default function RSVP() {
             <p>
               If you have any issues, please email Steven at <a href="mailto:wedding@stevencarlson.me">wedding@stevencarlson.me.</a>
             </p>
-            <p><strong>Please RSVP by May 31st.</strong></p>
             <form>
               <div className="row g-3 justify-content-center">
                 <div className="form-floating form-floating-midnight col-sm-4">
