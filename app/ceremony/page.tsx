@@ -117,22 +117,28 @@ export default function Ceremony() {
               </figure>
               <h3>Key</h3>
               <div className="col-6 col-sm-6 col-md-6 col-lg-4 d-inline-flex">
-                <div className="rectangle-blue rounded me-2"></div>Handicap space
+                <div className="rectangle-green rounded me-2"></div>Good
               </div>
               <div className="col-6 col-sm-6 col-md-6 col-lg-4 d-inline-flex">
                 <div className="rectangle-red rounded me-2"></div>No
               </div>
               <div className="col-6 col-sm-6 col-md-6 col-lg-4 d-inline-flex">
-                <div className="rectangle-green rounded me-2"></div>Good
-              </div>
+                <div className="rectangle-blue rounded me-2"></div>Handicap space
+              </div>             
               <div className="col-6 col-sm-6 col-md-6 col-lg-4 d-inline-flex align-items-center">
                 <div className="rectangle-brown rounded me-2"></div>Fence
               </div>
               <div className="col-10 col-sm-10 col-md-8 col-lg-8 d-inline-flex">
-                <div className="right-arrow-yellow"></div>Ideal flow of traffic; do not obstruct
+                <div>
+                  <Image src="/right-arrow-yellow.svg" alt="Right arrow" width={50} height={25} />
+                </div>
+                <div className="ms-2">
+                </div>Ideal flow of traffic; do not obstruct
               </div>
               <div className="col-10 col-sm-10 col-md-8 col-lg-10 d-inline-flex align-items-center">
-                <div className="up-arrow-purple me-2"></div>Church entrance (double doors under arch)
+                <div className="me-2">
+                  <Image src="/up-arrow-purple.svg" alt="Up arrow" width={25} height={50} />
+                </div>Church entrance (double doors under arch)
               </div>
               
             </div>
