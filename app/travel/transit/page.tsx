@@ -26,7 +26,7 @@ export default function Transit() {
                   <h2 className="card-title">Plane</h2>
                   <p className="card-text">Santa Fe is served by one international airport and one regional airport.</p>
                   <ul className="card-text">
-                    <li><strong>Santa Fe Regional Airport (SAF)</strong>: The Santa Fe Regional Airport is located about 20 minutes away from the church. This airport has routes connecting Santa Fe to Denver, Dallas, Phoenix, and Los Angeles.</li>
+                    <li><strong>Santa Fe Regional Airport (SAF)</strong>: The Santa Fe Regional Airport is located about 20 minutes away from the church. This airport has routes connecting Santa Fe to Denver, Dallas, Houston, Phoenix, Chicago, and Los Angeles.</li>
                     <li><strong>Albuquerque International Sunport (ABQ)</strong>: The Albuquerque International Sunport is a roughly one hour drive from Santa Fe and offers a wider range of flight options. If you are foregoing a rental car, you can use the <Link href={"https://www.riometro.org/395/New-Mexico-Rail-Runner-Express"} target="_blank">Rail Runner Express</Link> between Albuquerque and Santa Fe, with some bus rides on each end.</li>
                   </ul>
                 </div>
