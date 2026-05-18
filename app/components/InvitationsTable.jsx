@@ -10,6 +10,9 @@ import {
   flexRender,
   createColumnHelper,
 } from '@tanstack/react-table';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTableColumns } from "@fortawesome/free-solid-svg-icons";
+
 
 const columnHelper = createColumnHelper();
 
@@ -19,11 +22,18 @@ export default function InvitationsTable() {
   const [error, setError] = useState(null);
   const [sorting, setSorting] = useState([{ id: 'updatedAt', desc: true }]);
   const [columnFilters, setColumnFilters] = useState([]);
+  const [columnVisibility, setColumnVisibility] = useState({
+    householdName: false,
+    rehearsalGuest: false,
+    rehearsalMeal: false,
+  });
+  const [isColumnMenuOpen, setIsColumnMenuOpen] = useState(false);
   const [editingGuest, setEditingGuest] = useState(null);
   const [editForm, setEditForm] = useState({ title: '', givenName: '', familyName: '' });
   const [saveError, setSaveError] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
   const titleInputRef = useRef(null);
+  const columnMenuRef = useRef(null);
 
   // Fetch data from API on mount
   useEffect(() => {
@@ -78,6 +88,19 @@ export default function InvitationsTable() {
       titleInputRef.current.focus();
     }
   }, [editingGuest]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (columnMenuRef.current && !columnMenuRef.current.contains(event.target)) {
+        setIsColumnMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const openEditModal = (guest) => {
     setEditingGuest(guest);
@@ -197,13 +220,9 @@ export default function InvitationsTable() {
         cell: (info) => {
           const row = info.row.original;
           return (
-            <button
-              type="button"
-              className="btn btn-link p-0 text-decoration-none text-start"
-              onClick={() => openEditModal(row)}
-            >
+            <Link href={`/admin/rsvp/${row.inviteId}`} className="text-decoration-none">
               {info.getValue()}
-            </button>
+            </Link>
           );
         },
         enableSorting: true,
@@ -293,13 +312,18 @@ export default function InvitationsTable() {
     state: {
       sorting,
       columnFilters,
+      columnVisibility,
     },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
+    onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
   });
+
+  const allLeafColumns = table.getAllLeafColumns();
+  const visibleColumnCount = table.getVisibleLeafColumns().length;
 
   return (
     <div className="container mt-4">
@@ -555,13 +579,14 @@ export default function InvitationsTable() {
           <thead className='table-midnight'>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
+                {headerGroup.headers.map((header, index) => (
                   <th
                     key={header.id}
                     onClick={header.column.getToggleSortingHandler()}
                     style={{ cursor: 'pointer', userSelect: 'none' }}
                   >
-                    <div className="d-flex align-items-center">
+                    <div className="d-flex align-items-center justify-content-between gap-2">
+                      <div className="d-flex align-items-center">
                       {flexRender(
                         header.column.columnDef.header,
                         header.getContext()
@@ -571,6 +596,67 @@ export default function InvitationsTable() {
                         {header.column.getIsSorted() === 'desc' && '↓'}
                         {!header.column.getIsSorted() && '⇅'}
                       </span>
+                      </div>
+                      {index === headerGroup.headers.length - 1 && (
+                        <div
+                          className="position-relative"
+                          ref={columnMenuRef}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <button
+                            type="button"
+                            className="btn btn-sm btn-outline-light"
+                            aria-label="Show or hide table columns"
+                            aria-haspopup="true"
+                            aria-controls="column-visibility-menu"
+                            aria-expanded={isColumnMenuOpen}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setIsColumnMenuOpen((prev) => !prev);
+                            }}
+                          >
+                            <FontAwesomeIcon icon={faTableColumns} aria-hidden="true" />
+                            <span className="visually-hidden">Show or hide table columns</span>
+                          </button>
+                          {isColumnMenuOpen && (
+                            <div
+                              id="column-visibility-menu"
+                              className="dropdown-menu-outline-midnight border rounded shadow p-2"
+                              style={{
+                                display: 'block',
+                                position: 'absolute',
+                                right: 0,
+                                top: '100%',
+                                minWidth: '15rem',
+                                zIndex: 1000,
+                              }}
+                            >
+                              {allLeafColumns.map((column) => {
+                                const columnHeader = column.columnDef.header;
+                                const label = typeof columnHeader === 'string' ? columnHeader : column.id;
+                                const isVisible = column.getIsVisible();
+                                const isOnlyVisibleColumn = isVisible && visibleColumnCount === 1;
+
+                                return (
+                                  <label
+                                    key={column.id}
+                                    className="d-flex align-items-center gap-2 px-2 py-1 mb-0"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      className="form-check-input form-check-input-midnight m-0"
+                                      checked={isVisible}
+                                      disabled={isOnlyVisibleColumn}
+                                      onChange={column.getToggleVisibilityHandler()}
+                                    />
+                                    <span>{label}</span>
+                                  </label>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </th>
                 ))}
@@ -580,7 +666,7 @@ export default function InvitationsTable() {
           <tbody>
             {table.getRowModel().rows.length === 0 ? (
               <tr>
-                <td colSpan={columns.length} className="text-center py-4">
+                <td colSpan={visibleColumnCount} className="text-center py-4">
                   No results found
                 </td>
               </tr>
