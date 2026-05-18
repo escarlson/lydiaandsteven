@@ -2,6 +2,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { inviteSearch } from "../lib/rsvp-client";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 export default function SubmitButton() {
   const router = useRouter();
@@ -74,7 +76,7 @@ export default function SubmitButton() {
           }
         }}
       >
-        Find Invitation
+        <FontAwesomeIcon icon={faMagnifyingGlass} /> Find Invitation
       </button>
     </>
   );

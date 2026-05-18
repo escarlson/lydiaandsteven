@@ -1,4 +1,6 @@
 import SubmitButton from "../components/SubmitButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 export default function RSVP() {
   return (
@@ -6,7 +8,7 @@ export default function RSVP() {
       <div className="container text-center">
         <div className="row">
           <div className="col">
-            <h1>✉️ Find Your Invitation</h1>
+            <h1><FontAwesomeIcon icon={faEnvelope} /> Find Your Invitation</h1>
             <p>
               Look up your invitation by entering your first name, last name, and postal code below. You&apos;ll be able to RSVP for all guests on your invitation.
             </p>

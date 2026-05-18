@@ -6,6 +6,8 @@ import Sunset from "./lib/sunset";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faHotel, faGift } from "@fortawesome/free-solid-svg-icons";
 
 const macondo = Macondo({
   variable: "--font-macondo",
@@ -53,8 +55,14 @@ export default function Home() {
           <p>Welcome to our wedding website! Buckle up for way more information than you asked for.</p>
         </div>
         <div className="row justify-content-center mb-auto mb-4 mt-4">
-          <div className="col-md-8 col-lg-6">
-            <Link href="/rsvp" className="btn btn-midnight btn-lg">RSVP</Link>
+          <div className="col-xs-12 col-sm-3 col-lg-2">
+            <Link href="/travel/lodging" className="btn btn-outline-midnight btn-lg"><FontAwesomeIcon icon={faHotel} /> Lodging</Link>
+          </div>
+          <div className="col-xs-12 col-sm-3 col-lg-2 mt-2 mt-sm-0">
+            <Link href="/rsvp" className="btn btn-midnight btn-lg"><FontAwesomeIcon icon={faEnvelope} /> RSVP</Link>
+          </div>
+          <div className="col-xs-12 col-sm-3 col-lg-2 mt-2 mt-sm-0">
+            <Link href="/registry" className="btn btn-outline-midnight btn-lg"><FontAwesomeIcon icon={faGift} /> Registry</Link>
           </div>
         </div>
         <div className="row justify-content-center mt-4">
