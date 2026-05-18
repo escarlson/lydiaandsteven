@@ -45,7 +45,6 @@ export default function Admin() {
         <li><Link href="/admin/rsvp/create" className="btn btn-copper mb-2"><FontAwesomeIcon icon={faPlus} /> Create Invitations</Link></li>
         <li><Link href="/admin/rsvp/report" className="btn btn-copper mb-2"><FontAwesomeIcon icon={faList} /> View Invitations</Link></li>
         <li><Link href="/admin/rsvp/map" className="btn btn-copper mb-2"><FontAwesomeIcon icon={faMap} /> View RSVP Map</Link></li>
-        {/* <li><Link href="/admin/guests" className="btn btn-copper mb-2">Manage Guests</Link></li> */}
       </ul>
     </>
   );
