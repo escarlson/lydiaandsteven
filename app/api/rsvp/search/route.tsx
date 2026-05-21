@@ -59,9 +59,11 @@ export async function GET(request: Request) {
     // if the query matched guests that belong to multiple distinct invites, treat this as ambiguous and return an error
     const inviteIds = new Set(rows.map(r => r.invite_id));
     if (inviteIds.size > 1) {
+      console.error("Multiple invitations found for one query", { givenName: givenNameQuery, familyName: familyNameQuery, postalCode: postalCodeQuery, invite_ids: Array.from(inviteIds) });
       return NextResponse.json({ error: "Multiple invitations found for that guest", invite_ids: Array.from(inviteIds) }, { status: 409 });
     }
     if (inviteIds.size === 0) {
+      console.error("No matching invitations found", { givenName: givenNameQuery, familyName: familyNameQuery, postalCode: postalCodeQuery });
       return NextResponse.json({ error: "No invitation found matching that information" }, { status: 404 });
     }
 
