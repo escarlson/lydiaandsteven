@@ -116,8 +116,8 @@ const hotels: Hotel[] = [
 const venues: Venue[] = [
   {
     name: 'Holy Trinity Orthodox Church (Ceremony)',
-    lat: 35.6769,
-    lng: -105.9393,
+    lat: 35.6701462,
+    lng: -105.9393251,
     url: 'https://www.holytrinitysantafe.org/',
     description: '231 E Cordova Rd, Santa Fe, NM 87505'
   },
