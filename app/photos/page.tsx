@@ -1,5 +1,8 @@
 import Image from "next/image";
 
+const photoGridSizes = "(min-width: 992px) 33vw, (min-width: 768px) 50vw, 100vw";
+const penguinSizes = "(min-width: 768px) 8.33vw, 100vw";
+
 export default function Photos() {
   return (
     <div>
@@ -14,6 +17,7 @@ export default function Photos() {
                 alt="Piggyback ride"
                 width={3072}
                 height={4080}
+                sizes={photoGridSizes}
                 className="img-fluid rounded"
                 loading="eager"
                 placeholder="blur"
@@ -26,6 +30,7 @@ export default function Photos() {
                 alt="Hands"
                 width={3072}
                 height={4080}
+                sizes={photoGridSizes}
                 className="img-fluid rounded"
                 loading="eager"
                 placeholder="blur"
@@ -38,6 +43,7 @@ export default function Photos() {
                 alt="Steven and Lydia in Salida with mountains in the background"
                 width={3072}
                 height={4080}
+                sizes={photoGridSizes}
                 className="img-fluid rounded"
                 loading="eager"
                 placeholder="blur"
@@ -50,6 +56,7 @@ export default function Photos() {
                 alt="Tintype portrait of Lydia and Steven"
                 width={1603}
                 height={2000}
+                sizes={photoGridSizes}
                 className="img-fluid rounded"
                 placeholder="blur"
                 blurDataURL="data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAADwAQCdASoGAAcAABgAJ6QCdAD0pi8hUIAA/gvupG/rW2zt85O+e8Zn+2Qs4FCq07FlzP+pOn/9Mbqqb/mIu8oHBt7MGJmNRxBTv/Y6vf6ZB/uu3g2zc9s3hFwAAA=="
@@ -61,6 +68,7 @@ export default function Photos() {
                 alt="Another tintype portrait of Lydia and Steven"
                 width={1608}
                 height={1990}
+                sizes={photoGridSizes}
                 className="img-fluid rounded"
                 placeholder="blur"
                 blurDataURL="data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAABQAgCdASoGAAcAABgAJ5wCdAXBL/ji3y1bzAAA/sYH8WZez/wHVc/2Nz/9jSs//o2/s5inVci//m3Rv5C85/taV0B7k5195OcX/wf3z6VApLJerUAXG/f9+X/xks+nal7ymRuDcBlfQAAA"
@@ -72,6 +80,7 @@ export default function Photos() {
                 alt="Lydia and Steven on Steven's first visit"
                 width={2736}
                 height={3648}
+                sizes={photoGridSizes}
                 className="img-fluid rounded"
                 placeholder="blur"
                 blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQIBAQEBAQIBAQECAgICAgICAgIDAwQDAwMDAwICAwQDAwQEBAQEAgMFBQQEBQQEBAT/2wBDAQEBAQEBAQIBAQIEAwIDBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAT/wAARCAAEAAMDAREAAhEBAxEB/8QAFAABAAAAAAAAAAAAAAAAAAAACP/EABoQAAMBAQEBAAAAAAAAAAAAAAECAwUEESH/xAAVAQEBAAAAAAAAAAAAAAAAAAAFB//EAB4RAQEAAQUAAwAAAAAAAAAAAAECAwAEBxEhBRJR/9oADAMBAAIRAxEAPwA052wm3yJpdmPkJe9KTKcc78fPNZVeM1VEqB8SaAsfWYgszMxZjYfiucuR52GO73hVX3kWpF7yU5EPyZaSJPJgmTwNJ7vh3j7cZ/s7EkkmAmqDrHJAvvtJI1T7VLSquv/Z"
@@ -83,6 +92,7 @@ export default function Photos() {
                 alt="Lydia and Steven sitting under an arch"
                 width={2736}
                 height={3648}
+                sizes={photoGridSizes}
                 className="img-fluid rounded"
                 loading="lazy"
                 placeholder="blur"
@@ -95,6 +105,7 @@ export default function Photos() {
                 alt="Lydia and Steven on the beach"
                 width={3648}
                 height={2736}
+                sizes={photoGridSizes}
                 className="img-fluid rounded"
                 loading="lazy"
                 placeholder="blur"
@@ -107,6 +118,7 @@ export default function Photos() {
                 alt="King penguin at Zürich Zoo. CC-BY-SA albinfo"
                 width={851}
                 height={1280}
+                sizes={penguinSizes}
                 className="img-fluid rounded"
                 loading="lazy"
               />
