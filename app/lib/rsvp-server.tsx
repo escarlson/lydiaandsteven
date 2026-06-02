@@ -237,6 +237,7 @@ const fetchFoodEaterSummary = async () => {
 
     let accepted = 0;
     let pending = 0;
+    const theCouple = 2; // hardcoded since we know both Steven and Lydia are food eaters
 
     for (const row of rows as Array<{ rsvp_status: string | null; count: number }>) {
       const count = Number(row.count);
@@ -247,7 +248,7 @@ const fetchFoodEaterSummary = async () => {
       }
     }
 
-    return { accepted, pending };
+    return { accepted, pending, theCouple };
   } catch (error) {
     console.error('Database query error:', error);
     throw error;
