@@ -70,7 +70,7 @@ export default function Transit() {
                 </div>
                 <div className="card-footer">
                   <figure>
-                    <blockquote className="blockquote">
+                    <blockquote className="blockquote" style={{ fontSize: "16px" }}>
                       <p>[Roads] join village to village, for between villages marriages are made.</p>
                     </blockquote>
                     <figcaption className="blockquote-footer">
