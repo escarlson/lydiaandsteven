@@ -10,7 +10,7 @@ export default function RSVP() {
           <div className="col">
             <h1><FontAwesomeIcon icon={faEnvelope} /> Find Your Invitation</h1>
             <p>
-              Look up your invitation by entering your first name, last name, and postal code below. You&apos;ll be able to RSVP for all guests on your invitation.
+              Look up your invitation by entering your first name, last name, and postal code below. <br /> You&apos;ll be able to RSVP for all guests on your invitation and add any children we might have missed.
             </p>
             <p>
               If you have any issues, please email Steven at <a href="mailto:wedding@stevencarlson.me">wedding@stevencarlson.me.</a>
