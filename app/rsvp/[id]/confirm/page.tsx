@@ -41,7 +41,7 @@ export default async function RSVP({
         <div className="col">
           <h1>Thank You!</h1>
           <h2>{inviteDetails?.household_name}</h2>
-          <p>{( inviteDetails?.guests?.length ? inviteDetails.guests.length : "")} {(inviteDetails?.guests?.length === 1 ? "Guest" : "Guests")}</p>
+          <p>Party of {( inviteDetails?.guests?.length ? inviteDetails.guests.length : "")}</p>
         </div>
       </div>
       <div className="row justify-content-center mt-4">

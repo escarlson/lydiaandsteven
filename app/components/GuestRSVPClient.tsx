@@ -354,24 +354,32 @@ const GuestRSVPClient = forwardRef<GuestRSVPClientHandle, { inviteId: string; in
 
                 {!readOnly && (
                   <div className="col-4 col-sm-3 text-end">
-                    <button
-                      onClick={() => handleRSVP(guest.guest_id, 'accepted')}
-                      className="btn btn-sm btn-success me-2"
-                      disabled={guest.rsvp_status === 'accepted' || loadingGuest === guest.guest_id || readOnly}
-                      aria-label={`Accept RSVP for ${guest.given_name} ${guest.family_name}`}
-                      aria-describedby={`status-${guest.guest_id}`}
+                    <div
+                      className="btn-group"
+                      role="group"
+                      aria-label={`RSVP toggle for ${guest.given_name} ${guest.family_name}`}
                     >
-                      {loadingGuest === guest.guest_id ? '...' : 'Yes'}
-                    </button>
-                    <button
-                      onClick={() => handleRSVP(guest.guest_id, 'declined')}
-                      className="btn btn-sm btn-danger"
-                      disabled={guest.rsvp_status === 'declined' || loadingGuest === guest.guest_id || readOnly}
-                      aria-label={`Decline RSVP for ${guest.given_name} ${guest.family_name}`}
-                      aria-describedby={`status-${guest.guest_id}`}
-                    >
-                      {loadingGuest === guest.guest_id ? '...' : 'No'}
-                    </button>
+                      <button
+                        onClick={() => handleRSVP(guest.guest_id, 'accepted')}
+                        className={`btn btn-sm ${guest.rsvp_status === 'accepted' ? 'btn-success' : 'btn-outline-success'}`}
+                        disabled={loadingGuest === guest.guest_id || readOnly}
+                        aria-label={`Set RSVP to Yes for ${guest.given_name} ${guest.family_name}`}
+                        aria-describedby={`status-${guest.guest_id}`}
+                        aria-pressed={guest.rsvp_status === 'accepted'}
+                      >
+                        {loadingGuest === guest.guest_id ? '...' : 'Yes'}
+                      </button>
+                      <button
+                        onClick={() => handleRSVP(guest.guest_id, 'declined')}
+                        className={`btn btn-sm ${guest.rsvp_status === 'declined' ? 'btn-danger' : 'btn-outline-danger'}`}
+                        disabled={loadingGuest === guest.guest_id || readOnly}
+                        aria-label={`Set RSVP to No for ${guest.given_name} ${guest.family_name}`}
+                        aria-describedby={`status-${guest.guest_id}`}
+                        aria-pressed={guest.rsvp_status === 'declined'}
+                      >
+                        {loadingGuest === guest.guest_id ? '...' : 'No'}
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
