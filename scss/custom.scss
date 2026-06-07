@@ -62,3 +62,11 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 @import "../node_modules/bootstrap/scss/helpers";
 @import "../node_modules/bootstrap/scss/utilities";
 @import "../node_modules/bootstrap/scss/utilities/api";
+
+.popover.midnight-popover {
+  --bs-popover-header-bg: var(--bs-midnight);
+  --bs-popover-header-color: #fff;
+  --bs-popover-body-bg: #fff;
+  --bs-popover-body-color: #000;
+  --bs-popover-border-color: var(--bs-midnight);
+}

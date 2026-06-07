@@ -147,7 +147,7 @@ const fetchAllInvitationsWithGuests = async () => {
     const rows = result as Array<{
       invite_id: number;
       household_name: string;
-      postal_code: string;
+      postal_code: string | null;
       guest_id: number | null;
       guest_invite_id: number | null;
       given_name: string | null;
@@ -161,8 +161,83 @@ const fetchAllInvitationsWithGuests = async () => {
       updated_at: Date | null;
     }>;
 
+    type InvitationRecord = {
+      invite_id: number;
+      household_name: string;
+      postal_code: string | null;
+      guests: Array<{
+        guest_id: number;
+        invite_id: number | null;
+        title: string | null;
+        given_name: string | null;
+        family_name: string | null;
+        rsvp_status: string | null;
+        is_adult: boolean;
+        meal: boolean;
+        rehearsal_guest: boolean;
+        rehearsal_meal: boolean;
+        updated_at: Date | null;
+      }>;
+      alerts: string[];
+    };
+
+    const normalizeSearchValue = (value: string | null | undefined) =>
+      (value ?? '').trim().toLowerCase();
+
+    const findDuplicateGuestInviteIds = (invitations: InvitationRecord[]) => {
+      const inviteIdsByGuestKey = new Map<string, Set<number>>();
+
+      for (const invitation of invitations) {
+        const normalizedPostalCode = normalizeSearchValue(invitation.postal_code);
+
+        for (const guest of invitation.guests) {
+          const guestKey = [
+            normalizeSearchValue(guest.given_name),
+            normalizeSearchValue(guest.family_name),
+            normalizedPostalCode,
+          ].join('|');
+
+          const inviteIds = inviteIdsByGuestKey.get(guestKey) ?? new Set<number>();
+          inviteIds.add(invitation.invite_id);
+          inviteIdsByGuestKey.set(guestKey, inviteIds);
+        }
+      }
+
+      const duplicateInviteIds = new Set<number>();
+      for (const inviteIds of inviteIdsByGuestKey.values()) {
+        if (inviteIds.size > 1) {
+          for (const inviteId of inviteIds) {
+            duplicateInviteIds.add(inviteId);
+          }
+        }
+      }
+
+      return duplicateInviteIds;
+    };
+
+    const buildInvitationAlerts = (
+      invitation: InvitationRecord,
+      duplicateInviteIds: Set<number>
+    ) => {
+      const alerts: string[] = [];
+
+      if (!invitation.postal_code || invitation.postal_code.trim() === '') {
+        alerts.push('Missing postal code');
+      }
+
+      if (invitation.guests.length === 0) {
+        alerts.push('No guests on invitation');
+      }
+
+      if (duplicateInviteIds.has(invitation.invite_id)) {
+        alerts.push('Possible duplicate guest across invitations');
+      }
+
+      return alerts;
+    };
+
     // Group by invitation
-    const invitationsMap = new Map();
+    const invitationsMap = new Map<number, InvitationRecord>();
     for (const row of rows) {
       const inviteId = row.invite_id;
       
@@ -172,12 +247,18 @@ const fetchAllInvitationsWithGuests = async () => {
           household_name: row.household_name,
           postal_code: row.postal_code,
           guests: [],
+          alerts: [],
         });
+      }
+
+      const invitation = invitationsMap.get(inviteId);
+      if (!invitation) {
+        continue;
       }
 
       // Only add guest if guest_id exists (LEFT JOIN may return null guests)
       if (row.guest_id) {
-        invitationsMap.get(inviteId).guests.push({
+        invitation.guests.push({
           guest_id: row.guest_id,
           invite_id: row.guest_invite_id,
           title: row.title,
@@ -193,7 +274,15 @@ const fetchAllInvitationsWithGuests = async () => {
       }
     }
 
-    return Array.from(invitationsMap.values());
+    const invitationRecords = Array.from(invitationsMap.values());
+    const duplicateInviteIds = findDuplicateGuestInviteIds(invitationRecords);
+
+    const invitations = invitationRecords.map((invitation) => ({
+      ...invitation,
+      alerts: buildInvitationAlerts(invitation, duplicateInviteIds),
+    }));
+
+    return invitations;
   } catch (error) {
     console.error("Database query error:", error);
     throw error;

@@ -11,7 +11,7 @@ import {
   createColumnHelper,
 } from '@tanstack/react-table';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTableColumns } from "@fortawesome/free-solid-svg-icons";
+import { faTableColumns, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 
 
 const columnHelper = createColumnHelper();
@@ -50,6 +50,7 @@ export default function InvitationsTable() {
             inviteId: invitation.invite_id,
             householdName: invitation.household_name,
             postalCode: invitation.postal_code,
+            alerts: Array.isArray(invitation.alerts) ? invitation.alerts : [],
             title: guest.title || '',
             guestName: `${guest.title ? guest.title + ' ' : ''}${guest.given_name} ${guest.family_name}`,
             givenName: guest.given_name,
@@ -91,16 +92,69 @@ export default function InvitationsTable() {
     };
   }, []);
 
+  useEffect(() => {
+    let popovers = [];
+
+    const initPopovers = async () => {
+      const bootstrap = await import('bootstrap');
+      const nodes = document.querySelectorAll('[data-bs-toggle="popover"]');
+
+      popovers = Array.from(nodes).map((node) =>
+        new bootstrap.Popover(node, {
+          container: 'body',
+          trigger: 'focus',
+          placement: 'right',
+          html: true,
+          customClass: 'midnight-popover',
+        })
+      );
+    };
+
+    initPopovers();
+
+    return () => {
+      popovers.forEach((popover) => popover.dispose());
+    };
+  }, [data, columnVisibility]);
+
   const columns = useMemo(
     () => [
       columnHelper.accessor('householdName', {
         header: 'Household',
         cell: (info) => {
           const row = info.row.original;
+          const hasAlerts = Array.isArray(row.alerts) && row.alerts.length > 0;
+          const escapeHtml = (value) =>
+            String(value)
+              .replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;')
+              .replace(/'/g, '&#39;');
+          const alertContent = hasAlerts
+            ? `<ul class="mb-0 ps-3">${row.alerts
+                .map((alert) => `<li>${escapeHtml(alert)}</li>`)
+                .join('')}</ul>`
+            : '';
+
           return (
-            <Link href={`/admin/rsvp/${row.inviteId}`} className="text-decoration-none">
-              {info.getValue()}
-            </Link>
+            <span className="d-inline-flex align-items-center">
+              <Link href={`/admin/rsvp/${row.inviteId}`} className="text-decoration-none">
+                {info.getValue()}
+              </Link>
+              {hasAlerts && (
+                <button
+                  type="button"
+                  className="btn btn-link text-warning p-0 ms-2 align-baseline"
+                  data-bs-toggle="popover"
+                  data-bs-title="Alerts"
+                  data-bs-content={alertContent}
+                  aria-label={`Show alerts for ${info.getValue()}`}
+                >
+                  <FontAwesomeIcon icon={faTriangleExclamation} />
+                </button>
+              )}
+            </span>
           );
         },
         enableSorting: true,
@@ -112,7 +166,7 @@ export default function InvitationsTable() {
           const row = info.row.original;
           return (
             <Link href={`/admin/rsvp/${row.inviteId}`} className="text-decoration-none">
-              {info.getValue()}
+              <span>{info.getValue()}</span>
             </Link>
           );
         },
@@ -192,7 +246,7 @@ export default function InvitationsTable() {
         },
         enableSorting: true,
         enableColumnFilter: false,
-      })
+      }),
     ],
     []
   );
