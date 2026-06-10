@@ -128,6 +128,7 @@ const fetchAllInvitationsWithGuests = async () => {
          i.invite_id,
          i.household_name,
          i.postal_code,
+         i.sent_at,
          g.guest_id,
          g.invite_id AS guest_invite_id,
          g.title,
@@ -148,6 +149,7 @@ const fetchAllInvitationsWithGuests = async () => {
       invite_id: number;
       household_name: string;
       postal_code: string | null;
+      sent_at: Date | null;
       guest_id: number | null;
       guest_invite_id: number | null;
       given_name: string | null;
@@ -165,6 +167,7 @@ const fetchAllInvitationsWithGuests = async () => {
       invite_id: number;
       household_name: string;
       postal_code: string | null;
+      sent_at: Date | null;
       guests: Array<{
         guest_id: number;
         invite_id: number | null;
@@ -246,6 +249,7 @@ const fetchAllInvitationsWithGuests = async () => {
           invite_id: row.invite_id,
           household_name: row.household_name,
           postal_code: row.postal_code,
+          sent_at: row.sent_at,
           guests: [],
           alerts: [],
         });

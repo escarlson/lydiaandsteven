@@ -26,6 +26,7 @@ export default function InvitationsTable() {
     householdName: false,
     rehearsalGuest: false,
     rehearsalMeal: false,
+    creationDatetime: false,
   });
   const [isColumnMenuOpen, setIsColumnMenuOpen] = useState(false);
   const columnMenuRef = useRef(null);
@@ -50,6 +51,7 @@ export default function InvitationsTable() {
             inviteId: invitation.invite_id,
             householdName: invitation.household_name,
             postalCode: invitation.postal_code,
+            creationDatetime: invitation.sent_at,
             alerts: Array.isArray(invitation.alerts) ? invitation.alerts : [],
             title: guest.title || '',
             guestName: `${guest.title ? guest.title + ' ' : ''}${guest.given_name} ${guest.family_name}`,
@@ -240,6 +242,15 @@ export default function InvitationsTable() {
       }),
       columnHelper.accessor('updatedAt', {
         header: 'Last Updated',
+        cell: (info) => {
+          const date = new Date(info.getValue());
+          return date.toLocaleString();
+        },
+        enableSorting: true,
+        enableColumnFilter: false,
+      }),
+      columnHelper.accessor('creationDatetime', {
+        header: 'Created At',
         cell: (info) => {
           const date = new Date(info.getValue());
           return date.toLocaleString();
