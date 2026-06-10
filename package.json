@@ -1,6 +1,6 @@
 {
   "name": "lydiaandsteven",
-  "version": "0.11.15",
+  "version": "0.11.16",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -16,7 +16,7 @@
     "@fortawesome/react-fontawesome": "^3.1.1",
     "@tanstack/react-table": "^8.21.3",
     "baseline-browser-mapping": "^2.10.27",
-    "better-auth": "^1.6.11",
+    "better-auth": "^1.6.15",
     "bootstrap": "^5.3.8",
     "dayjs": "^1.11.21",
     "dotenv": "^17.2.3",
@@ -24,7 +24,7 @@
     "mysql2": "^3.22.3",
     "next": "^16.2.6",
     "node": "^24.11.1",
-    "react": "^19.2.6",
+    "react": "^19.2.7",
     "react-dom": "^19.2.6",
     "react-leaflet": "^5.0.0"
   },
