@@ -30,6 +30,7 @@ export default function EditInvitation() {
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("");
   const [rsvpDeadline, setRsvpDeadline] = useState("");
+  const [creationDatetime, setCreationDatetime] = useState("");
 
   // Guests + soft-delete tracking
   const [guests, setGuests] = useState<GuestEntry[]>([]);
@@ -71,6 +72,7 @@ export default function EditInvitation() {
       setPostalCode(invite.postal_code ?? "");
       setCountry(invite.country ?? "");
       setRsvpDeadline(invite.rsvp_deadline ?? "");
+      setCreationDatetime(invite.sent_at ?? "");
       setGuests(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         invite.guests.map((g: any) => ({
@@ -301,7 +303,9 @@ export default function EditInvitation() {
           View RSVP
         </Link>
       </div>
-      <p className="text-muted font-monospace small mb-3">{inviteId}</p>
+      <p className="text-muted small mb-3">
+        <span className="font-monospace">{inviteId}</span> &middot; Created at {creationDatetime.toString().replace("T", " ").substring(0, 16)}
+      </p>
 
       {error && <div className="alert alert-danger">{error}</div>}
 
