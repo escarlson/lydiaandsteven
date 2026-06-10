@@ -2,8 +2,6 @@ import InvitationsSummary from "@/app/components/InvitationsSummary";
 import InvitationsTable from "../../../components/InvitationsTable";
 import ErrorBoundary from "@/app/components/ErrorBoundary";
 import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function InvitationsReport() {
   return (
@@ -11,7 +9,6 @@ export default function InvitationsReport() {
       <div className="d-flex align-items-center gap-3 mb-1">
         <h1 className="mb-0">Invitations and Guests</h1>
         <Link href="/admin/rsvp/create" className="btn btn-sm btn-outline-midnight">
-          <FontAwesomeIcon icon={faPlus} className="me-1" />
           Create Invitation
         </Link>
       </div>
