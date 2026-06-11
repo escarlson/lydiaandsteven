@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChair, faCrown, faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
+import GetDirections from "../components/GetDirections";
 
 export default function Ceremony() {
   return (
@@ -11,13 +12,16 @@ export default function Ceremony() {
           <h1>Ceremony</h1>
           <p>The wedding will take place at:</p>
           <div className="row">
-            <div className="col-md-12 col-lg-12">
+            <div className="col-12 col-md-6">
               <address>
                 <p className="mb-1"><strong>Holy Trinity Orthodox Church</strong></p>
                 <p className="mb-1">231 E Cordova Rd</p>
                 <p className="mb-0">Santa Fe, NM 87505</p>
               </address>
+              <GetDirections googleURL = "https://maps.app.goo.gl/qMDi1nsk7xquH31g8" wazeURL = "https://ul.waze.com/ul?place=ChIJh3oDw1hQGIcRdUOEsAlTFAo&ll=35.67021380%2C-105.93938780&navigate=yes"/>
             </div>
+          </div>
+          <div className="row">
             <div className="col-md-12 col-lg-6">
               <figure className="figure">
                 <Image

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import GetDirections from "../components/GetDirections";
 
 export default function Reception() {
   return (
@@ -14,6 +15,7 @@ export default function Reception() {
             <p className="mb-1">2791 Agua Fria Street</p>
             <p className="mb-0">Santa Fe, NM 87507</p>
             </address>
+          <GetDirections googleURL="https://maps.app.goo.gl/rkc1ByBkbD82ng1V7" wazeURL="https://ul.waze.com/ul?place=ChIJd-4hioVRGIcR5ekkkVO0xT8&ll=35.68843970%2C-105.94041050&navigate=yes" />
           <p>Bring your dancin&apos; shoes!</p>
           <h2>Food</h2>
           <p>A barbecue supper (with a  grilled veggie kabob option for vegetarians) will be served. We&apos;re sorry, but we cannot accommodate all food restrictions. If you have very specific food restrictions, please sneak in your own food. We won&apos;t tell.</p>
