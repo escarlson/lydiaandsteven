@@ -17,7 +17,7 @@ export default function Reception() {
                 <p className="mb-1">2791 Agua Fria Street</p>
                 <p className="mb-0">Santa Fe, NM 87507</p>
                 </address>
-                <GetDirections googleURL="https://maps.app.goo.gl/rkc1ByBkbD82ng1V7" wazeURL="https://ul.waze.com/ul?place=ChIJd-4hioVRGIcR5ekkkVO0xT8&ll=35.68843970%2C-105.94041050&navigate=yes" />
+                <GetDirections googleURL="https://maps.app.goo.gl/rkc1ByBkbD82ng1V7" wazeURL="https://ul.waze.com/ul?venue_id=166461797.1664683503.20577513&overview=yes" />
                 <p>Bring your dancin&apos; shoes!</p>
             </div>
             <div className="col col-sm-12 col-md-6">
