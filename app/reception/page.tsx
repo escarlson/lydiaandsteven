@@ -8,15 +8,32 @@ export default function Reception() {
       <main>
         <div className="container">
           <h1>Reception</h1>
-          <p className="mb-2">The reception will be held at:</p>
-            <address>
-            <p className="mb-1"><strong>Tumbleroot Brewery &amp; Distillery</strong></p>
-            <p className="mb-1">(aka Agua Fria Taproom aka Tumbleroot Alegría)</p>
-            <p className="mb-1">2791 Agua Fria Street</p>
-            <p className="mb-0">Santa Fe, NM 87507</p>
-            </address>
-          <GetDirections googleURL="https://maps.app.goo.gl/rkc1ByBkbD82ng1V7" wazeURL="https://ul.waze.com/ul?place=ChIJd-4hioVRGIcR5ekkkVO0xT8&ll=35.68843970%2C-105.94041050&navigate=yes" />
-          <p>Bring your dancin&apos; shoes!</p>
+          <div className="row">
+            <div className="col col-sm-12 col-md-6">
+                <p className="mb-2">The reception will be held at:</p>
+                <address>
+                <p className="mb-1"><strong>Tumbleroot Brewery &amp; Distillery</strong></p>
+                <p className="mb-1">(aka Agua Fria Taproom aka Tumbleroot Alegría)</p>
+                <p className="mb-1">2791 Agua Fria Street</p>
+                <p className="mb-0">Santa Fe, NM 87507</p>
+                </address>
+                <GetDirections googleURL="https://maps.app.goo.gl/rkc1ByBkbD82ng1V7" wazeURL="https://ul.waze.com/ul?place=ChIJd-4hioVRGIcR5ekkkVO0xT8&ll=35.68843970%2C-105.94041050&navigate=yes" />
+                <p>Bring your dancin&apos; shoes!</p>
+            </div>
+            <div className="col col-sm-12 col-md-6">
+              <figure className="figure">
+              <Image
+                src="/tumbleroot_street_view.webp"
+                alt="Entrance to Tumbleroot Brewery & Distillery"
+                className="figure-img img-fluid rounded"
+                width={2953}
+                height={1785}
+                loading="eager"
+              />
+              </figure>
+            </div>
+          </div>
+          
           <h2>Food</h2>
           <p>A barbecue supper (with a  grilled veggie kabob option for vegetarians) will be served. We&apos;re sorry, but we cannot accommodate all food restrictions. If you have very specific food restrictions, please sneak in your own food. We won&apos;t tell.</p>
           <h2>Drink</h2>
