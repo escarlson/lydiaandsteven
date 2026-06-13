@@ -1,4 +1,7 @@
 import Image from "next/image";
+import TumblerootStreetView from "@/public/tumbleroot_street_view.webp";
+import TumblerootEntrance from "@/public/tumbleroot_entrance.jpg";
+import TumblerootGate from "@/public/tumbleroot_gate.png";
 import Link from "next/link";
 import GetDirections from "../components/GetDirections";
 
@@ -23,12 +26,13 @@ export default function Reception() {
             <div className="col col-sm-12 col-md-6">
               <figure className="figure">
               <Image
-                src="/tumbleroot_street_view.webp"
+                src={TumblerootStreetView}
                 alt="Entrance to Tumbleroot Brewery & Distillery"
                 className="figure-img img-fluid rounded"
                 width={2953}
                 height={1785}
                 loading="eager"
+                placeholder="blur"
               />
               </figure>
             </div>
@@ -45,7 +49,7 @@ export default function Reception() {
             <div className="col-md-12 col-lg-6 mb-3">
               <figure className="figure">
               <Image
-                src="/tumbleroot_entrance.jpg"
+                src={TumblerootEntrance}
                 alt="Entrance to Tumbleroot Brewery & Distillery"
                 className="figure-img img-fluid rounded"
                 width={1600}
@@ -59,7 +63,7 @@ export default function Reception() {
               <div className="col-md-12 col-lg-6 mb-3">
                 <figure className="figure">
                 <Image
-                  src="/tumbleroot_gate.png"
+                  src={TumblerootGate}
                   alt="Gate to Tumbleroot Brewery & Distillery"
                   className="figure-img img-fluid rounded"
                   width={782}
