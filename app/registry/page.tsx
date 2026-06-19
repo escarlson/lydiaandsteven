@@ -6,7 +6,7 @@ export default function Registry() {
       <main>
         <div className="container">
           <h1>Registry</h1>
-          <p>We are registered at Amazon and Etsy, and have a universal registry for other items on Joy.</p>
+          <p>We are registered at Amazon and Etsy, and have a universal registry for other items on Joy. You&apos;ll find a couple of cash funds in the Joy registry as well.</p>
           <div className="row row-cols-auto">
             <div className="col mb-3">
               <Link href="https://www.amazon.com/wedding/guest-view/3M73SKX4EJOJP" target="_blank" rel="noopener noreferrer" className="d-block btn btn-midnight">Amazon Registry</Link>
