@@ -12,7 +12,7 @@ export default function Reception() {
         <div className="container">
           <h1>Reception</h1>
           <div className="row">
-            <div className="col col-sm-12 col-md-6">
+            <div className="col-xs-12 col-md-6">
                 <p className="mb-2">The reception will be held at:</p>
                 <address>
                 <p className="mb-1"><strong>Tumbleroot Brewery &amp; Distillery</strong></p>
@@ -23,7 +23,7 @@ export default function Reception() {
                 <GetDirections googleURL="https://maps.app.goo.gl/rkc1ByBkbD82ng1V7" wazeURL="https://ul.waze.com/ul?venue_id=166461797.1664683503.20577513&overview=yes" />
                 <p>Bring your dancin&apos; shoes!</p>
             </div>
-            <div className="col col-sm-12 col-md-6">
+            <div className="col-xs-12 col-md-6">
               <figure className="figure">
               <Image
                 src={TumblerootStreetView}
