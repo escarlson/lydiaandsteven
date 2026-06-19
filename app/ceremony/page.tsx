@@ -1,4 +1,7 @@
 import Image from "next/image";
+import HTExterior from "@/public/ht_exterior_new.jpg"
+import WhereToStand from "@/public/where_to_stand.webp"
+import WeddingParking from "@/public/WeddingParking.png"
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChair, faCrown, faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
@@ -25,13 +28,12 @@ export default function Ceremony() {
             <div className="col-md-12 col-lg-6">
               <figure className="figure">
                 <Image
-                  src="/ht_exterior.webp"
+                  src={HTExterior}
                   placeholder="blur"
-                  blurDataURL="data:image/octet-stream;base64,UklGRkgDAABXRUJQVlA4WAoAAAAgAAAABwAAAwAASUNDUKACAAAAAAKgbGNtcwRAAABtbnRyUkdCIFhZWiAH6QAMABgAFQAQAAthY3NwQVBQTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWxjbXMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1kZXNjAAABIAAAAEBjcHJ0AAABYAAAADZ3dHB0AAABmAAAABRjaGFkAAABrAAAACxyWFlaAAAB2AAAABRiWFlaAAAB7AAAABRnWFlaAAACAAAAABRyVFJDAAACFAAAACBnVFJDAAACFAAAACBiVFJDAAACFAAAACBjaHJtAAACNAAAACRkbW5kAAACWAAAACRkbWRkAAACfAAAACRtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACQAAAAcAEcASQBNAFAAIABiAHUAaQBsAHQALQBpAG4AIABzAFIARwBCbWx1YwAAAAAAAAABAAAADGVuVVMAAAAaAAAAHABQAHUAYgBsAGkAYwAgAEQAbwBtAGEAaQBuAABYWVogAAAAAAAA9tYAAQAAAADTLXNmMzIAAAAAAAEMQgAABd7///MlAAAHkwAA/ZD///uh///9ogAAA9wAAMBuWFlaIAAAAAAAAG+gAAA49QAAA5BYWVogAAAAAAAAJJ8AAA+EAAC2xFhZWiAAAAAAAABilwAAt4cAABjZcGFyYQAAAAAAAwAAAAJmZgAA8qcAAA1ZAAAT0AAACltjaHJtAAAAAAADAAAAAKPXAABUfAAATM0AAJmaAAAmZwAAD1xtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAEcASQBNAFBtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJWUDggggAAALACAJ0BKggABAAAAAAljAJ0TIB/ABRB5sbFfjpUAAD+/rZ24vK//G//Vz+Q0/zQf2Ct9XDuf//7V+xf/4b3rNVeHGYSHFnzMALTuQ/0Nz8+X40v+tP09f/obfTF/1kv/+jvwN2LfJ+PT/Ii37Pw5/xoasb/4ZRXb/xf//jUm76WAAA="
                   alt="Holy Trinity Orthodox Church exterior"
                   className="figure-img img-fluid rounded"
-                  width={4080}
-                  height={2260}
+                  width={4000}
+                  height={3000}
                 />
               </figure>
             </div>
@@ -83,9 +85,8 @@ export default function Ceremony() {
             <div className="col-md-12 col-lg-6">
               <figure className="figure">
                 <Image
-                  src="/where_to_stand.webp"
+                  src={WhereToStand}
                   placeholder="blur"
-                  blurDataURL="data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAACwAgCdASoEAAMAABgAJ7ACdLoB+AH6ANkAA6tbhLgA/vKT3b/6Y3+3qrv4cfMKk9eb/742PbXmPIic4VwwMaNM9/8f/g3/9AI//J//y/PcjSxO/8nJG2KaXt3/qygA"
                   alt="Annotated image showing where to stand in the church"
                   className="img-fluid figure-img my-4 rounded"
                   width={1600}
@@ -111,7 +112,7 @@ export default function Ceremony() {
             <div className="col-md-12 col-lg-8">
               <figure className="figure">
                 <Image
-                  src="/WeddingParking.png"
+                  src={WeddingParking}
                   alt="Map showing parking options near the church"
                   className="img-fluid figure-img rounded"
                   loading="lazy"
