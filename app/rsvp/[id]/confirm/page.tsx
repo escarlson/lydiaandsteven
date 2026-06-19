@@ -57,7 +57,7 @@ export default async function RSVP({
             <div className="card-body">
               <h2 className="card-title">Ceremony</h2>
               <p>Please note that the ceremony is standing room only! Seating is extremely limited and strictly reserved for those in need of this accommodation. For more info and to tell us your accessibility needs, click below.</p>
-              <Link href="/ceremony" className="btn btn-midnight">Ceremony Info</Link>
+              <Link href="/ceremony" className="btn btn-midnight">Ceremony and Accessibility Info</Link>
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@ export default async function RSVP({
           <div className="card">
             <div className="card-body">
               <h2 className="card-title">Reception</h2>
-              <p>The reception will be at Tumbleroot Brewery & Distillery. Get all the deets below!</p>
+              <p>The reception will be at Tumbleroot Brewery & Distillery. Get all the deets!</p>
               <Link href="/reception" className="btn btn-midnight">Reception Info</Link>
             </div>
           </div>
@@ -83,7 +83,7 @@ export default async function RSVP({
           <div className="card">
             <div className="card-body">
               <h2 className="card-title">Registry</h2>
-              <p>Gifts are not expected, but here are some ideas! Click below for links to our registries, as well as info about needed secondhand items.</p>
+              <p>Gifts are not expected, but here are some ideas! Find links to our registries as well as info about needed secondhand items.</p>
               <Link href="/registry" className="btn btn-midnight">Registry</Link>
             </div>
           </div>
