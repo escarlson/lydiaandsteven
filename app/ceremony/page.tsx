@@ -15,7 +15,7 @@ export default function Ceremony() {
           <h1>Ceremony</h1>
           <p>The wedding will take place at:</p>
           <div className="row">
-            <div className="col-12 col-md-6">
+            <div className="col col-sm-12 col-md-6">
               <address>
                 <p className="mb-1"><strong>Holy Trinity Orthodox Church</strong></p>
                 <p className="mb-1">231 E Cordova Rd</p>
@@ -23,9 +23,7 @@ export default function Ceremony() {
               </address>
               <GetDirections googleURL = "https://maps.app.goo.gl/qMDi1nsk7xquH31g8" wazeURL = "https://ul.waze.com/ul?place=ChIJh3oDw1hQGIcRdUOEsAlTFAo&ll=35.67021380%2C-105.93938780&navigate=yes"/>
             </div>
-          </div>
-          <div className="row">
-            <div className="col-md-12 col-lg-6">
+            <div className="col col-sm-12 col-md-6">
               <figure className="figure">
                 <Image
                   src={HTExterior}
@@ -33,7 +31,7 @@ export default function Ceremony() {
                   alt="Holy Trinity Orthodox Church exterior"
                   className="figure-img img-fluid rounded"
                   width={4000}
-                  height={3000}
+                  height={2673}
                 />
               </figure>
             </div>
