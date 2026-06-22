@@ -1,0 +1,4 @@
+Contact: mailto:wedding@stevencarlson.me
+Expires: 2026-09-19T18:00:00.000Z
+Preferred-Languages: en
+Canonical: https://lydiaandsteven.wedding/.well-known/security.txt
