@@ -3,8 +3,6 @@ import { auth } from "@/app/lib/auth";
 import pool from '../../../lib/db';
 import { updateGuestRSVP } from '../../../lib/rsvp-server';
 
-console.log("API route loaded");
-
 // InviteGuestRow includes data from both invites and guests tables
 type InviteGuestRow = {
   invite_id: string;
@@ -19,6 +17,7 @@ type InviteGuestRow = {
   family_name: string;
   rsvp_status: string | null;
   is_adult: number | boolean;
+  note: string | null;
   meal: number | boolean;
   rehearsal_guest: number | boolean;
   rehearsal_meal: number | boolean;
@@ -61,7 +60,8 @@ export async function GET(
          i.household_name,
          i.postal_code AS invite_postal_code,
          i.country,
-        i.rsvp_deadline,
+         i.note,
+         i.rsvp_deadline,
          i.sent_at,
          g.guest_id,
          g.title,
@@ -100,6 +100,7 @@ export async function GET(
           household_name: r.household_name,
           postal_code: r.invite_postal_code,
           country: r.country,
+          note: r.note,
           rsvp_deadline: normalizeDateOnly(r.rsvp_deadline),
           sent_at: r.sent_at,
           guests: [],
@@ -156,6 +157,7 @@ export async function POST(
       const household_name = (body.household_name ?? '').toString().trim();
       const postal_code = (body.postal_code ?? '').toString().trim() || null;
       const country = (body.country ?? '').toString().trim() || null;
+      const note = (body.note ?? '').toString().trim() || null;
       const rsvp_deadline = normalizeDateOnly(body.rsvp_deadline);
       const guests = Array.isArray(body.guests) ? body.guests : [];
 
@@ -193,13 +195,14 @@ export async function POST(
         await pool.query('START TRANSACTION');
 
         await pool.query(
-          `INSERT INTO invites (invite_id, household_name, postal_code, country, rsvp_deadline)
+          `INSERT INTO invites (invite_id, household_name, postal_code, country, note, rsvp_deadline)
            VALUES (?, ?, ?, ?, ?)`,
           [
             inviteIdNew,
             body.household_name ?? null,
             postal_code,
             country,
+            note,
             rsvp_deadline,
           ]
         );
@@ -240,6 +243,7 @@ export async function POST(
           household_name: body.household_name,
           postal_code: postal_code,
           country: country,
+          note: note,
           rsvp_deadline,
           guests: createdGuests,
         };
@@ -309,6 +313,7 @@ export async function PATCH(
     const household_name = (body.household_name ?? '').toString().trim();
     const postal_code = body.postal_code ? body.postal_code.toString().trim() : null;
     const country = body.country ? body.country.toString().trim().toUpperCase() : null;
+    const note = body.note ? body.note.toString().trim() : null;
     const rsvp_deadline = normalizeDateOnly(body.rsvp_deadline);
 
     if (!household_name) {
@@ -319,8 +324,8 @@ export async function PATCH(
     }
 
     const [result] = await pool.query(
-      'UPDATE invites SET household_name = ?, postal_code = ?, country = ?, rsvp_deadline = ? WHERE invite_id = ?',
-      [household_name, postal_code, country, rsvp_deadline, inviteId]
+      'UPDATE invites SET household_name = ?, postal_code = ?, country = ?, note = ?, rsvp_deadline = ? WHERE invite_id = ?',
+      [household_name, postal_code, country, note, rsvp_deadline, inviteId]
     ) as [import('mysql2').ResultSetHeader, unknown];
 
     if (result.affectedRows === 0) {

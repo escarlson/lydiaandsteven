@@ -4,6 +4,8 @@ import { useCallback, useRef, useState } from 'react';
 import GuestRSVPClient, { GuestRSVPClientHandle } from "../../components/GuestRSVPClient";
 import RSVPNavClient from "../../components/RSVPNavClient";
 import ErrorBoundary from "@/app/components/ErrorBoundary";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faNoteSticky } from '@fortawesome/free-regular-svg-icons';
 
 type Guest = {
   guest_id: string;
@@ -25,6 +27,7 @@ type InviteDetails = {
   state_province: string;
   postal_code: string;
   country: string;
+  note: string | null;
   sent_at: Date | null;
   guests: Guest[];
   rsvp_deadline: Date | null;
@@ -48,18 +51,32 @@ export default function RSVPPageClient({ inviteDetails }: { inviteDetails: Invit
 
   return (
     <>
-      <div className="row">
-        <div className="col">
+      <div className="row justify-content-center">
+        <div className="col col-auto">
           <h1>You&apos;re invited!</h1>
           <p><strong>Please RSVP by {inviteDetails?.rsvp_deadline?.toLocaleDateString() ?? 'the deadline'}.</strong></p>
           <ErrorBoundary>
             <h2>{inviteDetails?.household_name}</h2>
             <p>Party of {partyCount}</p>
           </ErrorBoundary>
+          <ErrorBoundary>
+            {inviteDetails?.note ? (
+              <div className='card'>
+                <h3 className='card-header text-start h5'>
+                  {/* width attribute reduce layout shifting during page load */}
+                  <FontAwesomeIcon icon={faNoteSticky} width={"1.25em"}></FontAwesomeIcon>Note
+                </h3>
+                <div className='card-body'>
+                  {inviteDetails.note}
+                </div>
+              </div>
+              
+            ) : null}
+          </ErrorBoundary>
         </div>
       </div>
       <div className="row justify-content-center mt-4">
-        <div className="col-md-8 col-lg-6">
+        <div className="col col-auto">
           {/* Client-side interactive RSVP list */}
           <ErrorBoundary>
             <GuestRSVPClient 

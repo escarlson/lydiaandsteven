@@ -21,6 +21,7 @@ type InviteDetails = {
   state_province: string;
   postal_code: string;
   country: string;
+  note: string | null;
   sent_at: Date | null;
   guests: Guest[];
   rsvp_deadline: Date | null;

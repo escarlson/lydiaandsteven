@@ -13,6 +13,7 @@ CREATE TABLE invites (
     household_name VARCHAR(255) NOT NULL,
     postal_code VARCHAR(20),
     rsvp_deadline DATE,
+    note VARCHAR(255),
     sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
