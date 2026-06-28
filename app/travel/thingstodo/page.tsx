@@ -45,11 +45,11 @@ export default function ThingsToDo() {
                     <ul>
                       <li>
                         <p className="mb-0"><strong><Link href={"https://www.blm.gov/visit/diablo-canyon"} target="_blank">Diablo Canyon</Link></strong></p>
-                        <p>Gorgeous cliffs offer world-class rock climbing. Or, walk along the canyon floor to the Rio Grande and soak your feet in the river. A short 20 minutes from Santa Fe.</p>
+                        <p>Gorgeous cliffs offer world-class rock climbing. Or, walk along the canyon floor to the Rio Grande and soak your feet in the river. About 40 minutes away from Santa Fe.</p>
                       </li>
                       <li>
                         <p className="mb-0"><strong><Link href={"https://earthship.com/visit/"} target="_blank">Taos Earthships</Link></strong></p>
-                        <p>We highly recommend taking the official guided tour ($22/adult; so worth it!) which is offered at 3:00pm every day. Taos is about a 1hr drive from Santa Fe. While you’re in Taos, hike into the Rio Grande Gorge and soak in Black Rock Hot Springs or Manby Hot Springs along the river! On the drive back from Taos, stop at one of the many mom-and-pop wineries dotting the river canyon along NM-68.</p>
+                        <p>We highly recommend taking the official guided tour ($22/adult; so worth it!) which is offered at 4pm every day. Taos is about a 1hr drive from Santa Fe. While you’re in Taos, hike into the Rio Grande Gorge and soak in Black Rock Hot Springs or Manby Hot Springs along the river! On the drive back from Taos, stop at one of the many mom-and-pop wineries dotting the river canyon along NM-68.</p>
                       </li>
                       <li>
                         <p className="mb-0"><strong><Link href={"https://www.nps.gov/band/index.htm"} target="_blank">Bandelier National Monument</Link></strong></p>

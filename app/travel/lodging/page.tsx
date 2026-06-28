@@ -53,7 +53,7 @@ export default function Lodging() {
             </div>
           </div>
           <h2>Shared Lodging</h2>
-          <p>Want to share a rental house with other friends of Lydia and Steven? Fill out this li&apos;l form and we&apos;ll connect you to others who are looking to do the same! If there is enough interest, we may even try to rent one big place to be a guest flophouse.</p>
+          <p>Want to share a rental house with other friends of Lydia and Steven? Fill out this li&apos;l form and we&apos;ll connect you to others who are looking to do the same!</p>
           <Link href={"https://form.jotform.com/253634237497163"} target="_blank" rel="noopener noreferrer" className="btn btn-midnight mb-5"><FontAwesomeIcon icon={faHotel} className="me-2" />Shared Lodging Interest Form</Link>
         </div>
       </main>
