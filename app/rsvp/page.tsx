@@ -13,7 +13,7 @@ export default function RSVP() {
               Look up your invitation by entering your first name, last name, and postal code below. <br /> You&apos;ll be able to RSVP for all guests on your invitation and add any children we might have missed.
             </p>
             <p>
-              If you have any issues, please email Steven at <a href="mailto:wedding@stevencarlson.me">wedding@stevencarlson.me.</a>
+              If you have any issues, please email Steven at <a href="mailto:wedding@stevencarlson.me">wedding@stevencarlson.me</a>.
             </p>
             <form>
               <div className="row g-3 justify-content-center">

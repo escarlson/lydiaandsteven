@@ -59,7 +59,8 @@ export default function Home() {
             <Link href="/travel/lodging" className="btn btn-outline-midnight btn-lg"><FontAwesomeIcon icon={faHotel} /> Lodging</Link>
           </div> */}
           <div className="col-xs-12 col-sm-3 col-lg-2 mt-2 mt-sm-0">
-            <Link href="/rsvp" className="btn btn-midnight btn-lg"><FontAwesomeIcon icon={faEnvelope} /> RSVP</Link>
+            {/* width attribute reduces layout shifting during page load */}
+            <Link href="/rsvp" className="btn btn-midnight btn-lg"><FontAwesomeIcon icon={faEnvelope} width={"1.25em"}/> RSVP</Link>
           </div>
 {/*           <div className="col-xs-12 col-sm-3 col-lg-2 mt-2 mt-sm-0">
             <Link href="/registry" className="btn btn-outline-midnight btn-lg"><FontAwesomeIcon icon={faGift} /> Registry</Link>
