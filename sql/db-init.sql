@@ -39,3 +39,12 @@ CREATE TABLE IF NOT EXISTS rsvp_change_log (
   guest_id TEXT NOT NULL,
   new_value TEXT
 );
+
+CREATE TABLE IF NOT EXISTS `system_settings` (
+  `setting_id` uuid not null default sys_guid (),
+  `created_at` TIMESTAMP null default CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP null default CURRENT_TIMESTAMP,
+  `name` varchar(255) not null,
+  `value` varchar(255) null,
+  primary key (`setting_id`)
+)
