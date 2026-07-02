@@ -1,6 +1,6 @@
 {
   "name": "lydiaandsteven",
-  "version": "0.11.21",
+  "version": "0.11.22",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -22,7 +22,7 @@
     "dotenv": "^17.2.3",
     "leaflet": "^1.9.4",
     "mysql2": "^3.22.3",
-    "next": "^16.2.6",
+    "next": "^16.2.10",
     "node": "^24.11.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.6",

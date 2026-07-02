@@ -29,6 +29,7 @@ export default function EditInvitation() {
   const [householdName, setHouseholdName] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("");
+  const [note, setNote] = useState("");
   const [rsvpDeadline, setRsvpDeadline] = useState("");
   const [creationDatetime, setCreationDatetime] = useState("");
 
@@ -71,6 +72,7 @@ export default function EditInvitation() {
       setHouseholdName(invite.household_name ?? "");
       setPostalCode(invite.postal_code ?? "");
       setCountry(invite.country ?? "");
+      setNote(invite.note ?? "");
       setRsvpDeadline(invite.rsvp_deadline ?? "");
       setCreationDatetime(invite.sent_at ?? "");
       setGuests(
@@ -180,6 +182,7 @@ export default function EditInvitation() {
           household_name: householdName,
           postal_code: postalCode || null,
           country: country || null,
+          note: note || null,
           rsvp_deadline: rsvpDeadline || null,
         }),
       });
@@ -368,6 +371,16 @@ export default function EditInvitation() {
               type="date"
               value={rsvpDeadline}
               onChange={e => setRsvpDeadline(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="row g-2 mb-3">
+          <div className="col-12">
+            <label className="note">Note</label>
+            <input
+              className="form-control form-control-midnight"
+                value={note}
+                onChange={e => setNote(e.target.value)}
             />
           </div>
         </div>
