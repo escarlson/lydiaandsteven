@@ -47,8 +47,6 @@ export default function RSVPPageClient({ inviteDetails }: { inviteDetails: Invit
     setPartyCount(guests.length);
   }, []);
 
-  console.log(inviteDetails?.rsvp_deadline);
-
   return (
     <>
       <div className="row justify-content-center">
