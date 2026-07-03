@@ -503,11 +503,12 @@ export default function InvitationsTable() {
           // Default text input for other columns
           return (
             <div key={column.id} className="col-12 col-md-6 mb-2">
-              <label className="form-label text-muted">
+              <label className="form-label text-muted" htmlFor={`input-filter-${column.columnDef.header}`}>
                 Filter {column.columnDef.header}
               </label>
               <input
                 type="text"
+                id={`input-filter-${column.columnDef.header}`}
                 className="form-control form-control-midnight form-control-sm"
                 value={column.getFilterValue() ?? ''}
                 onChange={(e) => column.setFilterValue(e.target.value)}
