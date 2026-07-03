@@ -5,7 +5,11 @@
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/variables-dark";
 
-$navbar-light-color: #ba7656;
+$navbar-dark-color: #f3dbd1;
+$navbar-dark-hover-color: lighten($navbar-dark-color, 15%);
+$navbar-dark-active-color: #fff;
+$navbar-dark-disabled-color: rgba(255, 255, 255, 0.25);
+$navbar-light-color: #ba5656;
 $navbar-light-hover-color: darken($navbar-light-color, 15%);
 $navbar-light-active-color: darken($navbar-light-color, 25%);
 $navbar-light-disabled-color: lighten($navbar-light-color, 25%);
