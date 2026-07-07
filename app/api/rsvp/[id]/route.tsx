@@ -196,7 +196,7 @@ export async function POST(
 
         await pool.query(
           `INSERT INTO invites (invite_id, household_name, postal_code, country, note, rsvp_deadline)
-           VALUES (?, ?, ?, ?, ?)`,
+           VALUES (?, ?, ?, ?, ?, ?)`,
           [
             inviteIdNew,
             body.household_name ?? null,
