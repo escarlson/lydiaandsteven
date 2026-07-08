@@ -27,6 +27,8 @@ export default function InvitationsTable() {
     rehearsalGuest: false,
     rehearsalMeal: false,
     creationDatetime: false,
+    rsvpDeadline: false,
+    isAdult: false,
   });
   const [isColumnMenuOpen, setIsColumnMenuOpen] = useState(false);
   const columnMenuRef = useRef(null);
@@ -52,6 +54,8 @@ export default function InvitationsTable() {
             householdName: invitation.household_name,
             postalCode: invitation.postal_code,
             creationDatetime: invitation.sent_at,
+            rsvpDeadline: invitation.rsvp_deadline,
+            note: invitation.note,
             alerts: Array.isArray(invitation.alerts) ? invitation.alerts : [],
             title: guest.title || '',
             guestName: `${guest.title ? guest.title + ' ' : ''}${guest.given_name} ${guest.family_name}`,
@@ -194,6 +198,21 @@ export default function InvitationsTable() {
           return filterValue.includes(row.getValue(columnId));
         },
       }),
+      columnHelper.accessor('isAdult', {
+        header: 'Adult',
+        cell: (info) => {
+          const value = info.getValue();
+          return value
+            ? <span className="badge bg-dark text-white">Adult</span>
+            : <span className="badge bg-secondary">Child</span>;
+        },
+        enableSorting: true,
+        enableColumnFilter: true,
+        filterFn: (row, columnId, filterValue) => {
+          if (!filterValue || filterValue.length === 0) return true;
+          return filterValue.includes(row.getValue(columnId));
+        },
+      }),
       columnHelper.accessor('foodEater', {
         header: 'Meal',
         cell: (info) => {
@@ -254,6 +273,15 @@ export default function InvitationsTable() {
         cell: (info) => {
           const date = new Date(info.getValue());
           return date.toLocaleString();
+        },
+        enableSorting: true,
+        enableColumnFilter: false,
+      }),
+      columnHelper.accessor('rsvpDeadline', {
+        header: 'RSVP Deadline',
+        cell: (info) => {
+          const date = new Date(info.getValue());
+          return date.toLocaleDateString();
         },
         enableSorting: true,
         enableColumnFilter: false,
@@ -358,6 +386,50 @@ export default function InvitationsTable() {
                     />
                     <label className="form-check-label" htmlFor="filter-declined">
                       Declined
+                    </label>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          if (column.id === 'isAdult') {
+            const currentFilter = column.getFilterValue() || [];
+            const toggleAdult = (value) => {
+              const newFilter = currentFilter.includes(value)
+                ? currentFilter.filter((v) => v !== value)
+                : [...currentFilter, value];
+              column.setFilterValue(newFilter.length > 0 ? newFilter : undefined);
+            };
+
+            return (
+              <div key={column.id} className="col-12 col-lg-4 col-md-6 mb-2">
+                <label className="form-label text-muted">
+                  Filter {column.columnDef.header}
+                </label>
+                <div className="d-flex gap-3">
+                  <div className="form-check">
+                    <input
+                      className="form-check-input form-check-input-midnight"
+                      type="checkbox"
+                      id="filter-adult-yes"
+                      checked={currentFilter.includes(true)}
+                      onChange={() => toggleAdult(true)}
+                    />
+                    <label className="form-check-label" htmlFor="filter-adult-yes">
+                      Adult
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      className="form-check-input form-check-input-midnight"
+                      type="checkbox"
+                      id="filter-adult-no"
+                      checked={currentFilter.includes(false)}
+                      onChange={() => toggleAdult(false)}
+                    />
+                    <label className="form-check-label" htmlFor="filter-adult-no">
+                      Child
                     </label>
                   </div>
                 </div>
