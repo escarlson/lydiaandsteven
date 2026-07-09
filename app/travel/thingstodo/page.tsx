@@ -30,7 +30,7 @@ export default function ThingsToDo() {
                       </li>
                       <li>
                         <p className="mb-0"><strong><Link href={"https://meowwolf.com/visit/santa-fe"} target="_blank">Meow Wolf: House of Eternal Return</Link></strong></p>
-                        <p>The original Meow Wolf art collective, before they got too big for their own good. A mind-bending labyrinth of immersive, otherworldly art installations.</p>
+                        <p>The original Meow Wolf art collective (where Steven works!). A mind-bending labyrinth of immersive, otherworldly art installations.</p>
                       </li>
                     </ul>
                   </div>
