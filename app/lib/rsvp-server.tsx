@@ -333,15 +333,21 @@ const fetchRsvpSummary = async () => {
   }
 };
 
-const fetchFoodEaterSummary = async () => {
+const fetchMealSummary = async () => {
   try {
     const [rows] = await pool.query(
       `SELECT rsvp_status, COUNT(*) AS count FROM guests WHERE meal = 1 GROUP BY rsvp_status`
     );
 
+    const [vendorMealSetting] = (await pool.query(
+      `SELECT value FROM system_settings WHERE setting_id = 'd007ab55-8e10-11f1-b1ee-3ec04bbcb2ea'`
+    )) as [Array<{ value: string | null }>, unknown[]];
+
     let accepted = 0;
     let pending = 0;
     const theCouple = 2; // hardcoded since we know both Steven and Lydia are food eaters
+    const vendors = Number(vendorMealSetting[0]?.value ??  0);
+
 
     for (const row of rows as Array<{ rsvp_status: string | null; count: number }>) {
       const count = Number(row.count);
@@ -352,11 +358,11 @@ const fetchFoodEaterSummary = async () => {
       }
     }
 
-    return { accepted, pending, theCouple };
+    return { accepted, pending, theCouple, vendors };
   } catch (error) {
     console.error('Database query error:', error);
     throw error;
   }
 };
 
-export { fetchInviteById, updateGuestRSVP, updateGuestName, fetchAllInvitationsWithGuests, fetchRsvpSummary, fetchFoodEaterSummary };
+export { fetchInviteById, updateGuestRSVP, updateGuestName, fetchAllInvitationsWithGuests, fetchRsvpSummary, fetchMealSummary };

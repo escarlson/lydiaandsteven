@@ -11,6 +11,7 @@ type RsvpSummary = {
     accepted: number;
     pending: number;
     theCouple: number;
+    vendors: number;
   };
 };
 
@@ -111,26 +112,32 @@ export default function InvitationsSummary() {
               <div className="card w-100">
               <div className="card-body">
                 <h3 className="card-title mb-2">Meal Counts</h3>
-                <p className="mb-3">Total potential meals: <strong>{summary.foodEaters.accepted + summary.foodEaters.pending + summary.foodEaters.theCouple}</strong></p>
+                <p className="mb-3">Total potential meals: <strong>{summary.foodEaters.accepted + summary.foodEaters.pending + summary.foodEaters.theCouple + summary.foodEaters.vendors}</strong></p>
 
                 <div className="progress" role="progressbar" style={{ height: "25px" }} aria-label="Food eater RSVP progress" aria-valuenow={summary.foodEaters.accepted + summary.foodEaters.pending + summary.foodEaters.theCouple} aria-valuemin={0} aria-valuemax={summary.foodEaters.accepted + summary.foodEaters.pending + summary.foodEaters.theCouple || 100}>
                   <div
                     className="progress-bar bg-success"
-                    style={{ width: `${(summary.foodEaters.accepted + summary.foodEaters.pending + summary.foodEaters.theCouple) > 0 ? (summary.foodEaters.accepted / (summary.foodEaters.accepted + summary.foodEaters.pending + summary.foodEaters.theCouple)) * 100 : 0}%` }}
+                    style={{ width: `${(summary.foodEaters.accepted + summary.foodEaters.pending + summary.foodEaters.theCouple + summary.foodEaters.vendors) > 0 ? (summary.foodEaters.accepted / (summary.foodEaters.accepted + summary.foodEaters.pending + summary.foodEaters.theCouple + summary.foodEaters.vendors)) * 100 : 0}%` }}
                   >
                     {summary.foodEaters.accepted > 0 ? summary.foodEaters.accepted : ''}
                   </div>
                   <div
                     className="progress-bar bg-warning text-dark"
-                    style={{ width: `${(summary.foodEaters.accepted + summary.foodEaters.pending + summary.foodEaters.theCouple) > 0 ? (summary.foodEaters.pending / (summary.foodEaters.accepted + summary.foodEaters.pending + summary.foodEaters.theCouple)) * 100 : 0}%` }}
+                    style={{ width: `${(summary.foodEaters.accepted + summary.foodEaters.pending + summary.foodEaters.theCouple + summary.foodEaters.vendors) > 0 ? (summary.foodEaters.pending / (summary.foodEaters.accepted + summary.foodEaters.pending + summary.foodEaters.theCouple + summary.foodEaters.vendors)) * 100 : 0}%` }}
                   >
                     {summary.foodEaters.pending > 0 ? summary.foodEaters.pending : ''}
                   </div>
                   <div
                     className="progress-bar bg-info"
-                    style={{ width: `${(summary.foodEaters.accepted + summary.foodEaters.pending + summary.foodEaters.theCouple) > 0 ? (summary.foodEaters.theCouple / (summary.foodEaters.accepted + summary.foodEaters.pending + summary.foodEaters.theCouple)) * 100 : 0}%` }}
+                    style={{ width: `${(summary.foodEaters.accepted + summary.foodEaters.pending + summary.foodEaters.theCouple + summary.foodEaters.vendors) > 0 ? (summary.foodEaters.theCouple / (summary.foodEaters.accepted + summary.foodEaters.pending + summary.foodEaters.theCouple + summary.foodEaters.vendors)) * 100 : 0}%` }}
                   >
                     {summary.foodEaters.theCouple > 0 ? summary.foodEaters.theCouple : ''}
+                  </div>
+                  <div
+                    className="progress-bar bg-secondary"
+                    style={{ width: `${(summary.foodEaters.accepted + summary.foodEaters.pending + summary.foodEaters.theCouple + summary.foodEaters.vendors) > 0 ? (summary.foodEaters.vendors / (summary.foodEaters.accepted + summary.foodEaters.pending + summary.foodEaters.theCouple + summary.foodEaters.vendors)) * 100 : 0}%` }}
+                  >
+                    {summary.foodEaters.vendors > 0 ? summary.foodEaters.vendors : ''}
                   </div>
                 </div>
 
@@ -138,6 +145,7 @@ export default function InvitationsSummary() {
                   <span><strong className="text-success">Accepted:</strong> {summary.foodEaters.accepted}</span>
                   <span><strong className="text-warning-emphasis">Pending:</strong> {summary.foodEaters.pending}</span>
                   <span><strong className="text-info">The Couple:</strong> {summary.foodEaters.theCouple}</span>
+                  <span><strong className="text-secondary">Vendors:</strong> {summary.foodEaters.vendors}</span>
                 </div>
               </div>
               </div>

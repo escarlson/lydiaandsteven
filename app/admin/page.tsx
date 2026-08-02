@@ -139,10 +139,9 @@ export default function Admin() {
         <li><Link href="/admin/rsvp/map" className="btn btn-copper mb-2"><FontAwesomeIcon icon={faMap} /> View RSVP Map</Link></li>
       </ul>
       <h2>Settings</h2>
-      <p>These settings don&rsquo;t do anything yet!</p>
       <ErrorBoundary>
         <div className="row">
-          <div className="col">
+          <div className="col-auto">
             {loadingSettings ? (
               <p>Loading settings...</p>
             ) : settings.length === 0 ? (
@@ -150,12 +149,42 @@ export default function Admin() {
             ) : (
               <>
                 {settings.map((setting) => {
-                  const value = setting.value;
                   const isSaving = !!savingIds[setting.setting_id];
                   const error = errors[setting.setting_id];
+                  const value = setting.value;
+
+                  const isNumberMode =
+                    setting.setting_id === 'd007ab55-8e10-11f1-b1ee-3ec04bbcb2ea';
+
                   return (
                     <div key={setting.setting_id} className="mb-3">
-                      {isBooleanValue(value) ? (
+                      {isNumberMode ? (
+                        <div>
+                          <label
+                            className="form-label d-block mb-1"
+                            htmlFor={`setting-${setting.setting_id}`}
+                          >
+                            {setting.name}
+                            {isSaving && (
+                              <span
+                                className="spinner-border spinner-border-sm ms-2"
+                                role="status"
+                                aria-label="Saving"
+                              />
+                            )}
+                          </label>
+
+                          <input
+                            type="number"
+                            className="form-control"
+                            id={`setting-${setting.setting_id}`}
+                            value={value ?? ""}
+                            disabled={isSaving}
+                            onChange={(e) => handleTextChange(setting.setting_id, e.target.value)}
+                            onBlur={(e) => handleTextBlur(setting.setting_id, e.target.value)}
+                          />
+                        </div>
+                      ) : isBooleanValue(value) ? (
                         <div className="form-check form-switch">
                           <input
                             className="form-check-input"
@@ -166,13 +195,18 @@ export default function Admin() {
                             disabled={isSaving}
                             onChange={() => handleToggle(setting.setting_id, value)}
                           />
+
                           <label
                             className="form-check-label"
                             htmlFor={`setting-${setting.setting_id}`}
                           >
                             {setting.name}
                             {isSaving && (
-                              <span className="spinner-border spinner-border-sm ms-2" role="status" aria-label="Saving" />
+                              <span
+                                className="spinner-border spinner-border-sm ms-2"
+                                role="status"
+                                aria-label="Saving"
+                              />
                             )}
                           </label>
                         </div>
@@ -184,9 +218,14 @@ export default function Admin() {
                           >
                             {setting.name}
                             {isSaving && (
-                              <span className="spinner-border spinner-border-sm ms-2" role="status" aria-label="Saving" />
+                              <span
+                                className="spinner-border spinner-border-sm ms-2"
+                                role="status"
+                                aria-label="Saving"
+                              />
                             )}
                           </label>
+
                           <input
                             type="text"
                             className="form-control"
@@ -198,12 +237,12 @@ export default function Admin() {
                           />
                         </div>
                       )}
-                      {error && (
-                        <div className="text-danger small mt-1">{error}</div>
-                      )}
+
+                      {error && <div className="text-danger small mt-1">{error}</div>}
                     </div>
                   );
                 })}
+
               </>
             )}
           </div>
