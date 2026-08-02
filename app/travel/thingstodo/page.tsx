@@ -30,7 +30,7 @@ export default function ThingsToDo() {
                       </li>
                       <li>
                         <p className="mb-0"><strong><Link href={"https://meowwolf.com/visit/santa-fe"} target="_blank">Meow Wolf: House of Eternal Return</Link></strong></p>
-                        <p>The original Meow Wolf art collective (where Steven works!). A mind-bending labyrinth of immersive, otherworldly art installations.</p>
+                        <p>The original Meow Wolf art collective. A mind-bending labyrinth of immersive, otherworldly art installations. (Where Steven works!)</p>
                       </li>
                     </ul>
                   </div>
@@ -99,7 +99,7 @@ export default function ThingsToDo() {
                   <div className="card-text">
                     <ul>
                       <li>
-                        <p className="mb-0"><strong><Link href={"https://randalldavey.audubon.org/nature-discovery-area"} target="_blank">The Randall Davey Audubon Center & Sanctuary</Link></strong></p>
+                        <p className="mb-0"><strong><Link href={"https://www.audubon.org/randall-davey/explore"} target="_blank">The Randall Davey Audubon Center & Sanctuary</Link></strong></p>
                         <p>Dude, they have a giant treehouse playground. It’s so dang whimsical. Kids can also build their own forts out of tree branches or chill in hammock nests. Bring a picnic! And, it’s totally free.</p>
                       </li>
                       <li>

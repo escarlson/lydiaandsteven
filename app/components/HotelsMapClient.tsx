@@ -125,7 +125,7 @@ const venues: Venue[] = [
     name: 'Tumbleroot Brewery & Distillery (Reception)',
     lat: 35.665380286447274,
     lng: -105.99391167225609,
-    url: 'https://tumblerootbreweryanddistillery.com/',
+    url: 'https://www.tumblerootbreweryanddistillery.com/',
     description: '2791 Agua Fria St, Santa Fe, NM 87507'
   }
 ];
