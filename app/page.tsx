@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import Sunset from "./lib/sunset";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import littlePrince from "@/public/little_prince_sunset_cropped.jpg";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
@@ -81,7 +82,7 @@ export default function Home() {
             <div>
               <figure className="figure">       
                 <Image
-                  src="/little_prince_sunset_cropped.jpg"
+                  src={littlePrince}
                   alt=""
                   aria-labelledby="littlePrinceCaption"
                   width={1200}

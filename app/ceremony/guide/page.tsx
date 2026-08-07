@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import weddingAtCana from "@/public/wedding-at-cana-dionisy-the-wise.jpg";
 
 export default function Guide() {
   return (
@@ -9,7 +10,7 @@ export default function Guide() {
           <p>First time at an Orthodox wedding? Never fear! We wrote this guide so you can better understand what&lsquo;s going on during the ceremony.</p>
           <figure className="figure mb-4">
             <Image
-              src="/wedding-at-cana-dionisy-the-wise.jpg"
+              src={weddingAtCana}
               alt="Russian icon of the Wedding at Cana"
               width={440}
               height={442}
