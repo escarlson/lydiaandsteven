@@ -6,7 +6,7 @@ import tintype1 from "@/public/tintype1.webp";
 import tintype2 from "@/public/tintype2.webp";
 import firstVisit from "@/public/PXL_20250316_192623590.RAW-01.COVER.webp";
 import sittingInArch from "@/public/sitting_in_arch.jpg";
-import beach from "@/public/beach.jpg";
+import waterside from "@/public/waterside-smol.jpg";
 import penguin from "@/public/King_penguin_–_Zürich_Zoo_03.jpg";
 
 const photoGridSizes = "(min-width: 992px) 33vw, (min-width: 768px) 50vw, 100vw";
@@ -89,8 +89,8 @@ export default function Photos() {
             </div>
             <div className="col-xs-12 col-md-6 col-lg-4 mb-3">
               <Image
-                src={beach}
-                alt="Lydia and Steven on the beach"
+                src={waterside}
+                alt="Lydia and Steven on the water's edge"
                 sizes={photoGridSizes}
                 className="img-fluid rounded"
                 loading="lazy"
