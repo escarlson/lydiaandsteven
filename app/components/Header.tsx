@@ -28,7 +28,7 @@ export default function Header() {
     !!pathname && (pathname === href || pathname.startsWith(href + "/"));
 
   return (
-    <header className="border-bottom fixed-top">
+    <header className="fixed-top">
       <nav className="navbar navbar-expand-md bg-copper" data-bs-theme="dark">
         <div className="container-fluid" style={{ paddingLeft: '2rem' }}>
           <Link className={`navbar-brand ${macondo.className}`} href="/" onClick={() => setOpen(false)}>Lydia & Steven</Link>
