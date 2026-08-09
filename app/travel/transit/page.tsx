@@ -84,21 +84,33 @@ export default function Transit() {
           
           <h1>Getting Around Santa Fe</h1>
           <div className="row mb-4">
-            <div className="col col-md-6">
-              <div className="card">
-                <div className="card-body">
-                  <h2 className="card-title">Rental Car</h2>
-                  <p className="card-text">
-                    Purveyors of rental cars are available at both airports and in central Santa Fe. In addition, <Link href='https://www.toyotaofsantafe.com/service/rent-a-toyota/' target="_blank">Toyota of Santa Fe</Link> rents vehicles to the public.
-                  </p>
+            <div className="col-12 col-md-8 mb-3">
+              <div className="row g-3">
+                <div className="col-12">
+                  <div className="card">
+                    <div className="card-body">
+                      <h2 className="card-title">Rental Car</h2>
+                      <p className="card-text">
+                        Purveyors of rental cars are available at both airports and in central Santa Fe. In addition, <Link href='https://www.toyotaofsantafe.com/service/rent-a-toyota/' target="_blank">Toyota of Santa Fe</Link> rents vehicles to the public.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-12">
+                  <div className="card">
+                    <div className="card-body">
+                      <h2 className="card-title">Rideshare</h2>
+                      <p className="card-text">Both Uber and Lyft operate in Santa Fe, though some say ride availability lags behind other cities.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="col col-md-6">
-              <div className="card">
+            <div className="col-12 col-md-4 mb-3">
+              <div className="card h-100">
                 <div className="card-body">
-                  <h2 className="card-title">Rideshare</h2>
-                  <p className="card-text">Both Uber and Lyft operate in Santa Fe, though some say ride availability lags behind other cities.</p>
+                  <h2 className="card-title">Bus</h2>
+                  <p className="card-text"><Link href={"https://santafenm.gov/public-works/transit"} target="_blank">Santa Fe Trails</Link> is the bus system of Santa Fe. It may not be feasible for getting where you need to go, you can&apos;t buy tickets online, and exact change is required. This ain&apos;t Europe, but there is a bus if you really need one.<br></br><Link href={"https://www.ncrtd.org/all-routes/"} target="_blank">North Central RTD</Link> also operates on some of the major arteries through town.</p>
                 </div>
               </div>
             </div>
