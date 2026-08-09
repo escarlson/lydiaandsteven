@@ -78,7 +78,7 @@ export default function Reception() {
               <li className="list-group-item">
                 <div className="d-flex w-100 justify-content-between">
                   <h5 className="mb-1">Cocktails and Supper</h5>
-                  <div className="text-body">4:30-6:00pm</div>
+                  <div className="text-body">4:30-6pm</div>
                 </div>
                 <p className="mb-1">Enjoy drinks from the bar and join the feast! There is no assigned seating; sit at long community tables inside or picnic tables on the patio and get to know other guests from the myriad social worlds we have been blessed to be part of. Don&apos;t forget to leave us a voice message in our audio guest book: an antique phone that Steven (master tinkerer) turned into a recording device.</p>
               </li>
@@ -94,19 +94,19 @@ export default function Reception() {
                 <h5 className="mb-1">Cake and Champagne Toasts</h5>
                   <div className="text-body">7:30-8:15pm</div>
                 </div>
-                <p className="mb-1">After the toasts from our families, we will open the floor to anyone who would like to make a toast. We would love to hear from folks that make up the many different, beloved, community spheres of our Lydia-Steven Venn Diagram. We just ask that each toast be kept to under 2 or 3 minutes.</p>
+                <p className="mb-1">We will open the floor to anyone who would like to make a toast. We would love to hear from folks that make up the many different, beloved, community spheres of our Lydia-Steven Venn Diagram. We just ask that each toast be kept to under 2 or 3 minutes.</p>
               </li>
               <li className="list-group-item">
                 <div className="d-flex w-100 justify-content-between">
                 <h5 className="mb-1">Hafli & Greek Dancing</h5>
-                  <div className="text-body">8:30-9pm</div>
+                  <div className="text-body">8:30-8:45pm</div>
                 </div>
                 <p className="mb-1">Lydia is a convert to the Antiochian Orthodox Christian Church (of Syrian/Arab tradition), and Steven is a convert to the Greek Orthodox Christian Church. As such, expect a bit of Arab dabke dancing and Greek line dancing! Everyone is invited to participate, even if this isn&apos;t your cultural background. Share our joy!</p>
               </li>
               <li className="list-group-item">
                 <div className="d-flex w-100 justify-content-between">
-                <h5 className="mb-1">DJ Dance Party</h5>
-                  <div className="text-body">9-9:45pm</div>
+                <h5 className="mb-1">DJ Dance Party with <Link href="https://djpygar.hotglue.me/" target="_blank">DJ Pygar</Link></h5>
+                  <div className="text-body">8:45-9:45pm</div>
                 </div>
                 <p className="mb-1">We will end the night with a traditional Millennial dance party.</p>
               </li>
