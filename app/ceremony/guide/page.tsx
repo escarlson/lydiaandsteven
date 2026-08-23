@@ -47,7 +47,7 @@ export default function Guide() {
           </p>
           <h2>The Dance of Isaiah</h2>
           <p>
-            During the Dance of Isaiah, the bride and groom, along with their koumbaro and koumbara, walk around the tetrapodion table three times, being led by the Gospel Book, and holding onto the priest&apos;s epitrachelion (stole). Here, they take their first steps together as husband and wife, and begin their pilgrimage through life together. They are not alone, but accompanied by the prayers of their spiritual fathers and mothers, their sponsors, their parents, and their friends. Surrounded by the painted icons in the church and by the living icons of their loved ones present, they become an icon of marriage themselves and begin their life in mystical unity in Christ. 
+            During the Dance of Isaiah, the bride and groom, along with their koumbaro and koumbara, walk around the tetrapodion three times, holding onto the priest&apos;s epitrachelion (stole). Here, they take their first steps together as husband and wife, and begin their pilgrimage through life together. They are not alone, but accompanied by the prayers of their spiritual fathers and mothers, their sponsors, their parents, and their friends. Surrounded by the painted icons in the church and by the living icons of their loved ones present, they become an icon of marriage themselves and begin their life in mystical unity in Christ.
           </p>
           <h2>Dismissal</h2>
           <p>
