@@ -29,11 +29,10 @@ export default function Registry() {
           <p>We are looking for the following used items, if you have old stuff you would like to find a new home for:</p>
           <ul>
             <li>Kitchen table</li>
-            <li>Bookshelves of any kind</li>
-            <li>Plant stands of any kind</li>
             <li>Queen-size bedframe</li>
-            <li>Two dining room chairs</li>
             <li>Dresser</li>
+            <li>Two dining room chairs</li>
+            <li>Plant stands of any kind</li>
           </ul>
           <p>Please contact us if you might have one of these items to offer, so we can coordinate pickup.</p>
         </div>
