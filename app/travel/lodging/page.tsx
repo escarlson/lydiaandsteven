@@ -24,17 +24,17 @@ export default function Lodging() {
               <h3 className="h4">Conventional Hotels & Motor Inns</h3>
                 <ul>
                   
-                  <li><Link href={"https://www.hotelglorietasantafe.com/"} target="_blank" rel="noopener noreferrer">Hotel Glorieta</Link></li>
+                  <li><Link href={"https://www.hotelglorietasantafe.com/"} target="_blank" rel="noopener noreferrer">Hotel Glorieta</Link> <span className="badge text-bg-danger ms-2">Sold out</span></li>
                   <li><Link href={"https://www.bestwestern.com/en_US/book/hotel-rooms.32095.html?groupId=2P3HC9S8"} target="_blank" rel="noopener noreferrer">Best Western Plus Inn of Santa Fe</Link> <span className="badge text-bg-success ms-2">Group rate</span></li>
                   <li><Link href={"https://thepecostrailinn.com/"} target="_blank" rel="noopener noreferrer">Pecos Trail Inn</Link></li>
                   <li><Link href={"https://santafemotel.com/"} target="_blank" rel="noopener noreferrer">Santa Fe Motel & Inn</Link></li>
                 </ul>
               <h3 className="h4">Bespoke & Hip But Reasonable</h3>
                 <ul>
-                  <li><Link href={"https://www.laspalomas.com/"} target="_blank" rel="noopener noreferrer">Las Palomas</Link></li>
-                  <li><Link href={"https://elreycourt.com/"} target="_blank" rel="noopener noreferrer">El Rey Court</Link></li>
+                  <li><Link href={"https://www.laspalomas.com/"} target="_blank" rel="noopener noreferrer">Las Palomas</Link> <span className="badge text-bg-danger ms-2">Sold out</span></li>
+                  <li><Link href={"https://elreycourt.com/"} target="_blank" rel="noopener noreferrer">El Rey Court</Link> <span className="badge text-bg-danger ms-2">Sold out</span></li> 
                   <li><Link href={"https://themysticsantafe.com/"} target="_blank" rel="noopener noreferrer">The Mystic</Link></li>
-                  <li><Link href={"https://www.pueblobonitoinn.com/"} target="_blank" rel="noopener noreferrer">Pueblo Bonito Inn</Link></li>
+                  <li><Link href={"https://www.pueblobonitoinn.com/"} target="_blank" rel="noopener noreferrer">Pueblo Bonito Inn</Link> <span className="badge text-bg-danger ms-2">Sold out</span></li>
                 </ul>
               <h3 className="h4">Adventurous Alternatives</h3>
                 <ul>
