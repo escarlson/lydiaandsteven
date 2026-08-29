@@ -37,7 +37,7 @@ export default function Ceremony() {
             </div>
           </div>
           <h2>Time</h2>
-          <p><strong>The wedding will begin at 3:00pm sharp. Please arrive early.</strong></p>
+          <p><strong>The wedding will begin at 3:00pm sharp. Please arrive early.</strong> The choir will begin singing around 2:45pm.</p>
           <div className="mb-4">
             <div className="dropdown">
               <button

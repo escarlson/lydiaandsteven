@@ -73,7 +73,7 @@ export default function Reception() {
               </div>
             </div>
             <p>If you need ramp access to the reception venue, please let us know in advance so that we can arrange ramp entry.</p>
-            <h2>Potential Schedule</h2>
+            <h2>Rough Schedule</h2>
             <ol className="list-group ms-2 mb-4">
               <li className="list-group-item">
                 <div className="d-flex w-100 justify-content-between">
@@ -85,7 +85,7 @@ export default function Reception() {
               <li className="list-group-item">
                 <div className="d-flex w-100 justify-content-between">
                 <h5 className="mb-1">Contra Dance with Live Music by <Link href={"https://sites.google.com/view/the-turquoise-tuners/home"} target="_blank">The Turquoise Tuners</Link></h5>
-                  <div className="text-body">6-7pm</div>
+                  <div className="text-body">6-7:30pm</div>
                 </div>
                 <p className="mb-1">Contra dancing is a form of communal folk dance with roots in Appalachia. Traditionally danced to live fiddle music, it is a way for young and old to dance together and connect. It is similar to square dancing, but like, way cooler. A caller will walk you through the steps and each segment of the dance, so get out of your comfort zone and join the dance! No one is judging you, we promise.</p>
               </li>
@@ -98,22 +98,15 @@ export default function Reception() {
               </li>
               <li className="list-group-item">
                 <div className="d-flex w-100 justify-content-between">
-                <h5 className="mb-1">Hafli & Greek Dancing</h5>
-                  <div className="text-body">8:30-8:45pm</div>
-                </div>
-                <p className="mb-1">Lydia is a convert to the Antiochian Orthodox Christian Church (of Syrian/Arab tradition), and Steven is a convert to the Greek Orthodox Christian Church. As such, expect a bit of Arab dabke dancing and Greek line dancing! Everyone is invited to participate, even if this isn&apos;t your cultural background. Share our joy!</p>
-              </li>
-              <li className="list-group-item">
-                <div className="d-flex w-100 justify-content-between">
                 <h5 className="mb-1">DJ Dance Party with <Link href="https://djpygar.hotglue.me/" target="_blank">DJ Pygar</Link></h5>
-                  <div className="text-body">8:45-9:45pm</div>
+                  <div className="text-body">8:30-9:45pm</div>
                 </div>
                 <p className="mb-1">We will end the night with a traditional Millennial dance party.</p>
               </li>
               <li className="list-group-item">
                 <div className="d-flex w-100 justify-content-between">
                 <h5 className="mb-1">Send-off</h5>
-                  <div className="text-body">9:45-10pm</div>
+                  <div className="text-body">9:45-9:47pm</div>
                 </div>
               </li>
             </ol>
