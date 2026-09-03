@@ -28,9 +28,9 @@ export default function Registry() {
           <h2>Secondhand Items</h2>
           <p>We are looking for the following used items, if you have old stuff you would like to find a new home for:</p>
           <ul>
-            <li>Kitchen table</li>
-            <li>Queen-size bedframe</li>
-            <li>Dresser</li>
+            <li><del>Kitchen table</del></li>
+            <li><del>Queen-size bedframe</del></li>
+            <li><del>Dresser</del></li>
             <li>Two dining room chairs</li>
             <li>Plant stands of any kind</li>
           </ul>
