@@ -95,7 +95,7 @@ export default function Ceremony() {
             </div>
           </div>
           <h2>Parking</h2>
-          <div className="row">
+          <div id="parking" className="row">
             <div className="col-md-12 col-lg-4">
               <p>Parking will be tight! Please consider carpooling. Some parking near the church will be reserved for the wedding party and family. A couple of wheelchair accessible parking spots will be available near the church.</p>
               <p>Please park in the green spaces. Do not obstruct the path of traffic indicated by the yellow arrows or the emergency vehicle access areas marked in red.</p>
