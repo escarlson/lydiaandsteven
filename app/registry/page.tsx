@@ -32,6 +32,7 @@ export default function Registry() {
             <li><del>Queen-size bedframe</del></li>
             <li><del>Dresser</del></li>
             <li>Two dining room chairs</li>
+            <li>Bookshelves</li>
             <li>Plant stands of any kind</li>
           </ul>
           <p>Please contact us if you might have one of these items to offer, so we can coordinate pickup.</p>
