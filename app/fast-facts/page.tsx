@@ -14,7 +14,7 @@ export default function FastFacts() {
         <div className="container">
           <h1>Fast Facts</h1>
           <div className="row g-3">
-            <div className="col-6">
+            <div className="col-12 col-md-6">
               <div className="card pb-2">
                 <div className="card-body">
                 <h2 className="card-title"><FontAwesomeIcon className="button-icon me-2" icon={faCrown}></FontAwesomeIcon>Ceremony</h2>
@@ -33,7 +33,7 @@ export default function FastFacts() {
                 </div>
               </div>
             </div>
-            <div className="col-6">
+            <div className="col-12 col-md-6">
               <div className="card pb-2">
                 <div className="card-body">
                 <h2 className="card-title"><FontAwesomeIcon className="button-icon me-2" icon={faChampagneGlasses}></FontAwesomeIcon>Reception</h2>
