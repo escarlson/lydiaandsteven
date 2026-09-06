@@ -111,6 +111,10 @@ body {
   height: 1em; /* Forces the icon to match the text height exactly */
   width: auto;
 }
+.button-icon-lg {
+  height: 2em;
+  width: auto;
+}
 
 /* Custom copper dropdown variant */
 .dropdown-menu-copper {
@@ -513,11 +517,6 @@ body {
   transform: rotate(180deg);
 }
 
-.card-header-copper {
-  background-color: #ba7656;
-  color: #ffffff;
-}
-
 .nav-item-midnight {
   color: #ecf0f1;
 }
@@ -530,6 +529,15 @@ body {
 .nav-link-midnight:focus {
   color: #ffffff;
 }
-.navl-link-midnight.active {
+.nav-link-midnight.active {
   color: #ffffff;
+}
+
+.text-midnight {
+  color: #2c3e50;
+}
+
+.text-midnight a {
+  color: #2c3e50;
+  text-decoration: underline;
 }
