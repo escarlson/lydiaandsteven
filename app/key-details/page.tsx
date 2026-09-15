@@ -12,12 +12,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import GetDirections from "../components/GetDirections";
 
-export default function FastFacts() {
+export default function KeyDetails() {
   return (
     <div>
       <main>
         <div className="container">
-          <h1>Fast Facts</h1>
+          <h1>Key Details</h1>
 
           <div className="card">
             <div className="card-header">
@@ -184,7 +184,7 @@ export default function FastFacts() {
                         <FontAwesomeIcon className="button-icon-lg" icon={faChild} />
                       </div>
                       <div className="fw-bold mb-2 text-dark">Kids</div>
-                      <div className="text-dark small lh-base">Yes. Drinks for kids 21+.</div>
+                      <div className="text-dark small lh-base">Yes</div>
                     </div>
                   </div>
 

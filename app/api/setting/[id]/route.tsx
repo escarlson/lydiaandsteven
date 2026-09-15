@@ -1,6 +1,30 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/app/lib/auth";
-import { updateSetting } from "@/app/lib/settings";
+import { getSettingById, updateSetting } from "@/app/lib/settings";
+
+export async function GET(
+  _request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+
+  if (!id) {
+    return NextResponse.json({ error: "Setting ID is required" }, { status: 400 });
+  }
+
+  try {
+    const setting = await getSettingById(id);
+
+    if (!setting) {
+      return NextResponse.json({ error: "Setting not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true, setting });
+  } catch (error) {
+    console.error("Error fetching setting:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+  }
+}
 
 export async function PUT(
   request: Request,

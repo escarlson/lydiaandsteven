@@ -23,6 +23,26 @@ const fetchAllSettings = async (): Promise<SettingRow[]> => {
   }
 };
 
+export const getSettingById = async (
+  settingId: string
+): Promise<SettingRow | null> => {
+  try {
+    const [rows] = await pool.query(
+      `SELECT *
+       FROM system_settings
+       WHERE setting_id = ?
+       LIMIT 1`,
+      [settingId]
+    );
+
+    const settingRows = rows as SettingRow[];
+    return settingRows[0] ?? null;
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+};
+
 export const updateSetting = async (
   settingId: string,
   value: string | null

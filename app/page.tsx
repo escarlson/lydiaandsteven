@@ -8,7 +8,7 @@ import Image from "next/image";
 import littlePrince from "@/public/little_prince_sunset_cropped.jpg";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 
 const macondo = Macondo({
   variable: "--font-macondo",
@@ -24,8 +24,20 @@ const caveat = Caveat({
 
 dayjs.locale("en");
 
+type Setting = {
+  setting_id: string;
+  created_at: Date | null;
+  updated_at: Date | null;
+  name: string;
+  value: string | null;
+};
+
+const DETAILS_SETTING_ID = "fd745772-b0bd-11f1-b1ee-3ec04bbcb2ea";
+
 export default function Home() {
   const [sunsetsRemaining, setSunsetsRemaining] = useState<number | null>(null);
+  const [settings, setSettings] = useState<Setting[]>([]);
+  const [loadingSettings, setLoadingSettings] = useState(true);
 
   useEffect(() => {
     dayjs.locale("en");
@@ -42,6 +54,41 @@ export default function Home() {
     fetchSunset();
   }, []); // Runs once on mount
 
+  useEffect(() => {
+    let mounted = true;
+
+    async function loadSettings() {
+      try {
+        const res = await fetch(`/api/setting/${DETAILS_SETTING_ID}`, {
+          credentials: "include",
+        });
+
+        if (!res.ok) {
+          throw new Error(`Failed to fetch setting: ${res.status}`);
+        }
+
+        const json = await res.json();
+        const loadedSetting = json.setting as Setting | null;
+
+        if (mounted) {
+          setSettings(loadedSetting ? [loadedSetting] : []);
+        }
+      } catch (err) {
+        console.error("Error loading setting:", err);
+      } finally {
+        if (mounted) {
+          setLoadingSettings(false);
+        }
+      }
+    }
+
+    loadSettings();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   return (
     <main className="d-flex align-items-center justify-content-center">
       <div className="container text-center mt-4">
@@ -55,18 +102,25 @@ export default function Home() {
         <div className="row justify-content-center mb-auto mb-4 mt-4">
           <p>Welcome to our wedding website! Buckle up for way more information than you asked for.</p>
         </div>
-        <div className="row justify-content-center mb-auto mb-4 mt-4">
-{/*           <div className="col-xs-12 col-sm-3 col-lg-2">
-            <Link href="/travel/lodging" className="btn btn-outline-midnight btn-lg"><FontAwesomeIcon icon={faHotel} /> Lodging</Link>
-          </div> */}
-          <div className="col-xs-12 col-sm-3 col-lg-2 mt-2 mt-sm-0">
-            {/* width attribute reduces layout shifting during page load */}
-            <Link href="/rsvp" className="btn btn-midnight btn-lg"><FontAwesomeIcon icon={faEnvelope} width={"1.25em"}/> RSVP</Link>
+        {loadingSettings ? (
+          <p></p>
+        ) : (
+          <div className="row justify-content-center mb-auto mb-4 mt-4">
+            <div className="col-auto mt-2 mt-sm-0">
+              {/* width attribute reduces layout shifting during page load */}
+              <Link href="/rsvp" className="btn btn-midnight btn-lg"><FontAwesomeIcon icon={faEnvelope} width={"1.25em"}/> RSVP</Link>
+            </div>
+            {settings[0]?.value === "1" && (
+              <div className="col-auto mt-2 mt-sm-0">
+                {/* width attribute reduces layout shifting during page load */}
+                <Link href="/key-details" className="btn btn-outline-midnight btn-lg"><FontAwesomeIcon icon={faCircleInfo} width={"1.25em"}/> Key Details</Link>
+              </div>
+            )}
+            {/* <div className="col-auto mt-2 mt-sm-0">
+              <Link href="/registry" className="btn btn-outline-midnight btn-lg"><FontAwesomeIcon icon={faGift} /> Registry</Link>
+            </div> */}
           </div>
-{/*           <div className="col-xs-12 col-sm-3 col-lg-2 mt-2 mt-sm-0">
-            <Link href="/registry" className="btn btn-outline-midnight btn-lg"><FontAwesomeIcon icon={faGift} /> Registry</Link>
-          </div> */}
-        </div>
+        )}
         <div className="row justify-content-center mt-4">
           <p id="sunsetCounter" className={`${caveat.className} mb-0 mt-4`} style={{fontSize: '2rem'}}>
             {sunsetsRemaining === null ? (
