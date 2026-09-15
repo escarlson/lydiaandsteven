@@ -28,11 +28,8 @@ export default function Registry() {
           <h2>Secondhand Items</h2>
           <p>We are looking for the following used items, if you have old stuff you would like to find a new home for:</p>
           <ul>
-            <li><del>Kitchen table</del></li>
-            <li><del>Queen-size bedframe</del></li>
-            <li><del>Dresser</del></li>
-            <li>Two dining room chairs</li>
             <li>Bookshelves</li>
+            <li>Two dining room chairs</li>
             <li>Plant stands of any kind</li>
           </ul>
           <p>Please contact us if you might have one of these items to offer, so we can coordinate pickup.</p>
