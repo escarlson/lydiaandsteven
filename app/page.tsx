@@ -52,7 +52,9 @@ export default function Home() {
     const fetchSunset = async () => {
       const sunsetTime = await Sunset();
       const sunset = sunsetTime ? dayjs(sunsetTime) : null;
-      const remaining = weddingDate.diff(now, "day") + (sunset?.isAfter(now) ? 0 : 1);
+      const daysRemaining = weddingDate.diff(now, "day");
+      const sameDayBeforeSunset = daysRemaining === 0 && !!sunset && sunset.isAfter(now);
+      const remaining = daysRemaining + (sameDayBeforeSunset ? 1 : 0);
       setSunsetsRemaining(remaining);
     };
     
