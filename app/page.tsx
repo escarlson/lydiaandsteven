@@ -41,7 +41,7 @@ export default function Home() {
 
   useEffect(() => {
     dayjs.locale("en");
-    const now = dayjs().format();
+    const now = dayjs();
     const weddingDate = dayjs("2026-09-20T15:00:00-06:00");
     
     // Fetch sunset asynchronously

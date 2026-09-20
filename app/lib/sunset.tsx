@@ -21,7 +21,7 @@
  *   console.log('Sunset at:', sunsetTime);
  * }
  */
-const Sunset = async (): Promise<string | undefined> => {
+const Sunset = async () => {
   try {
     const response = await fetch('https://api.sunrise-sunset.org/json?lat=35.670256636954576&lng=-105.93922058021896&formatted=0', 
       {
