@@ -41,20 +41,13 @@ export default function Home() {
 
   useEffect(() => {
     dayjs.locale("en");
-    const now = dayjs();
+    const now = dayjs().format();
     const weddingDate = dayjs("2026-09-20T15:00:00-06:00");
     
-    if (now.isAfter(weddingDate.add(1, "hour"))) {
-      setSunsetsRemaining(-1);
-      return;
-    }
     // Fetch sunset asynchronously
     const fetchSunset = async () => {
       const sunsetTime = await Sunset();
-      const sunset = sunsetTime ? dayjs(sunsetTime) : null;
-      const daysRemaining = weddingDate.diff(now, "day");
-      const sameDayBeforeSunset = daysRemaining === 0 && !!sunset && sunset.isAfter(now);
-      const remaining = daysRemaining + (sameDayBeforeSunset ? 1 : 0);
+      const remaining = weddingDate.diff(now, "day") + (sunsetTime > now ? 0 : 1);
       setSunsetsRemaining(remaining);
     };
     
@@ -132,10 +125,7 @@ export default function Home() {
           <p id="sunsetCounter" className={`${caveat.className} mb-0 mt-4`} style={{fontSize: '2rem'}}>
             {sunsetsRemaining === null ? (
               <span className="text-muted">Calculating sunsets…</span>
-            ) : sunsetsRemaining < 0 ? (
-              <span className="text-muted">We are one! Glory to God!</span>
-            )
-            : (
+            ) : (
               <>
                 <span id="numSunsets">{sunsetsRemaining}</span> more{" "}
                 {sunsetsRemaining === 1 ? "sunset" : "sunsets"}
