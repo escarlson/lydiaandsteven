@@ -102,7 +102,7 @@ export default function KeyDetails() {
                         <FontAwesomeIcon className="button-icon-lg" icon={faShirt} />
                       </div>
                       <div className="fw-bold mb-2 text-dark">Dress</div>
-                      <div className="text-dark small lh-base">LYDIA PUT SOMETHING HERE</div>
+                      <div className="text-dark small lh-base">Please dress respectfully.</div>
                     </div>
                   </div>
 
