@@ -38,6 +38,12 @@ export default function Home() {
   const [sunsetsRemaining, setSunsetsRemaining] = useState<number | null>(null);
   const [settings, setSettings] = useState<Setting[]>([]);
   const [loadingSettings, setLoadingSettings] = useState(true);
+  const [showPostWeddingMessage, setShowPostWeddingMessage] = useState(false);
+
+  useEffect(() => {
+    const postWeddingCutoff = dayjs("2026-09-20T16:00:00-06:00");
+    setShowPostWeddingMessage(dayjs().isAfter(postWeddingCutoff));
+  }, []); // Runs once on mount, separate from the sunset-counting effect
 
   useEffect(() => {
     dayjs.locale("en");
@@ -47,7 +53,39 @@ export default function Home() {
     // Fetch sunset asynchronously
     const fetchSunset = async () => {
       const sunsetTime = await Sunset();
-      const remaining = weddingDate.diff(now, "day") + (sunsetTime > now ? 0 : 1);
+
+      if (!sunsetTime) {
+        // Fallback if the API call fails: approximate using calendar days only.
+        setSunsetsRemaining(Math.max(weddingDate.startOf("day").diff(now.startOf("day"), "day"), 0));
+        return;
+      }
+
+      // Use today's actual sunset clock time as an approximation for every
+      // remaining day between now and the wedding (sunset time drifts only
+      // a minute or two per day, so this stays accurate).
+      const todaySunset = dayjs(sunsetTime);
+      const sunsetHour = todaySunset.hour();
+      const sunsetMinute = todaySunset.minute();
+      const sunsetSecond = todaySunset.second();
+
+      const daysUntilWeddingDay = weddingDate.startOf("day").diff(now.startOf("day"), "day");
+
+      let remaining = 0;
+      for (let i = 0; i <= Math.max(daysUntilWeddingDay, 0); i++) {
+        const sunsetOnDay = now
+          .startOf("day")
+          .add(i, "day")
+          .hour(sunsetHour)
+          .minute(sunsetMinute)
+          .second(sunsetSecond);
+
+        // Only count a sunset if it happens after right now AND before the
+        // wedding itself (so a same-day sunset after a 3pm ceremony doesn't count).
+        if (sunsetOnDay.isAfter(now) && sunsetOnDay.isBefore(weddingDate)) {
+          remaining++;
+        }
+      }
+
       setSunsetsRemaining(remaining);
     };
     
@@ -123,7 +161,9 @@ export default function Home() {
         )}
         <div className="row justify-content-center mt-4">
           <p id="sunsetCounter" className={`${caveat.className} mb-0 mt-4`} style={{fontSize: '2rem'}}>
-            {sunsetsRemaining === null ? (
+            {showPostWeddingMessage ? (
+              <span>We are one! Glory to God!</span>
+            ) : sunsetsRemaining === null ? (
               <span className="text-muted">Calculating sunsets…</span>
             ) : (
               <>
