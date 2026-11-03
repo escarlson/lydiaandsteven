@@ -3,7 +3,7 @@ module.exports = {
     name: 'lydiaandsteven',
     script: 'npm',
     args: 'start',
-    cwd: '/root/lydiaandsteven',  // Your project path
+    cwd: '/opt/lydiaandsteven',
     autorestart: true,
     watch: false,
     max_memory_restart: '1G',

@@ -2,7 +2,14 @@
 
 import Image, { type StaticImageData } from "next/image";
 import type { Modal as BootstrapModal } from "bootstrap";
-import { type TouchEvent, useEffect, useRef, useState } from "react";
+import {
+  type FormEvent,
+  type TouchEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import piggyback from "@/public/piggyback.jpg";
 import hands from "@/public/hands.jpg";
 import salida from "@/public/salida.jpg";
@@ -17,9 +24,19 @@ const photoGridSizes =
   "(min-width: 1400px) 312px, (min-width: 1200px) 261px, (min-width: 992px) 293px, (min-width: 768px) 213px, (min-width: 576px) 262px, calc(50vw - 32px)";
 
 type Photo = {
-  src: StaticImageData;
+  id?: string;
+  src: StaticImageData | string;
   alt: string;
   sizes: string;
+  width?: number;
+  height?: number;
+};
+
+type ApprovedPhoto = {
+  id: string;
+  width: number;
+  height: number;
+  url: string;
 };
 
 const photos: Photo[] = [
@@ -72,11 +89,62 @@ const photos: Photo[] = [
 
 export default function Photos() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [uploadedPhotos, setUploadedPhotos] = useState<ApprovedPhoto[]>([]);
+  const [loadingUploadedPhotos, setLoadingUploadedPhotos] = useState(true);
+  const [uploadedPhotosError, setUploadedPhotosError] = useState<string | null>(
+    null,
+  );
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [uploadMessage, setUploadMessage] = useState<string | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const modalInstanceRef = useRef<BootstrapModal | null>(null);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const galleryPhotos: Photo[] = [
+    ...photos,
+    ...uploadedPhotos.map((photo) => ({
+      id: photo.id,
+      src: photo.url,
+      alt: "Wedding photo shared by a guest",
+      sizes: photoGridSizes,
+      width: photo.width,
+      height: photo.height,
+    })),
+  ];
   const isOpen = selectedIndex !== null;
-  const selectedPhoto = selectedIndex === null ? null : photos[selectedIndex];
+  const selectedPhoto =
+    selectedIndex === null ? null : galleryPhotos[selectedIndex];
+
+  const loadUploadedPhotos = useCallback(async () => {
+    const response = await fetch("/api/photos", { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error("Approved guest photos could not be loaded.");
+    }
+    const result = (await response.json()) as ApprovedPhoto[];
+    setUploadedPhotos(Array.isArray(result) ? result : []);
+    setUploadedPhotosError(null);
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    void loadUploadedPhotos()
+      .catch((error: unknown) => {
+        if (active) {
+          setUploadedPhotosError(
+            error instanceof Error
+              ? error.message
+              : "Approved guest photos could not be loaded.",
+          );
+        }
+      })
+      .finally(() => {
+        if (active) setLoadingUploadedPhotos(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [loadUploadedPhotos]);
 
   useEffect(() => {
     let disposed = false;
@@ -114,14 +182,16 @@ export default function Photos() {
         );
       } else if (event.key === "ArrowRight") {
         setSelectedIndex((current) =>
-          current === null ? null : Math.min(photos.length - 1, current + 1),
+          current === null
+            ? null
+            : Math.min(galleryPhotos.length - 1, current + 1),
         );
       }
     };
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen]);
+  }, [galleryPhotos.length, isOpen]);
 
   const openPhoto = async (index: number) => {
     setSelectedIndex(index);
@@ -139,8 +209,55 @@ export default function Photos() {
 
   const showNextPhoto = () =>
     setSelectedIndex((current) =>
-      current === null ? null : Math.min(photos.length - 1, current + 1),
+      current === null
+        ? null
+        : Math.min(galleryPhotos.length - 1, current + 1),
     );
+
+  const submitPhoto = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setUploadError(null);
+    setUploadMessage(null);
+
+    const form = event.currentTarget;
+    const file = new FormData(form).get("photo");
+    if (!(file instanceof File) || file.size === 0) {
+      setUploadError("Choose a photo to upload.");
+      return;
+    }
+    if (file.size > 20 * 1024 * 1024) {
+      setUploadError("The photo must be no larger than 20 MB.");
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const response = await fetch("/api/photos", {
+        method: "POST",
+        body: new FormData(form),
+      });
+      const result = (await response.json()) as {
+        error?: string;
+        message?: string;
+      };
+      if (!response.ok) {
+        throw new Error(result.error ?? "The photo could not be uploaded.");
+      }
+
+      setUploadMessage(
+        result.message ?? "Your photo was submitted for approval.",
+      );
+      form.reset();
+    } catch (error) {
+      setUploadError(
+        error instanceof Error
+          ? error.message
+          : "The photo could not be uploaded.",
+      );
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
     const touch = event.touches[0];
@@ -174,9 +291,61 @@ export default function Photos() {
           Can&apos;t we just put some pictures of penguins or something?{" "}
           <small className="text-body-secondary">- Lydia</small>
         </p>
+        <section className="mb-4" aria-labelledby="guest-photo-upload-title">
+          <h2 className="h4" id="guest-photo-upload-title">
+            Share a wedding photo
+          </h2>
+          <p>Photos are reviewed before they appear in the gallery.</p>
+          <form onSubmit={submitPhoto}>
+            <div className="row g-2 align-items-end">
+              <div className="col-12 col-sm-8 col-md-6">
+                <label className="form-label" htmlFor="guest-photo">
+                  Choose a photo (JPEG, PNG, WebP, or HEIC; up to 20 MB)
+                </label>
+                <input
+                  className="form-control"
+                  id="guest-photo"
+                  name="photo"
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/heic,.heic"
+                  required
+                  disabled={uploading}
+                />
+              </div>
+              <div className="col-auto">
+                <button
+                  className="btn btn-copper"
+                  type="submit"
+                  disabled={uploading}
+                >
+                  {uploading ? "Uploading..." : "Submit photo"}
+                </button>
+              </div>
+            </div>
+          </form>
+          {uploadError && (
+            <p className="alert alert-danger mt-3" role="alert">
+              {uploadError}
+            </p>
+          )}
+          {uploadMessage && (
+            <p className="alert alert-success mt-3" role="status">
+              {uploadMessage}
+            </p>
+          )}
+        </section>
+        {uploadedPhotosError && (
+          <p className="alert alert-warning" role="alert">
+            {uploadedPhotosError}
+          </p>
+        )}
+        {loadingUploadedPhotos && <p>Loading guest photos...</p>}
         <div className="photo-masonry">
-          {photos.map((photo, index) => (
-            <div className="photo-masonry-item" key={photo.alt}>
+          {[...galleryPhotos].map((photo, index) => (
+            <div
+              className="photo-masonry-item"
+              key={photo.id ?? photo.alt}
+            >
               <button
                 type="button"
                 className="btn p-0 border-0 w-100"
@@ -187,9 +356,23 @@ export default function Photos() {
                   src={photo.src}
                   alt={photo.alt}
                   sizes={photo.sizes}
+                  width={
+                    photo.width ??
+                    (typeof photo.src === "string" ? undefined : photo.src.width)
+                  }
+                  height={
+                    photo.height ??
+                    (typeof photo.src === "string"
+                      ? undefined
+                      : photo.src.height)
+                  }
                   className="img-fluid rounded"
                   loading={index < 3 ? "eager" : "lazy"}
-                  placeholder={photo.src.blurDataURL ? "blur" : "empty"}
+                  placeholder={
+                    typeof photo.src !== "string" && photo.src.blurDataURL
+                      ? "blur"
+                      : "empty"
+                  }
                 />
               </button>
             </div>
@@ -253,17 +436,32 @@ export default function Photos() {
                     src={selectedPhoto.src}
                     alt={selectedPhoto.alt}
                     sizes="(min-width: 1200px) 80vw, 100vw"
+                    width={
+                      selectedPhoto.width ??
+                      (typeof selectedPhoto.src === "string"
+                        ? undefined
+                        : selectedPhoto.src.width)
+                    }
+                    height={
+                      selectedPhoto.height ??
+                      (typeof selectedPhoto.src === "string"
+                        ? undefined
+                        : selectedPhoto.src.height)
+                    }
                     className="img-fluid rounded photo-viewer-image"
                     loading="eager"
                     placeholder={
-                      selectedPhoto.src.blurDataURL ? "blur" : "empty"
+                      typeof selectedPhoto.src !== "string" &&
+                      selectedPhoto.src.blurDataURL
+                        ? "blur"
+                        : "empty"
                     }
                   />
                   <button
                     type="button"
                     className="btn btn-outline-light photo-viewer-control photo-viewer-control-next"
                     onClick={showNextPhoto}
-                    disabled={selectedIndex === photos.length - 1}
+                    disabled={selectedIndex === galleryPhotos.length - 1}
                     aria-label="Next photo"
                   >
                     <svg
@@ -282,7 +480,7 @@ export default function Photos() {
                 <p className="mb-0 text-center photo-viewer-count">
                   {/* {selectedPhoto.alt}{" "} */}
                   <span className="text-body-secondary">
-                    ({selectedIndex + 1} of {photos.length})
+                    ({selectedIndex + 1} of {galleryPhotos.length})
                   </span>
                 </p>
               </div>
