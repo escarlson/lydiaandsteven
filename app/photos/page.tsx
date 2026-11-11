@@ -100,17 +100,16 @@ export default function Photos() {
   const modalRef = useRef<HTMLDivElement>(null);
   const modalInstanceRef = useRef<BootstrapModal | null>(null);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
-  const galleryPhotos: Photo[] = [
-    ...photos,
-    ...uploadedPhotos.map((photo) => ({
-      id: photo.id,
-      src: photo.url,
-      alt: "Wedding photo shared by a guest",
-      sizes: photoGridSizes,
-      width: photo.width,
-      height: photo.height,
-    })),
-  ];
+  const uploadedGalleryPhotos: Photo[] = uploadedPhotos.map((photo) => ({
+    id: photo.id,
+    src: photo.url,
+    alt: "Wedding photo shared by a guest",
+    sizes: photoGridSizes,
+    width: photo.width,
+    height: photo.height,
+  }));
+  const staticGalleryPhotos: Photo[] = photos;
+  const galleryPhotos: Photo[] = [...uploadedGalleryPhotos, ...staticGalleryPhotos];
   const isOpen = selectedIndex !== null;
   const selectedPhoto =
     selectedIndex === null ? null : galleryPhotos[selectedIndex];
@@ -236,16 +235,34 @@ export default function Photos() {
         method: "POST",
         body: new FormData(form),
       });
-      const result = (await response.json()) as {
-        error?: string;
-        message?: string;
-      };
+      const responseBody = await response.text();
+      let result: { error?: string; message?: string } = {};
+      try {
+        result = JSON.parse(responseBody) as {
+          error?: string;
+          message?: string;
+        };
+      } catch {
+        if (response.status === 413) {
+          throw new Error(
+            "The server rejected this upload as too large. The server upload limit needs to be at least 22 MB.",
+          );
+        }
+        throw new Error(
+          "The server returned an unexpected response. Please try again later.",
+        );
+      }
       if (!response.ok) {
-        throw new Error(result.error ?? "The photo could not be uploaded.");
+        throw new Error(
+          result.error ??
+            (response.status === 413
+              ? "The upload is too large. Photos must be no larger than 20 MB."
+              : "The photo could not be uploaded."),
+        );
       }
 
       setUploadMessage(
-        result.message ?? "Your photo was submitted for approval.",
+        result.message ?? "Thanks! Your photo was submitted for approval.",
       );
       form.reset();
     } catch (error) {
@@ -287,15 +304,11 @@ export default function Photos() {
     <main>
       <div className="container">
         <h1>Photos</h1>
-        <p>
-          Can&apos;t we just put some pictures of penguins or something?{" "}
-          <small className="text-body-secondary">- Lydia</small>
-        </p>
         <section className="mb-4" aria-labelledby="guest-photo-upload-title">
           <h2 className="h4" id="guest-photo-upload-title">
             Share a wedding photo
           </h2>
-          <p>Photos are reviewed before they appear in the gallery.</p>
+          <p>Upload a photo from the wedding, and we might feature it below.</p>
           <form onSubmit={submitPhoto}>
             <div className="row g-2 align-items-end">
               <div className="col-12 col-sm-8 col-md-6">
@@ -334,50 +347,112 @@ export default function Photos() {
             </p>
           )}
         </section>
-        {uploadedPhotosError && (
-          <p className="alert alert-warning" role="alert">
-            {uploadedPhotosError}
-          </p>
-        )}
-        {loadingUploadedPhotos && <p>Loading guest photos...</p>}
-        <div className="photo-masonry">
-          {[...galleryPhotos].map((photo, index) => (
-            <div
-              className="photo-masonry-item"
-              key={photo.id ?? photo.alt}
-            >
-              <button
-                type="button"
-                className="btn p-0 border-0 w-100"
-                onClick={() => openPhoto(index)}
-                aria-label={`View photo: ${photo.alt}`}
-              >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  sizes={photo.sizes}
-                  width={
-                    photo.width ??
-                    (typeof photo.src === "string" ? undefined : photo.src.width)
-                  }
-                  height={
-                    photo.height ??
-                    (typeof photo.src === "string"
-                      ? undefined
-                      : photo.src.height)
-                  }
-                  className="img-fluid rounded"
-                  loading={index < 3 ? "eager" : "lazy"}
-                  placeholder={
-                    typeof photo.src !== "string" && photo.src.blurDataURL
-                      ? "blur"
-                      : "empty"
-                  }
-                />
-              </button>
+        <section className="mb-5" aria-labelledby="uploaded-photos-heading">
+          <h2 className="h4" id="uploaded-photos-heading">
+            Wedding photos
+          </h2>
+          {uploadedPhotosError && (
+            <p className="alert alert-warning" role="alert">
+              {uploadedPhotosError}
+            </p>
+          )}
+          {loadingUploadedPhotos ? (
+            <p>Loading guest photos...</p>
+          ) : uploadedGalleryPhotos.length === 0 ? (
+            <p className="text-body-secondary mb-0">
+              No guest photos have been approved yet.
+            </p>
+          ) : (
+            <div className="photo-masonry">
+              {uploadedGalleryPhotos.map((photo, index) => (
+                <div
+                  className="photo-masonry-item"
+                  key={photo.id ?? photo.alt}
+                >
+                  <button
+                    type="button"
+                    className="btn p-0 border-0 w-100"
+                    onClick={() => openPhoto(index)}
+                    aria-label={`View photo: ${photo.alt}`}
+                  >
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      sizes={photo.sizes}
+                      width={
+                        photo.width ??
+                        (typeof photo.src === "string"
+                          ? undefined
+                          : photo.src.width)
+                      }
+                      height={
+                        photo.height ??
+                        (typeof photo.src === "string"
+                          ? undefined
+                          : photo.src.height)
+                      }
+                      className="img-fluid rounded"
+                      loading={index < 3 ? "eager" : "lazy"}
+                      placeholder={
+                        typeof photo.src !== "string" && photo.src.blurDataURL
+                          ? "blur"
+                          : "empty"
+                      }
+                    />
+                  </button>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          )}
+        </section>
+
+        <section aria-labelledby="static-photos-heading">
+          <h2 className="h4" id="static-photos-heading">
+            More photos
+          </h2>
+          <p>
+          Can&apos;t we just put some pictures of penguins or something?{" "}
+          <small className="text-body-secondary">- Lydia</small>
+          </p>
+          <div className="photo-masonry">
+            {staticGalleryPhotos.map((photo, index) => (
+              <div
+                className="photo-masonry-item"
+                key={photo.id ?? photo.alt}
+              >
+                <button
+                  type="button"
+                  className="btn p-0 border-0 w-100"
+                  onClick={() => openPhoto(uploadedGalleryPhotos.length + index)}
+                  aria-label={`View photo: ${photo.alt}`}
+                >
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    sizes={photo.sizes}
+                    width={
+                      photo.width ??
+                      (typeof photo.src === "string" ? undefined : photo.src.width)
+                    }
+                    height={
+                      photo.height ??
+                      (typeof photo.src === "string"
+                        ? undefined
+                        : photo.src.height)
+                    }
+                    className="img-fluid rounded"
+                    loading={index < 3 ? "eager" : "lazy"}
+                    placeholder={
+                      typeof photo.src !== "string" && photo.src.blurDataURL
+                        ? "blur"
+                        : "empty"
+                    }
+                  />
+                </button>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
 
       <div
