@@ -338,7 +338,7 @@ export default function Photos() {
               <div className="col-12 col-sm-8 col-md-6">
                 <label className="form-label" htmlFor="guest-photo">
                   {session?.user ? "Choose photos" : "Choose a photo"} (JPEG,
-                  PNG, WebP, or HEIC; up to 20 MB each)
+                  PNG, WebP, or HEIC; {session?.user ? "up to 20 MB each" : "up to 20 MB"})
                 </label>
                 <input
                   className="form-control"
@@ -350,12 +350,6 @@ export default function Photos() {
                   required
                   disabled={uploading || sessionPending}
                 />
-                {session?.user && (
-                  <div className="form-text">
-                    Each photo is uploaded in its own request to stay within
-                    the server upload limit.
-                  </div>
-                )}
               </div>
               <div className="col-auto">
                 <button
