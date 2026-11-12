@@ -10,6 +10,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { authClient } from "@/app/lib/auth-client";
 import piggyback from "@/public/piggyback.jpg";
 import hands from "@/public/hands.jpg";
 import salida from "@/public/salida.jpg";
@@ -88,6 +89,7 @@ const photos: Photo[] = [
 ];
 
 export default function Photos() {
+  const { data: session, isPending: sessionPending } = authClient.useSession();
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [uploadedPhotos, setUploadedPhotos] = useState<ApprovedPhoto[]>([]);
   const [loadingUploadedPhotos, setLoadingUploadedPhotos] = useState(true);
@@ -97,6 +99,7 @@ export default function Photos() {
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [uploadMessage, setUploadMessage] = useState<string | null>(null);
+  const [uploadProgress, setUploadProgress] = useState<string | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const modalInstanceRef = useRef<BootstrapModal | null>(null);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
@@ -217,63 +220,84 @@ export default function Photos() {
     event.preventDefault();
     setUploadError(null);
     setUploadMessage(null);
+    setUploadProgress(null);
 
     const form = event.currentTarget;
-    const file = new FormData(form).get("photo");
-    if (!(file instanceof File) || file.size === 0) {
+    const files = new FormData(form)
+      .getAll("photo")
+      .filter(
+        (entry): entry is File => entry instanceof File && entry.size > 0,
+      );
+    if (files.length === 0) {
       setUploadError("Choose a photo to upload.");
-      return;
-    }
-    if (file.size > 20 * 1024 * 1024) {
-      setUploadError("The photo must be no larger than 20 MB.");
       return;
     }
 
     setUploading(true);
-    try {
-      const response = await fetch("/api/photos", {
-        method: "POST",
-        body: new FormData(form),
-      });
-      const responseBody = await response.text();
-      let result: { error?: string; message?: string } = {};
+    let succeeded = 0;
+    const failures: string[] = [];
+
+    for (const [index, file] of files.entries()) {
+      setUploadProgress(
+        `Uploading photo ${index + 1} of ${files.length}: ${file.name}`,
+      );
+
       try {
-        result = JSON.parse(responseBody) as {
-          error?: string;
-          message?: string;
-        };
-      } catch {
-        if (response.status === 413) {
+        if (file.size > 20 * 1024 * 1024) {
+          throw new Error("The photo must be no larger than 20 MB.");
+        }
+
+        const body = new FormData();
+        body.append("photo", file, file.name);
+        const response = await fetch("/api/photos", {
+          method: "POST",
+          body,
+        });
+        const responseBody = await response.text();
+        let result: { error?: string } = {};
+        try {
+          result = JSON.parse(responseBody) as { error?: string };
+        } catch {
           throw new Error(
-            "The server rejected this upload as too large. The server upload limit needs to be at least 22 MB.",
+            response.status === 413
+              ? "The server rejected this upload as too large. The server upload limit needs to be at least 22 MB."
+              : "The server returned an unexpected response. Please try again later.",
           );
         }
-        throw new Error(
-          "The server returned an unexpected response. Please try again later.",
-        );
-      }
-      if (!response.ok) {
-        throw new Error(
-          result.error ??
-            (response.status === 413
-              ? "The upload is too large. Photos must be no larger than 20 MB."
-              : "The photo could not be uploaded."),
-        );
-      }
+        if (!response.ok) {
+          throw new Error(
+            result.error ??
+              (response.status === 413
+                ? "The upload is too large. Photos must be no larger than 20 MB."
+                : "The photo could not be uploaded."),
+          );
+        }
 
-      setUploadMessage(
-        result.message ?? "Thanks! Your photo was submitted for approval.",
-      );
-      form.reset();
-    } catch (error) {
-      setUploadError(
-        error instanceof Error
-          ? error.message
-          : "The photo could not be uploaded.",
-      );
-    } finally {
-      setUploading(false);
+        succeeded += 1;
+      } catch (error) {
+        failures.push(
+          `${file.name}: ${
+            error instanceof Error
+              ? error.message
+              : "The photo could not be uploaded."
+          }`,
+        );
+      }
     }
+
+    setUploadProgress(null);
+    setUploading(false);
+    if (succeeded > 0) {
+      setUploadMessage(
+        `${succeeded} ${
+          succeeded === 1 ? "photo was" : "photos were"
+        } submitted for approval.`,
+      );
+    }
+    if (failures.length > 0) {
+      setUploadError(failures.join(" "));
+    }
+    form.reset();
   };
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
@@ -313,7 +337,8 @@ export default function Photos() {
             <div className="row g-2 align-items-end">
               <div className="col-12 col-sm-8 col-md-6">
                 <label className="form-label" htmlFor="guest-photo">
-                  Choose a photo (JPEG, PNG, WebP, or HEIC; up to 20 MB)
+                  {session?.user ? "Choose photos" : "Choose a photo"} (JPEG,
+                  PNG, WebP, or HEIC; up to 20 MB each)
                 </label>
                 <input
                   className="form-control"
@@ -321,21 +346,37 @@ export default function Photos() {
                   name="photo"
                   type="file"
                   accept="image/jpeg,image/png,image/webp,image/heic,.heic"
+                  multiple={Boolean(session?.user)}
                   required
-                  disabled={uploading}
+                  disabled={uploading || sessionPending}
                 />
+                {session?.user && (
+                  <div className="form-text">
+                    Each photo is uploaded in its own request to stay within
+                    the server upload limit.
+                  </div>
+                )}
               </div>
               <div className="col-auto">
                 <button
                   className="btn btn-copper"
                   type="submit"
-                  disabled={uploading}
+                  disabled={uploading || sessionPending}
                 >
-                  {uploading ? "Uploading..." : "Submit photo"}
+                  {uploading
+                    ? "Uploading..."
+                    : session?.user
+                      ? "Submit photos"
+                      : "Submit photo"}
                 </button>
               </div>
             </div>
           </form>
+          {uploadProgress && (
+            <p className="mt-3" role="status">
+              {uploadProgress}
+            </p>
+          )}
           {uploadError && (
             <p className="alert alert-danger mt-3" role="alert">
               {uploadError}

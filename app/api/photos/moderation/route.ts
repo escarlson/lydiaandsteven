@@ -10,7 +10,7 @@ type ModerationPhotoRow = RowDataPacket & {
   width: number;
   height: number;
   size_bytes: number;
-  status: "pending" | "rejected";
+  status: "pending" | "approved" | "rejected";
   created_at: Date;
   reviewed_at: Date | null;
   reviewed_by: string | null;
@@ -26,8 +26,8 @@ export async function GET(request: Request) {
     const [rows] = await pool.query<ModerationPhotoRow[]>(
       `SELECT id, width, height, size_bytes, status, created_at, reviewed_at, reviewed_by
        FROM photo_uploads
-       WHERE status IN ('pending', 'rejected')
-       ORDER BY status = 'pending' DESC, created_at DESC`,
+       WHERE status IN ('pending', 'approved', 'rejected')
+       ORDER BY status = 'pending' DESC, status = 'approved' DESC, created_at DESC`,
     );
 
     return NextResponse.json(

@@ -117,13 +117,18 @@ export async function PATCH(request: Request, context: RouteContext) {
     const [result] = await pool.execute(
       `UPDATE photo_uploads
        SET status = ?, reviewed_at = UTC_TIMESTAMP(), reviewed_by = ?
-       WHERE id = ? AND status = 'pending'`,
-      [status, session.user.email, id],
+       WHERE id = ?
+         AND (
+           status = 'pending'
+           OR (status = 'approved' AND ? = 'rejected')
+           OR (status = 'rejected' AND ? = 'approved')
+         )`,
+      [status, session.user.email, id, status, status],
     );
 
     if (!("affectedRows" in result) || result.affectedRows !== 1) {
       return NextResponse.json(
-        { error: "This photo is no longer awaiting review." },
+        { error: "This photo can no longer be updated." },
         { status: 409 },
       );
     }

@@ -10,7 +10,7 @@ type ModerationPhoto = {
   width: number;
   height: number;
   size_bytes: number;
-  status: "pending" | "rejected";
+  status: "pending" | "approved" | "rejected";
   created_at: string;
   reviewed_at: string | null;
   reviewed_by: string | null;
@@ -85,17 +85,13 @@ export default function AdminPhotosPage() {
         throw new Error(result.error ?? "Could not update this photo.");
       }
 
-      if (status === "approved") {
-        setPhotos((current) => current.filter((item) => item.id !== photo.id));
-      } else {
-        setPhotos((current) =>
-          current.map((item) =>
-            item.id === photo.id
-              ? { ...item, status: "rejected", reviewed_at: new Date().toISOString() }
-              : item,
-          ),
-        );
-      }
+      setPhotos((current) =>
+        current.map((item) =>
+          item.id === photo.id
+            ? { ...item, status, reviewed_at: new Date().toISOString() }
+            : item,
+        ),
+      );
     } catch (error) {
       setActionError(
         error instanceof Error ? error.message : "Could not update this photo.",
@@ -114,6 +110,7 @@ export default function AdminPhotosPage() {
   }
 
   const pendingPhotos = photos.filter((photo) => photo.status === "pending");
+  const approvedPhotos = photos.filter((photo) => photo.status === "approved");
   const rejectedPhotos = photos.filter((photo) => photo.status === "rejected");
 
   return (
@@ -179,6 +176,53 @@ export default function AdminPhotosPage() {
             </div>
           )}
 
+          <h2>Approved photos ({approvedPhotos.length})</h2>
+          {approvedPhotos.length === 0 ? (
+            <p>No approved photos.</p>
+          ) : (
+            <div className="row g-3 mb-4">
+              {approvedPhotos.map((photo) => (
+                <div className="col-12 col-sm-6 col-lg-4" key={photo.id}>
+                  <article className="card h-100">
+                    <Image
+                      src={photo.url}
+                      alt="Approved photo"
+                      width={photo.width}
+                      height={photo.height}
+                      unoptimized
+                      className="card-img-top"
+                      style={{ width: "100%", height: "auto" }}
+                    />
+                    <div className="card-body">
+                      <p className="card-text small">
+                        Approved{" "}
+                        {photo.reviewed_at
+                          ? new Date(photo.reviewed_at).toLocaleString()
+                          : ""}
+                      </p>
+                      <button
+                        type="button"
+                        className="btn btn-outline-danger"
+                        disabled={busyPhotoId === photo.id}
+                        onClick={() => void reviewPhoto(photo, "rejected")}
+                      >
+                        Reject
+                      </button>
+                      {busyPhotoId === photo.id && (
+                        <span
+                          className="spinner-border spinner-border-sm ms-2"
+                          role="status"
+                        >
+                          <span className="visually-hidden">Saving review</span>
+                        </span>
+                      )}
+                    </div>
+                  </article>
+                </div>
+              ))}
+            </div>
+          )}
+
           <h2>Rejected photos ({rejectedPhotos.length})</h2>
           {rejectedPhotos.length === 0 ? (
             <p>No rejected photos.</p>
@@ -203,6 +247,22 @@ export default function AdminPhotosPage() {
                           ? new Date(photo.reviewed_at).toLocaleString()
                           : ""}
                       </p>
+                      <button
+                        type="button"
+                        className="btn btn-success"
+                        disabled={busyPhotoId === photo.id}
+                        onClick={() => void reviewPhoto(photo, "approved")}
+                      >
+                        Approve
+                      </button>
+                      {busyPhotoId === photo.id && (
+                        <span
+                          className="spinner-border spinner-border-sm ms-2"
+                          role="status"
+                        >
+                          <span className="visually-hidden">Saving review</span>
+                        </span>
+                      )}
                     </div>
                   </article>
                 </div>

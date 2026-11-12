@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import type { RowDataPacket } from "mysql2/promise";
 import pool from "@/app/lib/db";
+import { auth } from "@/app/lib/auth";
 import {
   consumeUploadAllowance,
   detectUploadedImageFormat,
@@ -57,7 +58,10 @@ export async function GET() {
 export async function POST(request: Request) {
   let filepath: string | null = null;
   try {
-    await consumeUploadAllowance(request);
+    const session = await auth.api.getSession({ headers: request.headers });
+    if (!session) {
+      await consumeUploadAllowance(request);
+    }
 
     const contentType = request.headers.get("content-type") ?? "";
     if (!contentType.toLowerCase().startsWith("multipart/form-data;")) {
