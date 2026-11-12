@@ -449,7 +449,7 @@ export default function Photos() {
 
         <section aria-labelledby="static-photos-heading">
           <h2 className="h4" id="static-photos-heading">
-            More photos
+            Other photos
           </h2>
           <p>
           Can&apos;t we just put some pictures of penguins or something?{" "}
