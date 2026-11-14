@@ -392,7 +392,7 @@ export default function Photos() {
             </p>
           )}
           {loadingUploadedPhotos ? (
-            <p>Loading guest photos...</p>
+            <p>Loading wedding photos...</p>
           ) : uploadedGalleryPhotos.length === 0 ? (
             <p className="text-body-secondary mb-0">
               No guest photos have been approved yet.
