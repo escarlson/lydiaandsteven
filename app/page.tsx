@@ -146,7 +146,7 @@ export default function Home() {
           <div className="row justify-content-center mb-auto mb-4 mt-4">
             <div className="col-auto mt-2 mt-sm-0">
               {/* width attribute reduces layout shifting during page load */}
-              <Link href="/rsvp" className="btn btn-midnight btn-lg"><FontAwesomeIcon icon={faEnvelope} width={"1.25em"}/> RSVP</Link>
+              <Link href="/rsvp" className="btn btn-midnight btn-lg d-none"><FontAwesomeIcon icon={faEnvelope} width={"1.25em"}/> RSVP</Link>
             </div>
             {settings[0]?.value === "1" && (
               <div className="col-auto mt-2 mt-sm-0">
