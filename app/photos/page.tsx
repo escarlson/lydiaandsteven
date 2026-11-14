@@ -332,7 +332,7 @@ export default function Photos() {
           <h2 className="h4" id="guest-photo-upload-title">
             Share a wedding photo
           </h2>
-          <p>Upload a photo from the wedding, and we might feature it below.</p>
+          <p>Upload a photo from the wedding and we might feature it below!</p>
           <form onSubmit={submitPhoto}>
             <div className="row g-2 align-items-end">
               <div className="col-12 col-sm-8 col-md-6">
